@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  DISCUSSION
+  WON
+  LOST
+}
+
+enum StoryType {
+  CONCEPT
+  PROCESS
+  FINAL
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+model Project {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  title       String
+  category    String // Residential | Apartment | Commercial | Hospitality | Interior
+  year        Int?
+  location    String?
+  typology    String?
+  area        String?
+  team        String?
+  heroImage   String?
+  heroBlur    String?
+  gallery     GalleryImage[]
+  storyBlocks StoryBlock[]
+  status      ProjectStatus  @default(DRAFT)
+  order       Int            @default(0)
+  metaTitle   String?
+  metaDesc    String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([status, order])
+}
+
+model GalleryImage {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String?
+  blurData  String?
+  order     Int     @default(0)
+
+  @@index([projectId, order])
+}
+
+model StoryBlock {
+  id        String    @id @default(cuid())
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type      StoryType
+  text      String?
+  image     String?
+  order     Int       @default(0)
+
+  @@index([projectId, order])
+}
+
+model Lead {
+  id        String     @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  source    String? // page path / project slug / campaign
+  status    LeadStatus @default(NEW)
+  notes     String?
+  createdAt DateTime   @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  cover       String?
+  coverBlur   String?
+  body        Json // rich block content
+  tags        String[]
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  metaTitle   String?
+  metaDesc    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([published, publishedAt])
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(ADMIN)
+  lastLogin    DateTime?
+}
+
+// First-party privacy-friendly analytics: no cookies, no PII, no external JS.
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  referrer  String?
+  source    String? // utm_source / campaign attribution
+  country   String? // from Cloudflare CF-IPCountry header
+  device    String? // mobile | desktop (coarse, from UA)
+  createdAt DateTime @default(now())
+
+  @@index([path])
+  @@index([createdAt])
+}

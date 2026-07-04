@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   DMA design tokens — warm, architectural, print-inspired.
+   Photography supplies color; the UI stays neutral. One accent: brass.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Palette */
+  --color-bone: #f3efe7; /* canvas */
+  --color-paper: #fbfaf6; /* raised surfaces, cards */
+  --color-ink: #17150f; /* warm near-black, primary text */
+  --color-ink-soft: #3d3a31; /* long-form body text */
+  --color-stone: #6f6a60; /* secondary text, labels — 4.69:1 on bone */
+  --color-hairline: #dad4c8; /* drafting rules, borders, grid */
+  --color-brass: #84663d; /* the one accent — 4.64:1 on bone */
+  --color-brass-deep: #6b5232; /* accent hover/active */
+  --color-chart: #a2762f; /* data marks only — validated ≥3:1 on bone, above chroma floor */
+
+  /* Type families (variables set by next/font in app/layout.tsx) */
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-plex-mono), "SFMono-Regular", monospace;
+
+  /* Fluid display scale — tuned for oversized editorial headlines */
+  --text-hero: clamp(2.75rem, 1.25rem + 7vw, 7.5rem);
+  --text-hero--line-height: 0.98;
+  --text-hero--letter-spacing: -0.02em;
+  --text-h1: clamp(2.25rem, 1.35rem + 3.75vw, 4.75rem);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h2: clamp(1.6875rem, 1.2rem + 2vw, 2.875rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  --text-h3--line-height: 1.25;
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.5;
+  --text-label--letter-spacing: 0.08em;
+
+  /* Rhythm */
+  --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --spacing-section: clamp(4.5rem, 10vw, 10rem);
+
+  /* Motion (referenced by JS wrappers too) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ------------------------------------------------------------------ base */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-brass);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--color-brass);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------- drafting motif */
+
+/* Mono dimension-style label: `— SITE 01 / RESIDENTIAL —` */
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-stone);
+}
+
+/* Thin architectural rule */
+@utility rule {
+  border-top: 1px solid var(--color-hairline);
+}
+
+/* Subtle blueprint grid — surfaces on hover / section transitions */
+@utility blueprint-grid {
+  background-image:
+    linear-gradient(to right, var(--color-hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-hairline) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+}
+
+/* Display serif shorthand */
+@utility font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72;
+}
+
+/* First-load headline reveal — pure CSS so it runs before hydration.
+   (The global prefers-reduced-motion rule zeroes this animation.) */
+@keyframes mask-rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@utility mask-rise {
+  animation: mask-rise 0.9s var(--ease-out-expo) both;
+}
+
+/* Above-fold entry reveal — CSS-only so content is never held
+   hostage by hydration. Use Reveal (JS, scroll-aware) below the fold. */
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility fade-rise {
+  animation: fade-rise 0.8s var(--ease-out-expo) both;
 }
