@@ -1,75 +1,77 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useThemeToggle } from "@/components/ui/skiper26";
 import { cn } from "@/lib/utils";
 
 /**
- * Light/dark switch. Light is the site default; the choice persists in
- * localStorage and is applied pre-paint by the inline script in the
- * root layout. The icon morphs between a sun and a crescent.
+ * Theme switch: the Skiper UI lightbulb toggle (skiper4, button 4 —
+ * apt for an architecture studio) driving the skiper26 View Transition
+ * page reveal: a blurred circle wipes the new theme in from the
+ * button's corner of the screen.
+ *
+ * Colors ride the design tokens, so the button itself re-themes like
+ * everything else; light is the site default (see ThemeProvider).
  */
 export function ThemeToggle({ className }: { className?: string }) {
-  const [dark, setDark] = useState(false);
-
-  // Read the actual state after hydration (the pre-paint script may
-  // have set it before React mounted).
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-  }, []);
-
-  const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    try {
-      localStorage.setItem("dma-theme", next ? "dark" : "light");
-    } catch {
-      // private mode — theme just won't persist
-    }
-  };
+  const { isDark, toggleTheme } = useThemeToggle({
+    variant: "circle-blur",
+    start: "top-right",
+  });
 
   return (
     <button
       type="button"
-      onClick={toggle}
-      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-      aria-pressed={dark}
+      onClick={toggleTheme}
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      aria-pressed={isDark}
       className={cn(
-        "relative flex size-9 items-center justify-center rounded-full border transition-colors duration-300",
+        "size-9 cursor-pointer rounded-full border border-hairline bg-paper p-1.5 text-ink transition-all duration-300 hover:border-brass active:scale-95",
         className,
       )}
     >
-      <svg viewBox="0 0 20 20" className="size-4" fill="none" aria-hidden="true">
-        {/* Core disc — shared by both states */}
-        <circle
-          cx="10"
-          cy="10"
-          r="4"
-          className="fill-current transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-          style={{ transform: dark ? "scale(1.4)" : "scale(1)", transformOrigin: "center" }}
+      {/* Lightbulb morph — Skiper UI skiper4 / ThemeToggleButton4,
+          adapted from toggles.dev (Alfie Jones). Rays + filament draw
+          in for light, retract for dark. */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        strokeWidth="0.7"
+        stroke="currentColor"
+        fill="currentColor"
+        strokeLinecap="round"
+        viewBox="0 0 32 32"
+      >
+        <path
+          strokeWidth="0"
+          d="M9.4 9.9c1.8-1.8 4.1-2.7 6.6-2.7 5.1 0 9.3 4.2 9.3 9.3 0 2.3-.8 4.4-2.3 6.1-.7.8-2 2.8-2.5 4.4 0 .2-.2.4-.5.4-.2 0-.4-.2-.4-.5v-.1c.5-1.8 2-3.9 2.7-4.8 1.4-1.5 2.1-3.5 2.1-5.6 0-4.7-3.7-8.5-8.4-8.5-2.3 0-4.4.9-5.9 2.5-1.6 1.6-2.5 3.7-2.5 6 0 2.1.7 4 2.1 5.6.8.9 2.2 2.9 2.7 4.9 0 .2-.1.5-.4.5h-.1c-.2 0-.4-.1-.4-.4-.5-1.7-1.8-3.7-2.5-4.5-1.5-1.7-2.3-3.9-2.3-6.1 0-2.3 1-4.7 2.7-6.5z"
         />
-        {/* Rays — collapse into the disc in dark mode */}
-        <g
-          stroke="currentColor"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          className="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-          style={{
-            opacity: dark ? 0 : 1,
-            transform: dark ? "rotate(45deg) scale(0.6)" : "none",
-            transformOrigin: "center",
+        <path d="M19.8 28.3h-7.6" />
+        <path d="M19.8 29.5h-7.6" />
+        <path d="M19.8 30.7h-7.6" />
+        <motion.path
+          animate={{
+            pathLength: isDark ? 0 : 1,
+            opacity: isDark ? 0 : 1,
           }}
-        >
-          <path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6 16 16M16 4l-1.4 1.4M5.4 14.6 4 16" />
-        </g>
-        {/* Crescent bite — slides in for dark */}
-        <circle
-          cx="12.5"
-          cy="8"
-          r="4"
-          className="fill-(--color-bone) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-          style={{ opacity: dark ? 1 : 0, transform: dark ? "none" : "translate(3px,-3px)" }}
+          transition={{ ease: "easeInOut", duration: 0.35 }}
+          pathLength="1"
+          fill="none"
+          d="M14.6 27.1c0-3.4 0-6.8-.1-10.2-.2-1-1.1-1.7-2-1.7-1.2-.1-2.3 1-2.2 2.3.1 1 .9 1.9 2.1 2h7.2c1.1-.1 2-1 2.1-2 .1-1.2-1-2.3-2.2-2.3-.9 0-1.7.7-2 1.7 0 3.4 0 6.8-.1 10.2"
         />
+        <motion.g
+          animate={{
+            scale: isDark ? 0.5 : 1,
+            opacity: isDark ? 0 : 1,
+          }}
+          transition={{ ease: "easeInOut", duration: 0.35 }}
+        >
+          <path pathLength="1" d="M16 6.4V1.3" />
+          <path pathLength="1" d="M26.3 15.8h5.1" />
+          <path pathLength="1" d="m22.6 9 3.7-3.6" />
+          <path pathLength="1" d="M9.4 9 5.7 5.4" />
+          <path pathLength="1" d="M5.7 15.8H.6" />
+        </motion.g>
       </svg>
     </button>
   );

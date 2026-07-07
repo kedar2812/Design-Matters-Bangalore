@@ -66,6 +66,9 @@
   /* Motion (referenced by JS wrappers too) */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  /* Required by the skiper26 view-transition theme switch */
+  --expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --expo-in: cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 /* ------------------------------------------------------------------ base */
@@ -89,13 +92,15 @@
     color-scheme: dark;
   }
 
+  /* Theme switches animate via the View Transition API (skiper26) —
+     an element-level background transition would smear underneath the
+     clip reveal, so the swap itself is instant. */
   body {
     background: var(--color-bone);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    transition: background-color 0.4s ease;
   }
 
   /* The rounded-photography rule: any image, present or future (incl.
@@ -122,6 +127,14 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+    }
+
+    /* View-transition pseudos live outside the * selector — the theme
+       switch falls back to an instant swap. */
+    ::view-transition-group(*),
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none !important;
     }
   }
 }

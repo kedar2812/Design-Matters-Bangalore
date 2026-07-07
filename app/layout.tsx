@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 // next/font self-hosts these at build time — no runtime Google requests.
@@ -58,15 +59,26 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} ${plexMono.variable}`}
     >
       <head>
-        {/* Apply the saved theme before first paint (no flash). Light is
-            the default; `?theme=dark` forces it for previews. */}
+        {/* `?theme=dark|light` seeds the stored preference before
+            next-themes initialises — used for previews/screenshots.
+            next-themes injects its own pre-paint script for the class. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var q=new URLSearchParams(location.search).get("theme"),t=q||localStorage.getItem("dma-theme");if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}`,
+            __html: `try{var q=new URLSearchParams(location.search).get("theme");if(q==="dark"||q==="light")localStorage.setItem("dma-theme",q)}catch(e){}`,
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          storageKey="dma-theme"
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

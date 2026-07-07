@@ -115,13 +115,7 @@ export function Nav() {
               );
             })}
             <li>
-              <ThemeToggle
-                className={cn(
-                  overHero
-                    ? "border-cream/40 text-cream hover:border-cream"
-                    : "border-hairline text-stone hover:border-brass hover:text-brass",
-                )}
-              />
+              <ThemeToggle />
             </li>
             {/* The one thing the client wants visitors to do: enquire. */}
             <li>
@@ -141,13 +135,7 @@ export function Nav() {
 
           {/* Mobile: toggle + menu button */}
           <div className="flex items-center gap-3 md:hidden">
-            <ThemeToggle
-              className={cn(
-                overHero
-                  ? "border-cream/40 text-cream"
-                  : "border-hairline text-stone",
-              )}
-            />
+            <ThemeToggle />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
