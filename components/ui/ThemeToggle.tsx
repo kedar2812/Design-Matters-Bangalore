@@ -14,8 +14,12 @@ import { cn } from "@/lib/utils";
  * everything else; light is the site default (see ThemeProvider).
  */
 export function ThemeToggle({ className }: { className?: string }) {
+  // "circle" (clip-path) over "circle-blur" (SVG mask): the blurred
+  // mask re-rasterizes its Gaussian filter every frame as it scales to
+  // 350vmax, which drops frames at the end of the wipe. The clip-path
+  // reveal is compositor-cheap and stays smooth to the last frame.
   const { isDark, toggleTheme } = useThemeToggle({
-    variant: "circle-blur",
+    variant: "circle",
     start: "top-right",
   });
 
