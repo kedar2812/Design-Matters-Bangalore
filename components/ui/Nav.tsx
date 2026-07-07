@@ -9,6 +9,15 @@ import { cn } from "@/lib/utils";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 
+/** Routes that open on a full-bleed photographic hero — the nav sits
+ *  over the image there and needs light text until the page scrolls. */
+function hasImageHero(pathname: string) {
+  return (
+    pathname === "/" ||
+    (pathname.startsWith("/projects/") && pathname !== "/projects")
+  );
+}
+
 export function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -25,12 +34,15 @@ export function Nav() {
   // Close the menu on route change.
   useEffect(() => setOpen(false), [pathname]);
 
+  const overHero = hasImageHero(pathname) && !scrolled && !open;
+  const links = navLinks.filter(({ href }) => href !== "/contact");
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         scrolled || open
-          ? "border-b border-hairline bg-bone/85 backdrop-blur-md"
+          ? "glass-light border-b border-hairline"
           : "border-b border-transparent",
       )}
     >
@@ -39,25 +51,38 @@ export function Nav() {
         className="flex items-center justify-between px-gutter py-4"
       >
         <Link href="/" className="group flex items-baseline gap-3">
-          <span className="font-display text-xl tracking-tight">
+          <span
+            className={cn(
+              "font-display text-xl tracking-tight transition-colors duration-300",
+              overHero && "text-paper",
+            )}
+          >
             {site.shortName}
           </span>
-          <span className="mono-label hidden transition-colors group-hover:text-brass sm:inline">
+          <span
+            className={cn(
+              "mono-label hidden transition-colors duration-300 sm:inline",
+              overHero ? "text-bone/80 group-hover:text-paper" : "group-hover:text-brass",
+            )}
+          >
             Architects — BLR
           </span>
         </Link>
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map(({ href, label }) => {
+          {links.map(({ href, label }) => {
             const active = pathname.startsWith(href);
             return (
               <li key={href}>
                 <Link
                   href={href}
                   className={cn(
-                    "mono-label transition-colors hover:text-ink",
-                    active && "text-brass",
+                    "font-mono text-[0.8125rem] uppercase tracking-[0.08em] transition-colors duration-300",
+                    overHero
+                      ? "text-bone/90 hover:text-paper"
+                      : "text-stone hover:text-ink",
+                    active && (overHero ? "text-paper" : "text-brass"),
                   )}
                   aria-current={active ? "page" : undefined}
                 >
@@ -66,6 +91,21 @@ export function Nav() {
               </li>
             );
           })}
+          {/* The one thing the client wants visitors to do: enquire. */}
+          <li>
+            <Link
+              href="/contact"
+              className={cn(
+                "font-mono text-[0.8125rem] uppercase tracking-[0.08em] border px-4.5 py-2.5 transition-colors duration-300",
+                overHero
+                  ? "border-bone/50 text-paper hover:border-paper"
+                  : "border-ink/40 text-ink hover:border-brass hover:text-brass",
+                pathname.startsWith("/contact") && !overHero && "border-brass text-brass",
+              )}
+            >
+              Start a project
+            </Link>
+          </li>
         </ul>
 
         {/* Mobile toggle */}
@@ -74,7 +114,10 @@ export function Nav() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="mono-label text-ink md:hidden"
+          className={cn(
+            "font-mono text-[0.8125rem] uppercase tracking-[0.08em] transition-colors duration-300 md:hidden",
+            overHero ? "text-paper" : "text-ink",
+          )}
         >
           {open ? "Close" : "Menu"}
         </button>
@@ -92,13 +135,13 @@ export function Nav() {
             className="border-t border-hairline bg-bone md:hidden"
           >
             <ul className="flex flex-col px-gutter py-6">
-              {navLinks.map(({ href, label }, i) => (
+              {links.map(({ href, label }, i) => (
                 <motion.li
                   key={href}
                   initial={reduce ? false : { opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i, duration: 0.3, ease: EASE }}
-                  className="border-b border-hairline last:border-b-0"
+                  className="border-b border-hairline"
                 >
                   <Link
                     href={href}
@@ -108,6 +151,18 @@ export function Nav() {
                   </Link>
                 </motion.li>
               ))}
+              <motion.li
+                initial={reduce ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 * links.length, duration: 0.3, ease: EASE }}
+              >
+                <Link
+                  href="/contact"
+                  className="font-display block py-4 text-h3 text-brass"
+                >
+                  Start a project
+                </Link>
+              </motion.li>
             </ul>
           </motion.div>
         )}

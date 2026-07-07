@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
+import { EnquirySection } from "@/components/site/EnquirySection";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -82,6 +83,24 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Philosophy — DMA confirmed they'll supply this statement
+          (website-discovery form); swap the quote for their words. */}
+      <section className="mt-section px-gutter">
+        <Reveal>
+          <div className="rule pt-8">
+            <p className="mono-label mb-8">The philosophy</p>
+            <blockquote className="font-display text-h1 max-w-5xl">
+              &ldquo;Design isn&rsquo;t what we add to a building. It&rsquo;s
+              everything we refuse to leave out — light, air, proportion, and
+              the way a home holds the people in it.&rdquo;
+            </blockquote>
+            <p className="mono-label mt-8 text-brass">
+              — {site.principal}, Principal Architect
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
       {/* Principal */}
       <section className="blueprint-grid mt-section px-gutter py-20">
         <Reveal>
@@ -145,6 +164,14 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+      <div className="pt-section">
+        <EnquirySection
+          source="about"
+          eyebrow="Work with the studio"
+          title="Tell us about your project."
+        />
+      </div>
     </main>
   );
 }

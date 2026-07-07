@@ -46,3 +46,6 @@ next-env.d.ts
 
 # generated prisma client (rebuilt via postinstall)
 /lib/generated/
+
+# client discovery data (not code)
+*.csv

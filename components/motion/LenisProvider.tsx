@@ -7,6 +7,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+declare global {
+  interface Window {
+    /** Set while the smooth-scroll instance is alive — overlays
+     *  (lightbox) stop/start it to lock the page behind them. */
+    __lenis?: Lenis;
+  }
+}
+
 /**
  * Smooth scroll for the public site, driven by GSAP's ticker so
  * ScrollTrigger and Lenis share one clock. Skipped entirely when the
@@ -20,6 +28,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       duration: 1.1,
       autoRaf: false,
     });
+    window.__lenis = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -30,6 +39,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     return () => {
       gsap.ticker.remove(tick);
       lenis.destroy();
+      delete window.__lenis;
     };
   }, []);
 

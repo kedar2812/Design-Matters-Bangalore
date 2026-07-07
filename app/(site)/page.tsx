@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { site } from "@/lib/site";
-import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { RotatingWord } from "@/components/motion/RotatingWord";
+import { TextScrub } from "@/components/motion/TextScrub";
+import { HeroCarousel, type HeroSlide } from "@/components/site/HeroCarousel";
 import { ProjectCard } from "@/components/site/ProjectCard";
+import { EnquirySection } from "@/components/site/EnquirySection";
 
 // Static-first: prerendered, refreshed hourly (dashboard mutations
 // will also revalidate on publish).
@@ -13,62 +15,95 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
-export default async function HomePage() {
-  const [featured, posts] = await Promise.all([
-    prisma.project.findMany({
-      where: { status: "PUBLISHED" },
-      orderBy: { order: "asc" },
-      take: 5,
-    }),
-    prisma.post.findMany({
-      where: { published: true },
-      orderBy: { publishedAt: "desc" },
-      take: 2,
-    }),
-  ]);
+const services = [
+  {
+    title: "Architecture",
+    body: "New builds and major renovations — residences, apartments, commercial and hospitality — carried from feasibility to handover.",
+  },
+  {
+    title: "Interior design",
+    body: "Complete interiors for homes and workplaces: space planning, custom furniture, materials and light, executed to the last drawer detail.",
+  },
+  {
+    title: "Consultation",
+    body: "An architect's judgement when you need it most — plot evaluation before you buy, design review, feasibility.",
+  },
+];
 
-  const hero = featured[0];
+export default async function HomePage() {
+  const featured = await prisma.project.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: { order: "asc" },
+    take: 8,
+    include: {
+      // First story block supplies each slide's narrative hook.
+      storyBlocks: { orderBy: { order: "asc" }, take: 1 },
+    },
+  });
+
+  const slides: HeroSlide[] = featured
+    .filter((p) => p.heroImage)
+    .slice(0, 5)
+    .map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      category: p.category,
+      location: p.location,
+      heroImage: p.heroImage!,
+      heroBlur: p.heroBlur,
+      hook: p.storyBlocks[0]?.text ?? null,
+    }));
+
+  const grid = featured.slice(1);
 
   return (
     <main>
-      {/* ---------------------------------------------------------- hero */}
-      <section className="relative flex min-h-dvh flex-col justify-end">
-        {hero?.heroImage && (
-          <>
-            <Image
-              src={hero.heroImage}
-              alt={`${hero.title} — ${hero.category}, ${hero.location}`}
-              fill
-              priority
-              sizes="100vw"
-              placeholder={hero.heroBlur ? "blur" : "empty"}
-              blurDataURL={hero.heroBlur ?? undefined}
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/10 to-transparent" />
-          </>
-        )}
+      {/* ------------------------------------------- hero — carousel */}
+      <HeroCarousel slides={slides}>
+        <p className="mono-label mb-5 text-bone/90">
+          Architecture + Interior Design — Bengaluru, since {site.founded}
+        </p>
+        {/* Two masked lines rise on load (pure CSS, LCP-safe); the
+            second line then keeps quietly cycling the studio's verbs. */}
+        <h1 className="font-display text-hero max-w-5xl text-paper">
+          <span className="mask-safe block overflow-hidden">
+            <span className="mask-rise block">Buildings that</span>
+          </span>
+          <span className="mask-safe block overflow-hidden">
+            <span className="mask-rise block" style={{ animationDelay: "0.12s" }}>
+              <RotatingWord
+                words={["belong.", "breathe.", "listen.", "endure."]}
+                className="text-brass-bright"
+              />
+            </span>
+          </span>
+        </h1>
+      </HeroCarousel>
 
-        <div className="relative px-gutter pb-16 pt-40">
-          <p className="mono-label mb-5 text-bone/90">
-            Architecture + Interior Design — Bengaluru, est. {site.founded}
-          </p>
-          <MaskedHeading className="font-display text-hero max-w-5xl text-paper">
-            Buildings that belong.
-          </MaskedHeading>
-          {hero && (
-            <Link
-              href={`/projects/${hero.slug}`}
-              className="mono-label mt-10 inline-block border-t border-bone/40 pt-3 text-bone/90 transition-colors hover:text-paper"
-            >
-              Featured — {hero.title}, {hero.location} &rarr;
-            </Link>
-          )}
-        </div>
+      {/* ---------------------------------------------------- the studio */}
+      <section className="px-gutter py-section">
+        <Reveal>
+          <p className="mono-label mb-6">The studio</p>
+        </Reveal>
+        {/* Words brighten with scroll — scrubbed, so the reveal glides
+            with Lenis instead of firing once. */}
+        <TextScrub className="font-display text-h1 max-w-4xl">
+          Fifteen years of residences, workplaces and interiors across
+          Bengaluru — each one designed for its climate, its street, and
+          the people who live with it.
+        </TextScrub>
+        <Reveal>
+          <Link
+            href="/about"
+            className="mono-label mt-10 inline-block underline underline-offset-4 transition-colors hover:text-brass"
+          >
+            The story of the studio &rarr;
+          </Link>
+        </Reveal>
       </section>
 
       {/* ------------------------------------------------ selected work */}
-      <section className="px-gutter py-section" aria-labelledby="work-heading">
+      <section className="px-gutter pb-section" aria-labelledby="work-heading">
         <Reveal>
           <div className="rule mb-12 flex items-baseline justify-between pt-4">
             <h2 id="work-heading" className="font-display text-h2">
@@ -83,10 +118,9 @@ export default async function HomePage() {
           </div>
         </Reveal>
 
-        {/* Editorial rhythm: full-width lead, then staggered pairs */}
         <div className="grid gap-gutter md:grid-cols-2">
-          {featured.slice(1).map((p, i) => (
-            <Reveal key={p.id} delay={(i % 2) * 0.12} className={i % 3 === 0 ? "md:mt-16" : ""}>
+          {grid.map((p, i) => (
+            <Reveal key={p.id} delay={(i % 2) * 0.12} className={i % 2 === 1 ? "md:mt-16" : ""}>
               <ProjectCard
                 slug={p.slug}
                 title={p.title}
@@ -103,57 +137,35 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ------------------------------------------------------ statement */}
-      <section className="blueprint-grid px-gutter py-section">
+      {/* ------------------------------------------------- what we do */}
+      <section className="px-gutter pb-section" aria-labelledby="services-heading">
         <Reveal>
-          <p className="mono-label mb-6">The studio</p>
-          <p className="font-display text-h1 max-w-4xl">
-            Fifteen years of residences, workplaces and interiors across
-            Bengaluru — designed for climate, context and the people who
-            use them.
-          </p>
-          <Link
-            href="/about"
-            className="mono-label mt-10 inline-block underline underline-offset-4 transition-colors hover:text-brass"
-          >
-            About Design Matters
-          </Link>
+          <div className="rule mb-12 flex items-baseline justify-between pt-4">
+            <h2 id="services-heading" className="font-display text-h2">
+              What we do
+            </h2>
+            <Link
+              href="/services"
+              className="mono-label transition-colors hover:text-brass"
+            >
+              Services &rarr;
+            </Link>
+          </div>
         </Reveal>
+        <div className="grid gap-x-gutter gap-y-12 md:grid-cols-3">
+          {services.map((s, i) => (
+            <Reveal key={s.title} delay={i * 0.1}>
+              <h3 className="font-display text-h3 mb-4">{s.title}</h3>
+              <p className="max-w-sm text-sm leading-relaxed text-ink-soft">
+                {s.body}
+              </p>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
-      {/* -------------------------------------------------- journal teaser */}
-      {posts.length > 0 && (
-        <section className="px-gutter pb-section" aria-labelledby="journal-heading">
-          <Reveal>
-            <div className="rule mb-10 flex items-baseline justify-between pt-4">
-              <h2 id="journal-heading" className="font-display text-h2">
-                From the journal
-              </h2>
-              <Link href="/journal" className="mono-label transition-colors hover:text-brass">
-                All entries &rarr;
-              </Link>
-            </div>
-            <ul className="grid gap-gutter md:grid-cols-2">
-              {posts.map((post) => (
-                <li key={post.id}>
-                  <Link href={`/journal/${post.slug}`} className="group block">
-                    <p className="font-display text-h3 transition-colors group-hover:text-brass">
-                      {post.title}
-                    </p>
-                    <p className="mono-label mt-2">
-                      {post.publishedAt?.toLocaleDateString("en-IN", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </section>
-      )}
+      {/* ------------------------------------------------ enquire */}
+      <EnquirySection source="home" />
     </main>
   );
 }

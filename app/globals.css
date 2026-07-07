@@ -17,6 +17,12 @@
   --color-brass-deep: #6b5232; /* accent hover/active */
   --color-chart: #a2762f; /* data marks only — validated ≥3:1 on bone, above chroma floor */
 
+  /* Dusk register — the site's dark closing act (footer, conversion
+     moments). Warm umber near-black; bone text on top. */
+  --color-dusk: #201a12;
+  --color-dusk-edge: #3b3425; /* hairline on dusk */
+  --color-brass-bright: #c9a468; /* brass tuned for dusk — 7.2:1 on dusk */
+
   /* Type families (variables set by next/font in app/layout.tsx) */
   --font-display: var(--font-fraunces), "Georgia", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
@@ -42,6 +48,11 @@
   --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
   --spacing-section: clamp(4.5rem, 10vw, 10rem);
 
+  /* Every photograph on the site shares this corner radius — applied
+     globally to <img> below, so dashboard-uploaded images inherit it
+     without any component code. Crop wrappers use `rounded-frame`. */
+  --radius-frame: 1rem;
+
   /* Motion (referenced by JS wrappers too) */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
@@ -56,6 +67,13 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  /* The rounded-photography rule: any image, present or future (incl.
+     dashboard uploads rendered anywhere), gets frame corners. Images
+     inside larger-radius containers opt in to `rounded-[inherit]`. */
+  img {
+    border-radius: var(--radius-frame);
   }
 
   ::selection {
@@ -109,15 +127,64 @@
   font-variation-settings: "opsz" 72;
 }
 
+/* ------------------------------------------------------------ glass */
+
+/* Frosted glass over photography — the card/control language of the
+   hero carousel and lightbox. */
+@utility glass-dark {
+  background: rgb(23 21 15 / 0.42);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgb(243 239 231 / 0.16);
+}
+
+/* Frosted glass over bone surfaces (nav, light chrome). */
+@utility glass-light {
+  background: rgb(251 250 246 / 0.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* Slow cinematic drift for the active carousel slide. */
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+@utility ken-burns {
+  animation: ken-burns 8s linear both;
+}
+
+/* Per-slide progress bar fill; duration set inline by the carousel. */
+@keyframes slide-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* First-load headline reveal — pure CSS so it runs before hydration.
    (The global prefers-reduced-motion rule zeroes this animation.) */
 @keyframes mask-rise {
   from {
-    transform: translateY(105%);
+    transform: translateY(115%);
   }
   to {
     transform: translateY(0);
   }
+}
+
+/* Overflow-hidden text masks clip serif descenders at our tight display
+   line-heights — this gives them room without changing the layout. */
+@utility mask-safe {
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
 }
 
 @utility mask-rise {

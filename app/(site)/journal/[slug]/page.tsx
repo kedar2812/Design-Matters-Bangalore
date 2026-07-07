@@ -35,6 +35,8 @@ export async function generateMetadata({
     description: post.metaDesc ?? `${post.title} — from the Design Matters journal.`,
     alternates: { canonical: `/journal/${post.slug}` },
     openGraph: post.cover ? { images: [post.cover] } : undefined,
+    // Journal is unlinked per the client's no-blog decision.
+    robots: { index: false, follow: false },
   };
 }
 

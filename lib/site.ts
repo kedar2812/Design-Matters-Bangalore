@@ -18,6 +18,8 @@ export const site = {
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "919886016711",
   email: "kiran@designmattersblr.com",
   socials: {
+    // The client's form says "designmattersarchitects", but the live
+    // account is "@designmattersarchitects_" (underscore) — confirm at launch.
     instagram: "https://www.instagram.com/designmattersarchitects_/",
     linkedin: "https://in.linkedin.com/in/kiran-hanumaiah-825539a1",
     // TODO: confirm exact Houzz profile URL with DMA before launch.
@@ -25,11 +27,12 @@ export const site = {
   },
 } as const;
 
+// Discovery form: essential pages are Home / Projects / About / Services,
+// and the client opted out of a public blog — no Journal here.
 export const navLinks = [
   { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
-  { href: "/journal", label: "Journal" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

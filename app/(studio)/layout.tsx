@@ -23,7 +23,9 @@ export default async function StudioLayout({
   }
 
   return (
-    <div className="min-h-dvh bg-bone lg:grid lg:grid-cols-[13rem_1fr]">
+    // [&_img]: the site-wide rounded-photography rule is tuned for large
+    // frames; dashboard thumbnails are small, so soften it here.
+    <div className="min-h-dvh bg-bone lg:grid lg:grid-cols-[13rem_1fr] [&_img]:rounded-md">
       {/* Rail */}
       <aside className="border-b border-hairline px-6 py-5 lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:border-b-0 lg:border-r lg:py-8">
         <Link href="/studio/dashboard" className="mb-5 block lg:mb-12">

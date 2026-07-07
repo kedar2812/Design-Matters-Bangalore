@@ -39,7 +39,7 @@ export function ProjectCard({
   return (
     <Link
       href={`/projects/${slug}`}
-      className={cn("group relative block overflow-hidden bg-stone/20", aspect, className)}
+      className={cn("rounded-frame group relative block overflow-hidden bg-stone/20", aspect, className)}
     >
       {heroImage && (
         <Image
@@ -53,6 +53,11 @@ export function ProjectCard({
           className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
         />
       )}
+
+      {/* Frosted category chip — ties the card grid to the hero's glass language */}
+      <span className="glass-dark mono-label absolute left-4 top-4 rounded-full px-3.5 py-1.5 text-bone/90">
+        {category}
+      </span>
 
       {/* Ink gradient + metadata, slides up on hover; always visible on touch via focus styles */}
       <div className="absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-ink/70 to-transparent p-5 pt-14 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">

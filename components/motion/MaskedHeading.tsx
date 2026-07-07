@@ -49,11 +49,17 @@ export function MaskedHeading({
         if (cancelled || !el.isConnected) return;
         split = SplitText.create(el, { type: "lines", mask: "lines" });
         gsap.from(split.lines, {
-          yPercent: 110,
+          yPercent: 115,
           duration: 1.05,
           ease: "power4.out",
           stagger: 0.09,
           delay,
+          // The line masks clip serif descenders at our tight display
+          // line-heights — restore the intact text once the reveal ends.
+          onComplete: () => {
+            split?.revert();
+            split = undefined;
+          },
         });
       });
 
@@ -69,7 +75,7 @@ export function MaskedHeading({
     return createElement(
       as,
       { ref, className },
-      <span className="block overflow-hidden">
+      <span className="mask-safe block overflow-hidden">
         <span className="mask-rise block" style={{ animationDelay: `${delay}s` }}>
           {children}
         </span>

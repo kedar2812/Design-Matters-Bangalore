@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { EnquirySection } from "@/components/site/EnquirySection";
 
 export const metadata: Metadata = {
   title: "Services — Architecture, Interior Design & Consultation",
@@ -84,17 +84,13 @@ export default function ServicesPage() {
         </ol>
       </section>
 
-      <section className="px-gutter pt-section">
-        <Reveal>
-          <p className="mono-label mb-4">Ready when you are</p>
-          <Link
-            href="/contact"
-            className="font-display text-h1 inline-block transition-colors hover:text-brass"
-          >
-            Tell us about your site&thinsp;&rarr;
-          </Link>
-        </Reveal>
-      </section>
+      <div className="pt-section">
+        <EnquirySection
+          source="services"
+          eyebrow="Ready when you are"
+          title="Tell us what you're planning."
+        />
+      </div>
     </main>
   );
 }

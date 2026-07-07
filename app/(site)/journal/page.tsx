@@ -8,11 +8,15 @@ import { formatDate } from "@/lib/utils";
 
 export const revalidate = 3600;
 
+// The client opted out of a public blog (website-discovery form), so
+// the journal is unlinked and unindexed — kept alive for the studio
+// dashboard until a final keep/remove call is made.
 export const metadata: Metadata = {
   title: "Journal — Notes from the Studio",
   description:
     "Occasional writing from Design Matters Architects: project notes, material studies, and thinking on building well in Bengaluru.",
   alternates: { canonical: "/journal" },
+  robots: { index: false, follow: false },
 };
 
 export default async function JournalPage() {
