@@ -96,7 +96,7 @@ export function HeroCarousel({
       ))}
 
       {/* Scrims — nav and copy stay legible over light or dark photos */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/5 to-ink/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-noir/45 via-noir/5 to-noir/70" />
 
       {/* Foreground */}
       <div className="relative grid items-end gap-8 px-gutter pb-10 pt-40 lg:grid-cols-12">
@@ -110,8 +110,8 @@ export function HeroCarousel({
           onFocus={() => setHeld(true)}
           onBlur={() => setHeld(false)}
         >
-          <div className="glass-dark rounded-2xl p-6 text-bone shadow-2xl shadow-ink/30 sm:p-7">
-            <p aria-live="polite" className="mono-label mb-3 text-bone/75">
+          <div className="glass-dark rounded-2xl p-6 text-cream shadow-2xl shadow-noir/30 sm:p-7">
+            <p aria-live="polite" className="mono-label mb-3 text-cream/75">
               <span className="text-brass-bright">
                 {String(index + 1).padStart(2, "0")}
               </span>
@@ -128,24 +128,24 @@ export function HeroCarousel({
               </Link>
             </h2>
             {active.hook && (
-              <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-bone/80">
+              <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-cream/80">
                 {active.hook}
               </p>
             )}
             <Link
               href={`/projects/${active.slug}`}
-              className="mono-label mt-4 inline-block text-bone/90 underline underline-offset-4 transition-colors hover:text-brass-bright"
+              className="mono-label mt-4 inline-block text-cream/90 underline underline-offset-4 transition-colors hover:text-brass-bright"
             >
               Read the story &rarr;
             </Link>
 
             {/* Controls */}
-            <div className="mt-6 flex items-center gap-3 border-t border-bone/15 pt-5">
+            <div className="mt-6 flex items-center gap-3 border-t border-cream/15 pt-5">
               <button
                 type="button"
                 onClick={() => goTo(index - 1)}
                 aria-label="Previous project"
-                className="glass-dark flex size-9 shrink-0 items-center justify-center rounded-full transition-colors hover:border-bone/40"
+                className="glass-dark flex size-9 shrink-0 items-center justify-center rounded-full transition-colors hover:border-cream/40"
               >
                 <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="M10 3 5 8l5 5" />
@@ -155,7 +155,7 @@ export function HeroCarousel({
                 type="button"
                 onClick={() => goTo(index + 1)}
                 aria-label="Next project"
-                className="glass-dark flex size-9 shrink-0 items-center justify-center rounded-full transition-colors hover:border-bone/40"
+                className="glass-dark flex size-9 shrink-0 items-center justify-center rounded-full transition-colors hover:border-cream/40"
               >
                 <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="m6 3 5 5-5 5" />
@@ -166,7 +166,7 @@ export function HeroCarousel({
                 onClick={() => setPaused((v) => !v)}
                 aria-label={paused ? "Play slideshow" : "Pause slideshow"}
                 aria-pressed={paused}
-                className="glass-dark flex size-9 shrink-0 items-center justify-center rounded-full transition-colors hover:border-bone/40"
+                className="glass-dark flex size-9 shrink-0 items-center justify-center rounded-full transition-colors hover:border-cream/40"
               >
                 {paused ? (
                   <svg viewBox="0 0 16 16" className="size-3.5" fill="currentColor" aria-hidden="true">
@@ -191,7 +191,7 @@ export function HeroCarousel({
                     onClick={() => goTo(i)}
                     className="group flex h-6 min-w-0 flex-1 items-center"
                   >
-                    <span className="block h-[3px] w-full overflow-hidden rounded-full bg-bone/25 transition-colors group-hover:bg-bone/40">
+                    <span className="block h-[3px] w-full overflow-hidden rounded-full bg-cream/25 transition-colors group-hover:bg-cream/40">
                       <span
                         key={`${i}-${index}`}
                         className={cn(

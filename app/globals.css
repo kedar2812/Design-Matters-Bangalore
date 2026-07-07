@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Class-based dark theme — default is light; ThemeToggle stamps
+   `.dark` on <html> (persisted in localStorage, applied pre-paint). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ---------------------------------------------------------------------------
    DMA design tokens — warm, architectural, print-inspired.
    Photography supplies color; the UI stays neutral. One accent: brass.
@@ -18,10 +22,16 @@
   --color-chart: #a2762f; /* data marks only — validated ≥3:1 on bone, above chroma floor */
 
   /* Dusk register — the site's dark closing act (footer, conversion
-     moments). Warm umber near-black; bone text on top. */
+     moments). Warm umber near-black; cream text on top. */
   --color-dusk: #201a12;
   --color-dusk-edge: #3b3425; /* hairline on dusk */
   --color-brass-bright: #c9a468; /* brass tuned for dusk — 7.2:1 on dusk */
+
+  /* Static tones — used OVER PHOTOGRAPHY and dusk surfaces, where the
+     background never changes with theme. These do not flip in dark mode
+     (bone/ink/paper do). */
+  --color-cream: #f3efe7;
+  --color-noir: #17150f;
 
   /* Type families (variables set by next/font in app/layout.tsx) */
   --font-display: var(--font-fraunces), "Georgia", serif;
@@ -61,12 +71,31 @@
 /* ------------------------------------------------------------------ base */
 
 @layer base {
+  /* Dark theme: same warm family, inverted values. Components keep
+     using bone/ink/paper tokens; only the values swap. Over-photo and
+     dusk elements use the static cream/noir tokens and don't move. */
+  .dark {
+    --color-bone: #16120d;
+    --color-paper: #201a12;
+    --color-ink: #f1ece1;
+    --color-ink-soft: #d6cfc1;
+    --color-stone: #a59d8e;
+    --color-hairline: #352d20;
+    --color-brass: #c9a468;
+    --color-brass-deep: #ddbe86;
+    --color-dusk: #100d09;
+    --color-dusk-edge: #2b2418;
+    --glass-light-bg: rgb(22 18 13 / 0.6);
+    color-scheme: dark;
+  }
+
   body {
     background: var(--color-bone);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    transition: background-color 0.4s ease;
   }
 
   /* The rounded-photography rule: any image, present or future (incl.
@@ -138,9 +167,10 @@
   border: 1px solid rgb(243 239 231 / 0.16);
 }
 
-/* Frosted glass over bone surfaces (nav, light chrome). */
+/* Frosted glass over canvas surfaces (nav, light chrome); the
+   background swaps with the theme via --glass-light-bg. */
 @utility glass-light {
-  background: rgb(251 250 246 / 0.6);
+  background: var(--glass-light-bg, rgb(251 250 246 / 0.6));
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
   backdrop-filter: blur(20px) saturate(1.4);
 }

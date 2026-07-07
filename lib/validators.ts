@@ -16,6 +16,11 @@ export const enquirySchema = z.object({
     .min(10, "Tell us a little about your project — a sentence or two is fine.")
     .max(5000),
   source: z.string().max(200).optional(),
+  // Optional context the studio asked to capture (discovery form):
+  // project type, budget range, site location.
+  topic: z.string().trim().max(60).optional(),
+  budget: z.string().trim().max(60).optional(),
+  location: z.string().trim().max(120).optional(),
   // Honeypot — real visitors never fill this.
   company: z.literal("").optional(),
 });

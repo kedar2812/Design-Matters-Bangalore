@@ -54,8 +54,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${fraunces.variable} ${inter.variable} ${plexMono.variable}`}
     >
+      <head>
+        {/* Apply the saved theme before first paint (no flash). Light is
+            the default; `?theme=dark` forces it for previews. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var q=new URLSearchParams(location.search).get("theme"),t=q||localStorage.getItem("dma-theme");if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

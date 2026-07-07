@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
+import { TextScrub } from "@/components/motion/TextScrub";
 import { EnquirySection } from "@/components/site/EnquirySection";
 import { site } from "@/lib/site";
 
@@ -86,19 +87,21 @@ export default function AboutPage() {
       {/* Philosophy — DMA confirmed they'll supply this statement
           (website-discovery form); swap the quote for their words. */}
       <section className="mt-section px-gutter">
-        <Reveal>
-          <div className="rule pt-8">
+        <div className="rule pt-8">
+          <Reveal>
             <p className="mono-label mb-8">The philosophy</p>
-            <blockquote className="font-display text-h1 max-w-5xl">
-              &ldquo;Design isn&rsquo;t what we add to a building. It&rsquo;s
-              everything we refuse to leave out — light, air, proportion, and
-              the way a home holds the people in it.&rdquo;
-            </blockquote>
+          </Reveal>
+          <TextScrub as="blockquote" className="font-display text-h1 max-w-5xl">
+            &ldquo;Design isn&rsquo;t what we add to a building. It&rsquo;s
+            everything we refuse to leave out — light, air, proportion, and
+            the way a home holds the people in it.&rdquo;
+          </TextScrub>
+          <Reveal>
             <p className="mono-label mt-8 text-brass">
               — {site.principal}, Principal Architect
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
 
       {/* Principal */}

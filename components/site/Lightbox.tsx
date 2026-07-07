@@ -81,36 +81,46 @@ export function LightboxProvider({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduce ? 0 : 0.3 }}
-            className="fixed inset-0 z-[70] bg-ink/85 backdrop-blur-2xl"
+            className="fixed inset-0 z-[70] bg-noir/85 backdrop-blur-2xl"
             onClick={close}
           >
-            {/* Frame */}
-            <motion.div
-              key={current}
-              initial={reduce ? false : { opacity: 0, scale: 0.985 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            {/* Frame — frames stack absolutely and crossfade, so the
+                outgoing photo stays visible until the next has faded
+                in over it: no blank flash between arrows. */}
+            <div
               className="absolute inset-x-4 bottom-24 top-20 sm:inset-x-20"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={img.url}
-                alt={img.alt}
-                fill
-                sizes="100vw"
-                quality={88}
-                placeholder={img.blur ? "blur" : "empty"}
-                blurDataURL={img.blur ?? undefined}
-                className="object-contain"
-              />
-            </motion.div>
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={current}
+                  className="absolute inset-0"
+                  initial={reduce ? false : { opacity: 0, scale: 0.99 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Image
+                    src={img.url}
+                    alt={img.alt}
+                    fill
+                    sizes="100vw"
+                    quality={88}
+                    loading="eager"
+                    placeholder={img.blur ? "blur" : "empty"}
+                    blurDataURL={img.blur ?? undefined}
+                    className="object-contain"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
             {/* Chrome — stop propagation so controls don't close */}
             <div
               className="absolute inset-x-0 top-0 flex items-center justify-between px-5 py-4 sm:px-8"
               onClick={(e) => e.stopPropagation()}
             >
-              <p className="mono-label text-bone/80">
+              <p className="mono-label text-cream/80">
                 <span className="text-brass-bright">
                   {String((current ?? 0) + 1).padStart(2, "0")}
                 </span>
@@ -121,7 +131,7 @@ export function LightboxProvider({
                 type="button"
                 onClick={close}
                 aria-label="Close photo viewer"
-                className="glass-dark flex size-11 items-center justify-center rounded-full text-bone transition-colors hover:border-bone/40"
+                className="glass-dark flex size-11 items-center justify-center rounded-full text-cream transition-colors hover:border-cream/40"
               >
                 <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="m3.5 3.5 9 9m0-9-9 9" />
@@ -138,7 +148,7 @@ export function LightboxProvider({
                     step(-1);
                   }}
                   aria-label="Previous photo"
-                  className="glass-dark absolute left-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full text-bone transition-colors hover:border-bone/40 sm:left-6"
+                  className="glass-dark absolute left-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full text-cream transition-colors hover:border-cream/40 sm:left-6"
                 >
                   <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                     <path d="M10 3 5 8l5 5" />
@@ -151,7 +161,7 @@ export function LightboxProvider({
                     step(1);
                   }}
                   aria-label="Next photo"
-                  className="glass-dark absolute right-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full text-bone transition-colors hover:border-bone/40 sm:right-6"
+                  className="glass-dark absolute right-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full text-cream transition-colors hover:border-cream/40 sm:right-6"
                 >
                   <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                     <path d="m6 3 5 5-5 5" />
@@ -161,7 +171,7 @@ export function LightboxProvider({
             )}
 
             <p
-              className="mono-label absolute inset-x-0 bottom-8 px-gutter text-center text-bone/70"
+              className="mono-label absolute inset-x-0 bottom-8 px-gutter text-center text-cream/70"
               onClick={(e) => e.stopPropagation()}
             >
               {img.alt}

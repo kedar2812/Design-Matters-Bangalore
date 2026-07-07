@@ -8,17 +8,17 @@ import { navLinks, site, whatsappHref } from "@/lib/site";
  */
 export function Footer() {
   return (
-    <footer className="bg-dusk text-bone">
+    <footer className="bg-dusk text-cream">
       {/* Conversation CTA */}
       <div className="px-gutter pb-20 pt-24">
         <p className="mono-label mb-5 text-brass-bright">Have a site in mind?</p>
-        <p className="font-display text-h1 max-w-4xl text-paper">
+        <p className="font-display text-h1 max-w-4xl text-cream">
           Start the conversation.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <Link
             href="/contact"
-            className="bg-bone px-8 py-3.5 text-sm tracking-wide text-ink transition-colors hover:bg-brass-bright"
+            className="rounded-full bg-cream px-8 py-3.5 text-sm tracking-wide text-noir transition-colors hover:bg-brass-bright"
           >
             Enquire about a project
           </Link>
@@ -26,13 +26,13 @@ export function Footer() {
             href={whatsappHref("Hello Design Matters — I'd like to discuss a project.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-bone/30 px-8 py-3.5 text-sm tracking-wide text-bone transition-colors hover:border-brass-bright hover:text-brass-bright"
+            className="rounded-full border border-cream/30 px-8 py-3.5 text-sm tracking-wide text-cream transition-colors hover:border-brass-bright hover:text-brass-bright"
           >
             WhatsApp the studio
           </a>
           <a
             href={`tel:${site.phone.replace(/\s/g, "")}`}
-            className="mono-label ml-1 text-bone/60 transition-colors hover:text-brass-bright"
+            className="mono-label ml-1 text-cream/60 transition-colors hover:text-brass-bright"
           >
             or call {site.phone}
           </a>
@@ -43,7 +43,7 @@ export function Footer() {
       <div className="mx-gutter grid gap-10 border-t border-dusk-edge py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="mono-label mb-4 text-brass-bright">Studio</p>
-          <p className="text-sm leading-relaxed text-bone/70">
+          <p className="text-sm leading-relaxed text-cream/70">
             {site.name}
             <br />
             {site.address.line1}
@@ -56,14 +56,14 @@ export function Footer() {
 
         <div>
           <p className="mono-label mb-4 text-brass-bright">Contact</p>
-          <ul className="space-y-2 text-sm text-bone/70">
+          <ul className="space-y-2 text-sm text-cream/70">
             <li>
-              <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="transition-colors hover:text-paper">
+              <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="transition-colors hover:text-brass-bright">
                 {site.phone}
               </a>
             </li>
             <li>
-              <a href={`mailto:${site.email}`} className="transition-colors hover:text-paper">
+              <a href={`mailto:${site.email}`} className="transition-colors hover:text-brass-bright">
                 {site.email}
               </a>
             </li>
@@ -72,7 +72,7 @@ export function Footer() {
                 href={whatsappHref("Hello Design Matters — I'd like to discuss a project.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-paper"
+                className="transition-colors hover:text-brass-bright"
               >
                 WhatsApp the studio
               </a>
@@ -82,10 +82,10 @@ export function Footer() {
 
         <div>
           <p className="mono-label mb-4 text-brass-bright">Index</p>
-          <ul className="space-y-2 text-sm text-bone/70">
+          <ul className="space-y-2 text-sm text-cream/70">
             {navLinks.map(({ href, label }) => (
               <li key={href}>
-                <Link href={href} className="transition-colors hover:text-paper">
+                <Link href={href} className="transition-colors hover:text-brass-bright">
                   {label}
                 </Link>
               </li>
@@ -95,13 +95,13 @@ export function Footer() {
 
         <div>
           <p className="mono-label mb-4 text-brass-bright">Elsewhere</p>
-          <ul className="space-y-2 text-sm text-bone/70">
+          <ul className="space-y-2 text-sm text-cream/70">
             <li>
               <a
                 href={site.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-paper"
+                className="transition-colors hover:text-brass-bright"
               >
                 Instagram — @designmattersarchitects
               </a>
@@ -111,7 +111,7 @@ export function Footer() {
                 href={site.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-paper"
+                className="transition-colors hover:text-brass-bright"
               >
                 LinkedIn
               </a>
@@ -122,10 +122,10 @@ export function Footer() {
 
       {/* Baseline */}
       <div className="mx-gutter flex flex-wrap items-baseline justify-between gap-4 border-t border-dusk-edge py-5">
-        <p className="mono-label text-bone/50">
+        <p className="mono-label text-cream/50">
           &copy; {new Date().getFullYear()} {site.name}
         </p>
-        <p className="mono-label text-bone/50">Indiranagar, Bengaluru</p>
+        <p className="mono-label text-cream/50">Indiranagar, Bengaluru</p>
       </div>
     </footer>
   );

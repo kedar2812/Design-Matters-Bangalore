@@ -60,12 +60,12 @@ export default async function HomePage() {
     <main>
       {/* ------------------------------------------- hero — carousel */}
       <HeroCarousel slides={slides}>
-        <p className="mono-label mb-5 text-bone/90">
+        <p className="mono-label mb-5 text-cream/90">
           Architecture + Interior Design — Bengaluru, since {site.founded}
         </p>
         {/* Two masked lines rise on load (pure CSS, LCP-safe); the
             second line then keeps quietly cycling the studio's verbs. */}
-        <h1 className="font-display text-hero max-w-5xl text-paper">
+        <h1 className="font-display text-hero max-w-5xl text-cream">
           <span className="mask-safe block overflow-hidden">
             <span className="mask-rise block">Buildings that</span>
           </span>

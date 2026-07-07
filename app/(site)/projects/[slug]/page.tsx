@@ -118,15 +118,15 @@ export default async function ProjectPage({
               />
               {/* Top + bottom scrims: nav and title stay legible over
                   light photography as well as dark. */}
-              <div className="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/5 to-ink/70" />
+              <div className="absolute inset-0 bg-gradient-to-b from-noir/45 via-noir/5 to-noir/70" />
             </>
           )}
           <div className="relative px-gutter pb-14 pt-40">
-            <p className="mono-label mb-4 text-bone/90">
+            <p className="mono-label mb-4 text-cream/90">
               {project.category}
               {project.location && ` — ${project.location}`}
             </p>
-            <MaskedHeading className="font-display text-hero max-w-5xl text-paper">
+            <MaskedHeading className="font-display text-hero max-w-5xl text-cream">
               {project.title}
             </MaskedHeading>
           </div>

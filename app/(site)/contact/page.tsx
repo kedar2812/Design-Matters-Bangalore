@@ -101,7 +101,7 @@ export default function ContactPage() {
           <iframe
             title="Design Matters Architects — Indiranagar, Bengaluru"
             src="https://www.google.com/maps?q=Design+Matters+Architects,+12th+A+Main+Rd,+HAL+2nd+Stage,+Indiranagar,+Bengaluru&output=embed"
-            className="h-96 w-full border-0 grayscale-[0.4]"
+            className="rounded-frame h-96 w-full border-0 grayscale-[0.4] dark:grayscale-[0.25] dark:invert dark:hue-rotate-180"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
