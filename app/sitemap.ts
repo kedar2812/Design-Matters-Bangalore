@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { prisma } from "@/lib/db";
+import { getPublishedProjects } from "@/lib/content";
 import { SITE_URL } from "@/lib/seo";
 
 export const revalidate = 3600;
@@ -7,10 +7,7 @@ export const revalidate = 3600;
 // Journal routes are intentionally absent: the client opted out of a
 // public blog in the website-discovery form.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const projects = await prisma.project.findMany({
-    where: { status: "PUBLISHED" },
-    select: { slug: true, updatedAt: true },
-  });
+  const projects = await getPublishedProjects();
 
   const fixed: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, priority: 1, changeFrequency: "weekly" },

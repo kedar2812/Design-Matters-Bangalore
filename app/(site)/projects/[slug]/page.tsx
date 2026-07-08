@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/db";
+import { getPublishedProject, getPublishedProjects } from "@/lib/content";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
@@ -18,10 +18,7 @@ import {
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const projects = await prisma.project.findMany({
-    where: { status: "PUBLISHED" },
-    select: { slug: true },
-  });
+  const projects = await getPublishedProjects();
   return projects.map(({ slug }) => ({ slug }));
 }
 
@@ -31,7 +28,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = await prisma.project.findUnique({ where: { slug } });
+  const project = await getPublishedProject(slug);
   if (!project) return {};
   return {
     title: project.metaTitle ?? `${project.title} — ${project.category}, ${project.location}`,
@@ -51,21 +48,11 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = await prisma.project.findUnique({
-    where: { slug },
-    include: {
-      gallery: { orderBy: { order: "asc" } },
-      storyBlocks: { orderBy: { order: "asc" } },
-    },
-  });
-  if (!project || project.status !== "PUBLISHED") notFound();
+  const project = await getPublishedProject(slug);
+  if (!project) notFound();
 
   // Next/prev in display order (wrapping)
-  const siblings = await prisma.project.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { order: "asc" },
-    select: { slug: true, title: true },
-  });
+  const siblings = await getPublishedProjects();
   const idx = siblings.findIndex((s) => s.slug === slug);
   const prev = siblings[(idx - 1 + siblings.length) % siblings.length];
   const next = siblings[(idx + 1) % siblings.length];

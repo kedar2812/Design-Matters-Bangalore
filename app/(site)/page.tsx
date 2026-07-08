@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { prisma } from "@/lib/db";
+import { getPublishedProjects } from "@/lib/content";
 import { site } from "@/lib/site";
 import { Reveal } from "@/components/motion/Reveal";
 import { RotatingWord } from "@/components/motion/RotatingWord";
@@ -31,15 +31,8 @@ const services = [
 ];
 
 export default async function HomePage() {
-  const featured = await prisma.project.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { order: "asc" },
-    take: 8,
-    include: {
-      // First story block supplies each slide's narrative hook.
-      storyBlocks: { orderBy: { order: "asc" }, take: 1 },
-    },
-  });
+  // First story block supplies each slide's narrative hook.
+  const featured = (await getPublishedProjects()).slice(0, 8);
 
   const slides: HeroSlide[] = featured
     .filter((p) => p.heroImage)

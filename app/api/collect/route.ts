@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { isSnapshotMode } from "@/lib/content";
 
 const BOT_UA =
   /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|whatsapp|telegram|preview|headless|lighthouse|pingdom|uptime/i;
@@ -9,6 +10,8 @@ const BOT_UA =
  * Cloudflare's CF-IPCountry header in production.
  */
 export async function POST(req: Request) {
+  // Database-free deploys have nowhere to store views.
+  if (isSnapshotMode) return new Response(null, { status: 204 });
   try {
     const ua = req.headers.get("user-agent") ?? "";
     if (BOT_UA.test(ua)) return new Response(null, { status: 204 });

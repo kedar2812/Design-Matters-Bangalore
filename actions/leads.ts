@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { prisma } from "@/lib/db";
+import { isSnapshotMode } from "@/lib/content";
 import { enquirySchema } from "@/lib/validators";
 
 export type EnquiryState = {
@@ -43,18 +44,25 @@ export async function submitEnquiry(
     return { ok: false, errors: flat.fieldErrors };
   }
 
-  await prisma.lead.create({
-    data: {
-      name: parsed.data.name,
-      email: parsed.data.email,
-      phone: parsed.data.phone || null,
-      message: parsed.data.message,
-      source: parsed.data.source || "contact-page",
-      topic: parsed.data.topic || null,
-      budget: parsed.data.budget || null,
-      location: parsed.data.location || null,
-    },
-  });
+  if (isSnapshotMode) {
+    // Database-free preview: nowhere to store the lead. Log it server-side
+    // so a test submission isn't silently invisible, and let WhatsApp/phone
+    // carry real contact until the site runs with its database.
+    console.log("[enquiry:snapshot-mode]", JSON.stringify(parsed.data));
+  } else {
+    await prisma.lead.create({
+      data: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+        phone: parsed.data.phone || null,
+        message: parsed.data.message,
+        source: parsed.data.source || "contact-page",
+        topic: parsed.data.topic || null,
+        budget: parsed.data.budget || null,
+        location: parsed.data.location || null,
+      },
+    });
+  }
 
   return {
     ok: true,

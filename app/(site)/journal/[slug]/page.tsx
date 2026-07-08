@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/db";
+import { getPublishedPost, getPublishedPosts } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 
 export const revalidate = 3600;
@@ -15,10 +15,7 @@ type Block =
   | { type: "image"; url: string; alt?: string; caption?: string };
 
 export async function generateStaticParams() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    select: { slug: true },
-  });
+  const posts = await getPublishedPosts();
   return posts.map(({ slug }) => ({ slug }));
 }
 
@@ -28,7 +25,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await prisma.post.findUnique({ where: { slug } });
+  const post = await getPublishedPost(slug);
   if (!post) return {};
   return {
     title: post.metaTitle ?? post.title,
@@ -46,8 +43,8 @@ export default async function JournalArticle({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await prisma.post.findUnique({ where: { slug } });
-  if (!post || !post.published) notFound();
+  const post = await getPublishedPost(slug);
+  if (!post) notFound();
 
   const blocks = (Array.isArray(post.body) ? post.body : []) as Block[];
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/db";
+import { getPublishedPosts } from "@/lib/content";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
 import { formatDate } from "@/lib/utils";
@@ -20,19 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function JournalPage() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    orderBy: { publishedAt: "desc" },
-    select: {
-      id: true,
-      slug: true,
-      title: true,
-      cover: true,
-      coverBlur: true,
-      tags: true,
-      publishedAt: true,
-    },
-  });
+  const posts = await getPublishedPosts();
 
   return (
     <main className="px-gutter pb-section pt-36">

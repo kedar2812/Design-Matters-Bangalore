@@ -1,0 +1,706 @@
+{
+ "exportedAt": "2026-07-08T16:35:40.272Z",
+ "projects": [
+  {
+   "id": "cmr5527f40002wktdqolsb97t",
+   "slug": "house-of-levels",
+   "title": "House of Levels",
+   "category": "Residential",
+   "year": 2025,
+   "location": "Bengaluru",
+   "typology": "Private residence",
+   "area": "3,800 sq ft",
+   "team": null,
+   "heroImage": "/uploads/placeholders/house-of-levels-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHhAAAQQBBQAAAAAAAAAAAAAAAQACAwQREhMhMUH/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AM0921ZnLGtZI6POXEae1avMdoARgEcOA8KIiGv/2Q==",
+   "status": "PUBLISHED",
+   "order": 0,
+   "metaTitle": null,
+   "metaDesc": "House of Levels — Private residence by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.072Z",
+   "updatedAt": "2026-07-08T07:33:59.534Z",
+   "gallery": [
+    {
+     "id": "cmraqev1x0004nktdex4tshfr",
+     "projectId": "cmr5527f40002wktdqolsb97t",
+     "url": "/uploads/placeholders/house-of-levels-1.jpg",
+     "alt": "House of Levels — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHhAAAQQBBQAAAAAAAAAAAAAAAQACAwQREyIxMlH/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AM1i9ZsTljWMkfHnLht5Vq8+IgNMAjsPCiIhr//Z",
+     "order": 0
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f4v0002ywtdiw6mkcsm",
+     "projectId": "cmr5527f40002wktdqolsb97t",
+     "type": "CONCEPT",
+     "text": "A compact 30×40 Bengaluru home that redefines urban living through a thoughtful interplay of light, levels and material warmth. Designed around a central skylit courtyard, the house rises through staggered floor plates that create spatial distinction without sacrificing openness.",
+     "image": null,
+     "order": 0
+    },
+    {
+     "id": "cmras2f4x0003ywtd13doa097",
+     "projectId": "cmr5527f40002wktdqolsb97t",
+     "type": "FINAL",
+     "text": "A sculptural rubberwood staircase anchors the vertical movement, while bay windows, brick textures and natural stone lend depth to every zone — from an acoustically treated hobby room on the ground floor to elevated living areas, tranquil bedrooms and a serene terrace framed by terracotta jaalis.",
+     "image": null,
+     "order": 1
+    }
+   ]
+  },
+  {
+   "id": "cmr5527fb0003wktdbmfj858y",
+   "slug": "wellington-street-residence",
+   "title": "Wellington Street Residence",
+   "category": "Residential",
+   "year": null,
+   "location": "Richmond Town, Bengaluru",
+   "typology": "Private residence",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/wellington-street-residence-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIE/8QAIBAAAgIBAwUAAAAAAAAAAAAAAQIAAxEEBUESISIxcf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECMf/aAAwDAQACEQMRAD8AxHcyys9vSLGAwPQ+44kLq7LBkqq8ePcREPLa4PKf/9k=",
+   "status": "PUBLISHED",
+   "order": 1,
+   "metaTitle": null,
+   "metaDesc": "Wellington Street Residence — Private residence by Design Matters Architects, Richmond Town, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.079Z",
+   "updatedAt": "2026-07-08T07:34:01.394Z",
+   "gallery": [
+    {
+     "id": "cmraqew0r0005nktdyjatj86h",
+     "projectId": "cmr5527fb0003wktdbmfj858y",
+     "url": "/uploads/placeholders/wellington-street-residence-1.jpg",
+     "alt": "Wellington Street Residence — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAANAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIhAAAQMDBAMBAAAAAAAAAAAAAQIDEQAEIRITUXEFMUFh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAf/EABgRAAMBAQAAAAAAAAAAAAAAAAABAiFB/9oADAMBAAIRAxEAPwBZ8oGhtjMCQv3jr7VGzu2nLcKuXWm3JOCoJx0TWabSlDEhA3YnX+8xRnLcvK1OKSVc6AKFb6LnMP/Z",
+     "order": 0
+    },
+    {
+     "id": "cmraqewd90006nktdy07ex2oj",
+     "projectId": "cmr5527fb0003wktdbmfj858y",
+     "url": "/uploads/placeholders/wellington-street-residence-2.jpg",
+     "alt": "Wellington Street Residence — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJAAwDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFBv/EACMQAAEDAwIHAAAAAAAAAAAAAAIBAxEABLEFFSExMjRBcXL/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABkRAAIDAQAAAAAAAAAAAAAAAAACARExA//aAAwDAQACEQMRAD8ALTVDauRJlxFbSJDPDzVvdGXiImrhqEWOcZrGW3cJ8rilz6y91EetHSKw/9k=",
+     "order": 1
+    },
+    {
+     "id": "cmraqewp30007nktdwdin99zc",
+     "projectId": "cmr5527fb0003wktdbmfj858y",
+     "url": "/uploads/placeholders/wellington-street-residence-3.jpg",
+     "alt": "Wellington Street Residence — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAfEAABAwMFAAAAAAAAAAAAAAABAAIDBBESFCEyQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABcRAAMBAAAAAAAAAAAAAAAAAAABAiH/2gAMAwEAAhEDEQA/AJNTWamJofBHn2ceI8UuQOidi8C9r7IiE21hWpT0/9k=",
+     "order": 2
+    },
+    {
+     "id": "cmraqex0b0008nktdoewflc58",
+     "projectId": "cmr5527fb0003wktdbmfj858y",
+     "url": "/uploads/placeholders/wellington-street-residence-4.jpg",
+     "alt": "Wellington Street Residence — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAID/8QAHBAAAgMAAwEAAAAAAAAAAAAAAQIAAxEEEiFB/8QAFAEBAAAAAAAAAAAAAAAAAAAABP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AN6G5N3FL2K5fqc0/c8kDVALUYWAPrkxEGW//9k=",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f5a0004ywtdrkxzf9ky",
+     "projectId": "cmr5527fb0003wktdbmfj858y",
+     "type": "CONCEPT",
+     "text": "A dense neighbourhood, a modest 45'×45' plot, and a brief that asked for a lift and a comfortable staircase. The design segregates vertical circulation to the south-east corner and opens the living and bedroom areas to the north-facing road for light and ventilation. A laser-cut Fundermax screen becomes the façade's defining element — privacy from the busy road — while stepped terraces add breakout green space at every level.",
+     "image": null,
+     "order": 0
+    },
+    {
+     "id": "cmras2f5b0005ywtdv9akg3di",
+     "projectId": "cmr5527fb0003wktdbmfj858y",
+     "type": "FINAL",
+     "text": "Humble tones of beige merge with rustic walnut as warm light seeps in through every niche. Minimal panels patterned on tree bark and foliage wrap the spaces, and intricately detailed apertures mimic vegetation — a play of light and shadow that makes moving through the house an immersive experience.",
+     "image": null,
+     "order": 1
+    }
+   ]
+  },
+  {
+   "id": "cmr5527eu0001wktdxc64l015",
+   "slug": "vivek-residence",
+   "title": "Vivek Residence",
+   "category": "Residential",
+   "year": null,
+   "location": "Bengaluru",
+   "typology": "Private residence",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/vivek-residence-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAdEAACAgMAAwAAAAAAAAAAAAABAgMRAAQhBRIi/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABYRAQEBAAAAAAAAAAAAAAAAAAEAEf/aAAwDAQACEQMRAD8Ar09hpRKzH5BpF9SSvO2a7kp8pHHSbLmSVeFlFA4xhJKO3//Z",
+   "status": "PUBLISHED",
+   "order": 2,
+   "metaTitle": null,
+   "metaDesc": "Vivek Residence — Private residence by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.062Z",
+   "updatedAt": "2026-07-08T07:34:01.393Z",
+   "gallery": [
+    {
+     "id": "cmraqertd0000nktdbt0a3bhs",
+     "projectId": "cmr5527eu0001wktdxc64l015",
+     "url": "/uploads/placeholders/vivek-residence-1.jpg",
+     "alt": "Vivek Residence — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAASAAwDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EACIQAAIBBAIBBQAAAAAAAAAAAAECAAMEERIFMSETFDJhkf/EABYBAQEBAAAAAAAAAAAAAAAAAAMBAv/EABcRAQEBAQAAAAAAAAAAAAAAAAARATH/2gAMAwEAAhEDEQA/AEcfxlRLhmTVRTcLlTnOO8TdSrdU10tUKUlJCgADPn7ElCVaFPW0C+mXz8gcD9ivc8jbHQMFU+QGUGHxqZELdGKPcIREf//Z",
+     "order": 0
+    },
+    {
+     "id": "cmraqespw0001nktdogkk8qn3",
+     "projectId": "cmr5527eu0001wktdxc64l015",
+     "url": "/uploads/placeholders/vivek-residence-2.jpg",
+     "alt": "Vivek Residence — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAL/xAAdEAACAwACAwAAAAAAAAAAAAABAwACEQQTIjFB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAXEQEAAwAAAAAAAAAAAAAAAAAAAREh/9oADAMBAAIRAxEAPwA3ksQmlulmsO6D6I+bLu9lLeCTUWAthOZESaizr//Z",
+     "order": 1
+    },
+    {
+     "id": "cmraqetne0002nktd3tlwqdjg",
+     "projectId": "cmr5527eu0001wktdxc64l015",
+     "url": "/uploads/placeholders/vivek-residence-3.jpg",
+     "alt": "Vivek Residence — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHhAAAgICAgMAAAAAAAAAAAAAAQIDBABBERIhQ3H/xAAUAQEAAAAAAAAAAAAAAAAAAAAE/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAERMf/aAAwDAQACEQMRAD8ApenZVhFVZVPs7MfPzM963WefmITABQG7Nve8YwiVFYf/2Q==",
+     "order": 2
+    },
+    {
+     "id": "cmraqeuko0003nktdyenskfd4",
+     "projectId": "cmr5527eu0001wktdxc64l015",
+     "url": "/uploads/placeholders/vivek-residence-4.jpg",
+     "alt": "Vivek Residence — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAASAAwDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABQACBP/EACUQAAICAQMBCQAAAAAAAAAAAAECAAMRISIxEgQFExQyQUJRkf/EABYBAQEBAAAAAAAAAAAAAAAAAAIDBP/EABcRAAMBAAAAAAAAAAAAAAAAAAABAjH/2gAMAwEAAhEDEQA/AO6uuvzdadOU2jpOo5MW7PVTizYnrPxEEe9BcWFgVlAJLNroTxNJ3jhdttoyckFff8mabU6XqXWB3hVmhc1rxniAtdarELY4H0GMpQISP//Z",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f4k0000ywtdw6a93dhk",
+     "projectId": "cmr5527eu0001wktdxc64l015",
+     "type": "CONCEPT",
+     "text": "A residence on a compact site amidst dense foliage, built as an interplay of skilfully laid brickwork and neutral tones. Internal walls are minimised to open up the first floor — living, dining, kitchen and pooja in one continuous plan — while a double-height volume with a distinct jali separates living from dining without ever breaking visual connection.",
+     "image": null,
+     "order": 0
+    },
+    {
+     "id": "cmras2f4o0001ywtdr001s77p",
+     "projectId": "cmr5527eu0001wktdxc64l015",
+     "type": "FINAL",
+     "text": "A coffered ceiling with alternating skylight voids crowns the double-height space; together with the jali it washes the floor in natural light, casting shifting patterns of shade and shadow through the day. Louvered windows overlook the living area below, terraces open to greenery, and brick, wood and warm light breathe life into the interior.",
+     "image": null,
+     "order": 1
+    }
+   ]
+  },
+  {
+   "id": "cmr5527fh0004wktdmnqhuliw",
+   "slug": "indiranagar-duplex-residence",
+   "title": "Indiranagar Duplex Residence",
+   "category": "Residential",
+   "year": null,
+   "location": "Indiranagar, Bengaluru",
+   "typology": "Duplex residence",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/indiranagar-duplex-residence-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAGAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHhAAAgEDBQAAAAAAAAAAAAAAAQIAAxEhBBIiQWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AKOF2og4swyQPJo0iXo3DEgnHURBDr//2Q==",
+   "status": "PUBLISHED",
+   "order": 3,
+   "metaTitle": null,
+   "metaDesc": "Indiranagar Duplex Residence — Duplex residence by Design Matters Architects, Indiranagar, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.085Z",
+   "updatedAt": "2026-07-07T14:16:01.375Z",
+   "gallery": [
+    {
+     "id": "cmraqexrr0009nktd1fe5jirr",
+     "projectId": "cmr5527fh0004wktdmnqhuliw",
+     "url": "/uploads/placeholders/indiranagar-duplex-residence-1.jpg",
+     "alt": "Indiranagar Duplex Residence — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEE/8QAHhAAAgICAgMAAAAAAAAAAAAAAQIAAxESBCExcYH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABYRAQEBAAAAAAAAAAAAAAAAABEAAf/aAAwDAQACEQMRAD8AgtLIKrtRWMYTs/TNvGpdKyK1QLsfJPqIl3Ai3//Z",
+     "order": 0
+    },
+    {
+     "id": "cmraqey1n000anktdhxai22q5",
+     "projectId": "cmr5527fh0004wktdmnqhuliw",
+     "url": "/uploads/placeholders/indiranagar-duplex-residence-2.jpg",
+     "alt": "Indiranagar Duplex Residence — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAGAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAcEAACAgMBAQAAAAAAAAAAAAABAgARAwQTIZH/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALNpQi9Miq4FUCsZDskiuYWvBZ8HyIgp/9k=",
+     "order": 1
+    },
+    {
+     "id": "cmraqeyhv000bnktdfxdcp6l9",
+     "projectId": "cmr5527fh0004wktdmnqhuliw",
+     "url": "/uploads/placeholders/indiranagar-duplex-residence-3.jpg",
+     "alt": "Indiranagar Duplex Residence — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEC/8QAHBAAAgICAwAAAAAAAAAAAAAAAQIAERIhBBRR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ANsnZVG5KbI0Mrq/JVGChQCABQANVEQk/9k=",
+     "order": 2
+    },
+    {
+     "id": "cmraqeyt1000cnktdwhtfarsy",
+     "projectId": "cmr5527fh0004wktdmnqhuliw",
+     "url": "/uploads/placeholders/indiranagar-duplex-residence-4.jpg",
+     "alt": "Indiranagar Duplex Residence — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAED/8QAHxABAAEEAQUAAAAAAAAAAAAAAQMAAhEhBAUSFCKx/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ANZr+cyWy8cPHD2FM53r5UOoTRBbNeF+NnaNKUZH/9k=",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f5f0006ywtd28bijg97",
+     "projectId": "cmr5527fh0004wktdmnqhuliw",
+     "type": "CONCEPT",
+     "text": "Interiors for a duplex home in the prime of Indiranagar, handled in a contemporary register. Neutral colours with a contrast of carefully placed accent colour bring out the highlights, while subtle patterns and textures break the monotony and make the spaces more engaging to live in.",
+     "image": null,
+     "order": 0
+    }
+   ]
+  },
+  {
+   "id": "cmr5527fm0005wktdzvgiv688",
+   "slug": "jibeesh-residence",
+   "title": "Jibeesh Residence",
+   "category": "Residential",
+   "year": null,
+   "location": "Bengaluru",
+   "typology": "Private residence",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/jibeesh-residence-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEE/8QAHxAAAQMDBQAAAAAAAAAAAAAAAQACAwQSIRETQZHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAL/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEQMRAD8A2xzzyMuLMNAJbdnxSmqJJoGu23g86kZ6KIlVH//Z",
+   "status": "PUBLISHED",
+   "order": 4,
+   "metaTitle": null,
+   "metaDesc": "Jibeesh Residence — Private residence by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.090Z",
+   "updatedAt": "2026-07-07T14:16:03.590Z",
+   "gallery": [
+    {
+     "id": "cmraqez9w000dnktd8ddbr8in",
+     "projectId": "cmr5527fm0005wktdzvgiv688",
+     "url": "/uploads/placeholders/jibeesh-residence-1.jpg",
+     "alt": "Jibeesh Residence — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAID/8QAHRABAAMAAQUAAAAAAAAAAAAAAQACAxEEBTFRcf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAAQAR/9oADAMBAAIRAxEAPwCjuWnUVHCtlHi6oD8mul86XTfJvb2ceIiEypf/2Q==",
+     "order": 0
+    },
+    {
+     "id": "cmraqezhp000enktdy9ap828a",
+     "projectId": "cmr5527fm0005wktdzvgiv688",
+     "url": "/uploads/placeholders/jibeesh-residence-2.jpg",
+     "alt": "Jibeesh Residence — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAIBAAAQMCBwAAAAAAAAAAAAAAAQACAxESBBMhIzEyQf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/ANN2bDI2CAAkMoNeop6qMI+Qw7xbeDQ28IiRX//Z",
+     "order": 1
+    },
+    {
+     "id": "cmraqezpv000fnktdflwuafe1",
+     "projectId": "cmr5527fm0005wktdzvgiv688",
+     "url": "/uploads/placeholders/jibeesh-residence-3.jpg",
+     "alt": "Jibeesh Residence — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHRABAAICAgMAAAAAAAAAAAAAAgEDABEEEgUhMf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/ANBsvHLCSJKiDMTufe/uSnydhssCrfYLrOlGMYiv/9k=",
+     "order": 2
+    },
+    {
+     "id": "cmraqezxe000gnktdjgu8mplg",
+     "projectId": "cmr5527fm0005wktdzvgiv688",
+     "url": "/uploads/placeholders/jibeesh-residence-4.jpg",
+     "alt": "Jibeesh Residence — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAdEAACAgIDAQAAAAAAAAAAAAABAgADBBIRQWHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCjYMpbAEUaDst35JdtWYmRcara1Vm24K+D5EQU/9k=",
+     "order": 3
+    }
+   ],
+   "storyBlocks": []
+  },
+  {
+   "id": "cmr5527fq0006wktd6da6wsf1",
+   "slug": "snn-clermont",
+   "title": "SNN Clermont",
+   "category": "Residential",
+   "year": null,
+   "location": "Bengaluru",
+   "typology": "Apartment interiors",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/snn-clermont-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIE/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAAwQREiGBof/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAETH/2gAMAwEAAhEDEQA/ANmddamYy1c2qGgCnfkprLQqBwoYKNhjo/IiDaXH/9k=",
+   "status": "PUBLISHED",
+   "order": 5,
+   "metaTitle": null,
+   "metaDesc": "SNN Clermont — Apartment interiors by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.094Z",
+   "updatedAt": "2026-07-08T07:11:35.468Z",
+   "gallery": [
+    {
+     "id": "cmraqf0lm000hnktdxi4oa5x8",
+     "projectId": "cmr5527fq0006wktd6da6wsf1",
+     "url": "/uploads/placeholders/snn-clermont-1.jpg",
+     "alt": "SNN Clermont — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJAAwDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIDBP/EAB4QAAEEAgMBAAAAAAAAAAAAAAEAAgMEERIhM3E0/8QAFAEBAAAAAAAAAAAAAAAAAAAABP/EABcRAAMBAAAAAAAAAAAAAAAAAAARIRL/2gAMAwEAAhEDEQA/ANFy5FG9kjcmcMy1uDwPEklu23TTUZaCfVV31RI2O0o+qIUP/9k=",
+     "order": 0
+    },
+    {
+     "id": "cmraqf0yk000inktdz2r4aj6t",
+     "projectId": "cmr5527fq0006wktd6da6wsf1",
+     "url": "/uploads/placeholders/snn-clermont-2.jpg",
+     "alt": "SNN Clermont — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHBAAAgIDAQEAAAAAAAAAAAAAAQMAAgQRIUFx/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwCuLl1YqpFPOWPCTMeXnOW7S1VA0CQe6P2IgQ1f/9k=",
+     "order": 1
+    },
+    {
+     "id": "cmraqf1bl000jnktdz6qfyc4h",
+     "projectId": "cmr5527fq0006wktd6da6wsf1",
+     "url": "/uploads/placeholders/snn-clermont-3.jpg",
+     "alt": "SNN Clermont — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAfEAACAgEEAwAAAAAAAAAAAAABAgADEQQSIUEjMYH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAFREBAQAAAAAAAAAAAAAAAAAAAQD/2gAMAwEAAhEDEQA/ALK9UjVW1lib0OAjAY9cZ+xXdbt8qqD0GPURAWcv/9k=",
+     "order": 2
+    },
+    {
+     "id": "cmraqf1nw000knktdcv8bw0yk",
+     "projectId": "cmr5527fq0006wktd6da6wsf1",
+     "url": "/uploads/placeholders/snn-clermont-4.jpg",
+     "alt": "SNN Clermont — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHhAAAgEEAwEAAAAAAAAAAAAAAQIDAAQREhMhMaH/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABURAQEAAAAAAAAAAAAAAAAAAAEA/9oADAMBAAIRAxEAPwC813bQINpDyhs4YdEZ9FZJL6Nm2ZgpbvHnylKBqS//2Q==",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f5j0007ywtdgzgm5csx",
+     "projectId": "cmr5527fq0006wktd6da6wsf1",
+     "type": "CONCEPT",
+     "text": "This 4 BHK apartment embraces the clients' lifestyle and their vast collection of art, artefacts and books. A customised artwork by an artist friend takes the vantage position in the living room; dark-toned stone cladding on the opposite wall balances it, and the rest of the home is kept deliberately simple and light.",
+     "image": null,
+     "order": 0
+    },
+    {
+     "id": "cmras2f5l0008ywtd6dsphxqm",
+     "projectId": "cmr5527fq0006wktd6da6wsf1",
+     "type": "FINAL",
+     "text": "The false ceiling stays quiet and elegant with veneered ply borders, and the corridor becomes a gallery for the art collection. Each bedroom follows the client's brief — a purple theme for the daughter, a subtly accented guest room, and a blue-themed master with rich panelling.",
+     "image": null,
+     "order": 1
+    }
+   ]
+  },
+  {
+   "id": "cmr5527fx0007wktdtzbnl9a4",
+   "slug": "casa-grande-luxus",
+   "title": "Casa Grande Luxus",
+   "category": "Residential",
+   "year": null,
+   "location": "Bengaluru",
+   "typology": "Apartment interiors",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/casa-grande-luxus-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAP/xAAdEAACAgIDAQAAAAAAAAAAAAABAgAREiEDBFEF/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwC3eJGTlSRRWsgTs+eak1+vx8KhWChq3ktkxEI8f//Z",
+   "status": "PUBLISHED",
+   "order": 6,
+   "metaTitle": null,
+   "metaDesc": "Casa Grande Luxus — Apartment interiors by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.101Z",
+   "updatedAt": "2026-07-08T07:11:35.468Z",
+   "gallery": [
+    {
+     "id": "cmraqf2fo000lnktdukcxui0t",
+     "projectId": "cmr5527fx0007wktdtzbnl9a4",
+     "url": "/uploads/placeholders/casa-grande-luxus-1.jpg",
+     "alt": "Casa Grande Luxus — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAfEAABBAEFAQAAAAAAAAAAAAADAAECEQQSEyIxYVH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAFxEBAQEBAAAAAAAAAAAAAAAAEQAhIv/aAAwDAQACEQMRAD8AmBkCKGQzF53cZyg3dfVdhNiABtuUMnaT2+r31ERHLM6X/9k=",
+     "order": 0
+    },
+    {
+     "id": "cmraqf2r9000mnktdkw7644yj",
+     "projectId": "cmr5527fx0007wktdtzbnl9a4",
+     "url": "/uploads/placeholders/casa-grande-luxus-2.jpg",
+     "alt": "Casa Grande Luxus — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAHRAAAgIDAAMAAAAAAAAAAAAAAQIEEQADIQUxYf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAWEQEBAQAAAAAAAAAAAAAAAAABABH/2gAMAwEAAhEDEQA/AIYutjFjppR22NZq6Dd9fMz/ACEPeZTEIz2B1V5jGCMybf/Z",
+     "order": 1
+    },
+    {
+     "id": "cmraqf318000nnktd5wekodpi",
+     "projectId": "cmr5527fx0007wktdtzbnl9a4",
+     "url": "/uploads/placeholders/casa-grande-luxus-3.jpg",
+     "alt": "Casa Grande Luxus — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHRAAAgIDAAMAAAAAAAAAAAAAAREAAwISIQRBYf/EABUBAQEAAAAAAAAAAAAAAAAAAAME/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAECEf/aAAwDAQACEQMRAD8A3m+/KwhHOrUpohhI/Pcpb5W5BrPAFwqIkqt5o7k//9k=",
+     "order": 2
+    },
+    {
+     "id": "cmraqf3cy000onktdf9yk6zhy",
+     "projectId": "cmr5527fx0007wktdtzbnl9a4",
+     "url": "/uploads/placeholders/casa-grande-luxus-4.jpg",
+     "alt": "Casa Grande Luxus — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAAwUSBBEiUf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AJ8XI2GvVm2cONu6yfM0kyNWvpXY/RUYiWD/2Q==",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f5p0009ywtdzxl70c12",
+     "projectId": "cmr5527fx0007wktdtzbnl9a4",
+     "type": "CONCEPT",
+     "text": "The interiors of this villa are defined by veneer — on the false ceiling and in panelling through the public areas — with a stunning Celestile mural forming the centrepiece of the living room.",
+     "image": null,
+     "order": 0
+    },
+    {
+     "id": "cmras2f5q000aywtd2srk5bf8",
+     "projectId": "cmr5527fx0007wktdtzbnl9a4",
+     "type": "FINAL",
+     "text": "Rich veneer panelling, high headboards and Aristo sliding wardrobes in lacquered glass give the master and guest bedrooms a stately presence; the children's room is finished in a cheerful yellow-and-grey theme. At the staircase, stone cladding and textured paint frame a chandelier that drops through three floors.",
+     "image": null,
+     "order": 1
+    }
+   ]
+  },
+  {
+   "id": "cmr5527g10008wktdvdvughru",
+   "slug": "la-palazzo",
+   "title": "La Palazzo",
+   "category": "Residential",
+   "year": null,
+   "location": "Bengaluru",
+   "typology": "Apartment interiors",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/la-palazzo-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEE/8QAHRAAAgIDAAMAAAAAAAAAAAAAAQIAIQMEERIxcf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDU266syjGXIrtD5IdvYyEnEPFRXK9xEMj/2Q==",
+   "status": "PUBLISHED",
+   "order": 7,
+   "metaTitle": null,
+   "metaDesc": "La Palazzo — Apartment interiors by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.105Z",
+   "updatedAt": "2026-07-08T07:11:35.468Z",
+   "gallery": [
+    {
+     "id": "cmraqf4a9000pnktddxaqe3wz",
+     "projectId": "cmr5527g10008wktdvdvughru",
+     "url": "/uploads/placeholders/la-palazzo-1.jpg",
+     "alt": "La Palazzo — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHhAAAgICAgMAAAAAAAAAAAAAAQIEEQASA1EhMXH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFhEAAwAAAAAAAAAAAAAAAAAAAAEh/9oADAMBAAIRAxEAPwDXHlyL4y7ag0WUjY197ykmZKTmYLSr41sA2O/eMYVROH//2Q==",
+     "order": 0
+    },
+    {
+     "id": "cmraqf4oc000qnktdxh2pvcsl",
+     "projectId": "cmr5527g10008wktdvdvughru",
+     "url": "/uploads/placeholders/la-palazzo-2.jpg",
+     "alt": "La Palazzo — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAGxABAAMBAAMAAAAAAAAAAAAAAQIDEQAEElH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFhEAAwAAAAAAAAAAAAAAAAAAAAEx/9oADAMBAAIRAxEAPwDY2XMPTYkwBk/et4U7CuZeBIm5hunOcVROH//Z",
+     "order": 1
+    },
+    {
+     "id": "cmraqf4zx000rnktd8zoxkcg6",
+     "projectId": "cmr5527g10008wktdvdvughru",
+     "url": "/uploads/placeholders/la-palazzo-3.jpg",
+     "alt": "La Palazzo — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAHRAAAwEAAQUAAAAAAAAAAAAAAQIDABEEBSExkf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAXEQADAQAAAAAAAAAAAAAAAAAAAREh/9oADAMBAAIRAxEAPwCCdxRJOsXtUcEAui+/uzK9UlKu1DRiT45OZjdYpiP/2Q==",
+     "order": 2
+    },
+    {
+     "id": "cmraqf5fc000snktdwq492jvd",
+     "projectId": "cmr5527g10008wktdvdvughru",
+     "url": "/uploads/placeholders/la-palazzo-4.jpg",
+     "alt": "La Palazzo — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHhAAAgICAgMAAAAAAAAAAAAAAQIAEQMEEkEUMZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/ANOLZYLkLFjxeuz1Lea5qtZ2Fe7Vb+mIhkj/2Q==",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f5t000bywtdv1c6wbpm",
+     "projectId": "cmr5527g10008wktdvdvughru",
+     "type": "CONCEPT",
+     "text": "Contemporary elegance with everyday functionality: neutral tones, bold accents and thoughtful decor in harmony. A striking chandelier and a bold geometric rug layer the dining area with sophistication, a large grid mirror adds depth, and sheer curtains diffuse natural light — artwork and greenery bringing the rooms to life.",
+     "image": null,
+     "order": 0
+    }
+   ]
+  },
+  {
+   "id": "cmr5527g50009wktdjbfng1sx",
+   "slug": "epsilon",
+   "title": "Epsilon",
+   "category": "Residential",
+   "year": null,
+   "location": "Bengaluru",
+   "typology": "Villa interiors",
+   "area": "15,000 sq ft",
+   "team": null,
+   "heroImage": "/uploads/placeholders/epsilon-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAX/xAAiEAACAQMCBwAAAAAAAAAAAAABAgMAESETcQQFMjNyobH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AEcZG4ayMIo1Y6dyBcHep0qzCRhqHBtgDPqrHLe5L4p8NBPU25oqWP/Z",
+   "status": "PUBLISHED",
+   "order": 8,
+   "metaTitle": null,
+   "metaDesc": "Epsilon — Villa interiors by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.109Z",
+   "updatedAt": "2026-07-07T15:02:17.159Z",
+   "gallery": [
+    {
+     "id": "cmraqf5lv000tnktdxvym6azs",
+     "projectId": "cmr5527g50009wktdjbfng1sx",
+     "url": "/uploads/placeholders/epsilon-1.jpg",
+     "alt": "Epsilon — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAHxAAAgEEAgMAAAAAAAAAAAAAAQIABBMhMQMiESTB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEQMRAD8Ao7eSr8lwA4UqMZmRXUntO7oBc7DWtfIiTpR//9k=",
+     "order": 0
+    },
+    {
+     "id": "cmraqf5n6000unktdl8cd2ibu",
+     "projectId": "cmr5527g50009wktdjbfng1sx",
+     "url": "/uploads/placeholders/epsilon-2.jpg",
+     "alt": "Epsilon — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAL/xAAdEAACAgIDAQAAAAAAAAAAAAABAgADETEEIWEi/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwCn4IpBJU1s2wrkYOPIt+RWGPYTG/TEQyE//9k=",
+     "order": 1
+    },
+    {
+     "id": "cmraqf5oh000vnktdirpv81iw",
+     "projectId": "cmr5527g50009wktdjbfng1sx",
+     "url": "/uploads/placeholders/epsilon-3.jpg",
+     "alt": "Epsilon — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAHhAAAgICAgMAAAAAAAAAAAAAAQIAAwQSESETMUH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwCzGN/hR7EUq1Y177J49mYmSWst2YsD9BeIk6cf/9k=",
+     "order": 2
+    },
+    {
+     "id": "cmraqf5pw000wnktdnpxzmg3o",
+     "projectId": "cmr5527g50009wktdjbfng1sx",
+     "url": "/uploads/placeholders/epsilon-4.jpg",
+     "alt": "Epsilon — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAED/8QAHRABAAICAgMAAAAAAAAAAAAAAQASAgMEBSFBkf/EABQBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDDsOT4ddKoAPsk03dZTDFx+REC/9k=",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f5w000cywtd0i50ef24",
+     "projectId": "cmr5527g50009wktdjbfng1sx",
+     "type": "CONCEPT",
+     "text": "At 15,000 sq ft, this sprawling villa is one of the studio's largest interior commissions — taken on at bare-shell stage, with every room and bathroom finished in exclusive materials: bespoke tiles from FCML and Celestile, white Vietnam marble in the public areas, solid wood flooring in the bedrooms.",
+     "image": null,
+     "order": 0
+    },
+    {
+     "id": "cmras2f5x000dywtd1y7tsjc3",
+     "projectId": "cmr5527g50009wktdjbfng1sx",
+     "type": "FINAL",
+     "text": "Each room follows a theme set by the client — a princess look for the daughter, a modern industrial edge for the son, an elegant master suite — while PVD-coated brass stands with wooden shelves partition the living and family areas.",
+     "image": null,
+     "order": 1
+    }
+   ]
+  },
+  {
+   "id": "cmr5527g9000awktd45o36whf",
+   "slug": "suraj-interiors",
+   "title": "Suraj Interiors",
+   "category": "Interiors",
+   "year": null,
+   "location": "Bengaluru",
+   "typology": "Interior design",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/suraj-interiors-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAHhAAAgICAgMAAAAAAAAAAAAAAQIAEQMEEjETIUH/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwDT2do4+A8nFneltOxfUumdKpgCw9Gx9iIRdf/Z",
+   "status": "PUBLISHED",
+   "order": 9,
+   "metaTitle": null,
+   "metaDesc": "Suraj Interiors — Interior design by Design Matters Architects, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.113Z",
+   "updatedAt": "2026-07-08T07:11:10.689Z",
+   "gallery": [
+    {
+     "id": "cmraqf6p0000xnktdzwww551f",
+     "projectId": "cmr5527g9000awktd45o36whf",
+     "url": "/uploads/placeholders/suraj-interiors-1.jpg",
+     "alt": "Suraj Interiors — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAEQMEEiEiMf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDU2i+vzJTyzWou6EiyJkD+1+9juIhJ/9k=",
+     "order": 0
+    },
+    {
+     "id": "cmraqf72s000ynktdjnctpfrc",
+     "projectId": "cmr5527g9000awktd45o36whf",
+     "url": "/uploads/placeholders/suraj-interiors-2.jpg",
+     "alt": "Suraj Interiors — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIF/8QAHRABAAICAgMAAAAAAAAAAAAAAQIDAAQhMRESQf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEQMRAD8A0hltMLK0Iz6OuMnWsNetq2PPtGSBE4D4YxhKv//Z",
+     "order": 1
+    },
+    {
+     "id": "cmraqf7gu000znktdq3g2mxs5",
+     "projectId": "cmr5527g9000awktd45o36whf",
+     "url": "/uploads/placeholders/suraj-interiors-3.jpg",
+     "alt": "Suraj Interiors — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAP/xAAfEAABAwQDAQAAAAAAAAAAAAABAAIDBREhMQQSE4H/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AL05wZwjPICG3NiN7Nh8U56p5PDegONkZRESj//Z",
+     "order": 2
+    },
+    {
+     "id": "cmraqf7qx0010nktdwuhtl0yq",
+     "projectId": "cmr5527g9000awktd45o36whf",
+     "url": "/uploads/placeholders/suraj-interiors-4.jpg",
+     "alt": "Suraj Interiors — Design Matters Architects, view 4",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAHRAAAgIDAAMAAAAAAAAAAAAAAQIAAwQRIRQzQf/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/ANfm2v69OFUdLEFjrol8fOqspUtYd/eGIgqkf//Z",
+     "order": 3
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f64000eywtd1q6hw9u9",
+     "projectId": "cmr5527g9000awktd45o36whf",
+     "type": "CONCEPT",
+     "text": "An interior project in Arekere, Bengaluru that carries ethnicity with a touch of modernity. Pastel tones meet traditional prints, and intricate details — paintings, textiles — set a well-judged contrast against the neutral base.",
+     "image": null,
+     "order": 0
+    }
+   ]
+  },
+  {
+   "id": "cmr5527gd000bwktdtppqj9g5",
+   "slug": "indiranagar-dental-clinic",
+   "title": "Indiranagar Dental Clinic",
+   "category": "Commercial",
+   "year": null,
+   "location": "Indiranagar, Bengaluru",
+   "typology": "Healthcare / clinic",
+   "area": null,
+   "team": null,
+   "heroImage": "/uploads/placeholders/indiranagar-dental-clinic-hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAwIF/8QAIhAAAgIBAQkAAAAAAAAAAAAAAQIAAwQREiEiMkJRUnFy/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAVEQEBAAAAAAAAAAAAAAAAAAAAQf/aAAwDAQACEQMRAD8AVMtWU1Grj2CQV7yqMzWveKwR5rqZg3cz+xETq+pNMf/Z",
+   "status": "PUBLISHED",
+   "order": 10,
+   "metaTitle": null,
+   "metaDesc": "Indiranagar Dental Clinic — Healthcare / clinic by Design Matters Architects, Indiranagar, Bengaluru.",
+   "createdAt": "2026-07-03T16:19:25.117Z",
+   "updatedAt": "2026-07-07T14:16:15.504Z",
+   "gallery": [
+    {
+     "id": "cmraqf8os0011nktd9h1ddyhq",
+     "projectId": "cmr5527gd000bwktdtppqj9g5",
+     "url": "/uploads/placeholders/indiranagar-dental-clinic-1.jpg",
+     "alt": "Indiranagar Dental Clinic — Design Matters Architects, view 1",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJAAwDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBf/EACEQAAICAQIHAAAAAAAAAAAAAAECAAMRBBIxM0FxgZHB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwC9tZWpK2hQ2CVO71HV64NWpUjBHTBmO/N8/IY4nvJL/9k=",
+     "order": 0
+    },
+    {
+     "id": "cmraqf94p0012nktdy0vv2moa",
+     "projectId": "cmr5527gd000bwktdtppqj9g5",
+     "url": "/uploads/placeholders/indiranagar-dental-clinic-2.jpg",
+     "alt": "Indiranagar Dental Clinic — Design Matters Architects, view 2",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAH/xAAjEAACAQIEBwAAAAAAAAAAAAABAgMAEhExMoEEBRUhQVFx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBq81hkkZWXFx4Iz99xR+qSXPbaFuOAAyG9D4XUPlSfXtUl/9k=",
+     "order": 1
+    },
+    {
+     "id": "cmraqf9jd0013nktduksaodvg",
+     "projectId": "cmr5527gd000bwktdtppqj9g5",
+     "url": "/uploads/placeholders/indiranagar-dental-clinic-3.jpg",
+     "alt": "Indiranagar Dental Clinic — Design Matters Architects, view 3",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAP/xAAjEAABBAEBCQAAAAAAAAAAAAACAAEEEQMSITE0NUFRcnOx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEQMRAD8AbInNjbHWGxYdRkJblQJIkN1pbptu27osbkkn1F8dCjcNi8GUmv/Z",
+     "order": 2
+    }
+   ],
+   "storyBlocks": [
+    {
+     "id": "cmras2f68000fywtdmbihqr40",
+     "projectId": "cmr5527gd000bwktdtppqj9g5",
+     "type": "CONCEPT",
+     "text": "The aim: a comfortable environment for patients that never feels monotonous or clinical. Neutral colours with a contrasting sap green keep the space calm while holding the professional decorum of the practice.",
+     "image": null,
+     "order": 0
+    }
+   ]
+  }
+ ],
+ "posts": []
+}

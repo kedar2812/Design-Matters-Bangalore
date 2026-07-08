@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/db";
+import { getPublishedProjects } from "@/lib/content";
 import { ProjectsGrid } from "@/components/site/ProjectsGrid";
 import { Entry } from "@/components/motion/Entry";
 
@@ -13,20 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-  const projects = await prisma.project.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { order: "asc" },
-    select: {
-      id: true,
-      slug: true,
-      title: true,
-      category: true,
-      year: true,
-      location: true,
-      heroImage: true,
-      heroBlur: true,
-    },
-  });
+  // Trim to the tile fields so the client payload stays lean.
+  const projects = (await getPublishedProjects()).map(
+    ({ id, slug, title, category, year, location, heroImage, heroBlur }) => ({
+      id, slug, title, category, year, location, heroImage, heroBlur,
+    }),
+  );
 
   const categories = [...new Set(projects.map((p) => p.category))];
 
