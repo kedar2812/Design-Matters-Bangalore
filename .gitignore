@@ -40,9 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# uploaded media (synced separately, not in git)
-/public/uploads/*
-!/public/uploads/.gitkeep
+# uploaded media is committed (13 MB today) so Vercel/GitHub deploys
+# ship the photography; revisit if the library outgrows git
 
 # generated prisma client (rebuilt via postinstall)
 /lib/generated/
