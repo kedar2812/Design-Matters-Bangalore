@@ -42,7 +42,7 @@ export function EnquiryForm({ source }: { source?: string }) {
   if (state?.ok) {
     return (
       <div
-        className="fade-rise rounded-2xl border border-hairline bg-paper p-8"
+        className="fade-rise rounded-2xl border border-hairline bg-paper/80 p-8 backdrop-blur-xl"
         role="status"
       >
         <span className="mb-5 flex size-12 items-center justify-center rounded-full bg-brass/12 text-brass">
@@ -62,7 +62,7 @@ export function EnquiryForm({ source }: { source?: string }) {
   return (
     <form
       action={action}
-      className="rounded-2xl border border-hairline bg-paper p-6 shadow-sm sm:p-8"
+      className="rounded-2xl border border-hairline bg-paper/80 p-6 shadow-sm backdrop-blur-xl sm:p-8"
       noValidate
     >
       {source && <input type="hidden" name="source" value={source} />}

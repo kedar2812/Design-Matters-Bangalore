@@ -1,4 +1,5 @@
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { EnquiryGlow } from "@/components/site/EnquiryGlow";
 import { Reveal } from "@/components/motion/Reveal";
 import { site, whatsappHref } from "@/lib/site";
 
@@ -21,7 +22,9 @@ export function EnquirySection({
   return (
     <section className="px-gutter pb-section" aria-label="Enquiry">
       <Reveal>
-        <div className="rule grid gap-12 pt-10 lg:grid-cols-12">
+        <div className="relative isolate overflow-hidden rounded-[2rem] border border-hairline px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
+          <EnquiryGlow />
+          <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="mono-label mb-4">{eyebrow}</p>
             <h2 className="font-display text-h2 max-w-md">{title}</h2>
@@ -50,8 +53,9 @@ export function EnquirySection({
               </li>
             </ul>
           </div>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <EnquiryForm source={source} />
+            <div className="lg:col-span-6 lg:col-start-7">
+              <EnquiryForm source={source} />
+            </div>
           </div>
         </div>
       </Reveal>

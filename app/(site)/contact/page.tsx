@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { site, whatsappHref } from "@/lib/site";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { EnquiryGlow } from "@/components/site/EnquiryGlow";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
 
@@ -24,7 +25,10 @@ export default function ContactPage() {
       <div className="grid gap-16 lg:grid-cols-12">
         {/* Form */}
         <Entry className="lg:col-span-7">
-          <EnquiryForm source="contact-page" />
+          <div className="relative isolate overflow-hidden rounded-[2rem] border border-hairline p-4 sm:p-6">
+            <EnquiryGlow />
+            <EnquiryForm source="contact-page" />
+          </div>
         </Entry>
 
         {/* Studio details */}
