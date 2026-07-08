@@ -44,7 +44,7 @@ export default async function AnalyticsPage() {
   const start30 = new Date(now - 30 * DAY);
   const start7 = new Date(now - 7 * DAY);
 
-  const [views, leads30] = await Promise.all([
+  const [views, leads30, projectTitles] = await Promise.all([
     prisma.pageView.findMany({
       where: { createdAt: { gte: start30 } },
       select: { path: true, source: true, device: true, createdAt: true },
@@ -53,7 +53,9 @@ export default async function AnalyticsPage() {
       where: { createdAt: { gte: start30 } },
       select: { source: true },
     }),
+    prisma.project.findMany({ select: { slug: true, title: true } }),
   ]);
+  const titleBySlug = new Map(projectTitles.map((p) => [p.slug, p.title]));
 
   /* ---- aggregate (volumes are small; JS is fine) ---- */
   const days: { key: string; label: string; count: number }[] = [];
@@ -81,7 +83,10 @@ export default async function AnalyticsPage() {
     if (day) day.count++;
     if (v.createdAt >= start7) views7++;
     tally(pages, v.path);
-    if (v.path.startsWith("/projects/")) tally(projects, v.path.slice("/projects/".length));
+    if (v.path.startsWith("/projects/")) {
+      const slug = v.path.slice("/projects/".length).replace(/\/$/, "");
+      if (slug) tally(projects, titleBySlug.get(slug) ?? slug);
+    }
     tally(sources, v.source ?? "direct");
     if (v.device === "mobile") mobile++;
   }

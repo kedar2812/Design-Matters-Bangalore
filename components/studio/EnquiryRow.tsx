@@ -12,10 +12,20 @@ export type Enquiry = {
   phone: string | null;
   message: string;
   source: string | null;
+  topic: string | null;
+  budget: string | null;
+  location: string | null;
   status: string;
   notes: string | null;
   createdAt: string; // ISO — serialized for the client
 };
+
+/** wa.me link with a courteous prefilled opener — the one-tap reply the
+    client asked for in discovery. */
+export function whatsAppReply(name: string, phone: string) {
+  const text = `Hello ${name.split(" ")[0]}, thank you for reaching out to Design Matters. We'd be glad to hear more about your project — when is a good time to talk?`;
+  return `https://wa.me/${phone.replace(/[^\d]/g, "")}?text=${encodeURIComponent(text)}`;
+}
 
 export function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
   const [open, setOpen] = useState(false);
@@ -41,6 +51,16 @@ export function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
 
         <div className="ml-auto flex items-center gap-4">
           {enquiry.source && <span className="mono-label">via {enquiry.source}</span>}
+          {enquiry.phone && (
+            <a
+              href={whatsAppReply(enquiry.name, enquiry.phone)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mono-label rounded-full border border-hairline px-3 py-1.5 transition-colors hover:border-brass hover:text-brass"
+            >
+              WhatsApp reply
+            </a>
+          )}
           <select
             value={enquiry.status}
             onChange={(e) =>
@@ -57,6 +77,21 @@ export function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
           </select>
         </div>
       </div>
+
+      {(enquiry.topic || enquiry.budget || enquiry.location) && (
+        <p className="mt-2.5 flex flex-wrap gap-1.5">
+          {[enquiry.topic, enquiry.budget, enquiry.location]
+            .filter((t): t is string => Boolean(t))
+            .map((t) => (
+              <span
+                key={t}
+                className="mono-label rounded-full border border-hairline px-2.5 py-0.5"
+              >
+                {t}
+              </span>
+            ))}
+        </p>
+      )}
 
       <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-soft">
         {enquiry.message}
@@ -81,7 +116,7 @@ export function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
                 </p>
                 <p className="text-sm">
                   <a
-                    href={`https://wa.me/${enquiry.phone.replace(/[^\d]/g, "")}`}
+                    href={whatsAppReply(enquiry.name, enquiry.phone)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-brass"

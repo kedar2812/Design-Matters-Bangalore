@@ -43,27 +43,16 @@ export async function submitEnquiry(
     return { ok: false, errors: flat.fieldErrors };
   }
 
-  // Fold the optional context into the message so it shows in the
-  // leads dashboard today; dedicated columns can come with a later
-  // migration without losing anything.
-  const { topic, budget, location } = parsed.data;
-  const details = [
-    topic && `Type: ${topic}`,
-    budget && `Budget: ${budget}`,
-    location && `Location: ${location}`,
-  ]
-    .filter(Boolean)
-    .join(" · ");
-
   await prisma.lead.create({
     data: {
       name: parsed.data.name,
       email: parsed.data.email,
       phone: parsed.data.phone || null,
-      message: details
-        ? `${details}\n\n${parsed.data.message}`
-        : parsed.data.message,
+      message: parsed.data.message,
       source: parsed.data.source || "contact-page",
+      topic: parsed.data.topic || null,
+      budget: parsed.data.budget || null,
+      location: parsed.data.location || null,
     },
   });
 

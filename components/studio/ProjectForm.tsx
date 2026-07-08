@@ -37,7 +37,8 @@ const STORY_TYPES = [
   ["FINAL", "The result", "What got built, and how it's lived in."],
 ] as const;
 
-const CATEGORIES = ["Residential", "Apartment", "Commercial", "Hospitality", "Interior"];
+// The client's own taxonomy, verbatim from the discovery form.
+const CATEGORIES = ["Residential", "Commercial", "Hospitality", "Institutional", "Interiors"];
 
 /* ------------------------------------------------------------- helpers */
 

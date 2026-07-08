@@ -4,11 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
+// Journal stays routable for the studio's own use, but the client's
+// discovery form said no to managing the blog from here — so no nav slot.
 const links = [
   { href: "/studio/dashboard", label: "Overview" },
   { href: "/studio/projects", label: "Projects" },
   { href: "/studio/leads", label: "Enquiries" },
-  { href: "/studio/journal", label: "Journal" },
   { href: "/studio/analytics", label: "Analytics" },
 ] as const;
 

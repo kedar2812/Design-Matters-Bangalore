@@ -86,6 +86,9 @@ model Lead {
   phone     String?
   message   String
   source    String? // page path / project slug / campaign
+  topic     String? // project type chip from the enquiry form
+  budget    String? // budget range chip — discovery form asked to capture
+  location  String? // site location — discovery form asked to capture
   status    LeadStatus @default(NEW)
   notes     String?
   createdAt DateTime   @default(now())

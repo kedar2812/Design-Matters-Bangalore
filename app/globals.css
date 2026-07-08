@@ -21,6 +21,14 @@
   --color-brass-deep: #6b5232; /* accent hover/active */
   --color-chart: #a2762f; /* data marks only — validated ≥3:1 on bone, above chroma floor */
 
+  /* Studio pipeline ramp — one brass hue, light→dark with the funnel's
+     depth. Ordinal-validated on bone (monotone L, ΔL ≥ 0.06, light end
+     ≥2:1). Dark mode flips direction so "further along" gains emphasis. */
+  --color-stage-1: #b98a45;
+  --color-stage-2: #9c7135;
+  --color-stage-3: #7d5c38;
+  --color-stage-4: #5e4a2e;
+
   /* Dusk register — the site's dark closing act (footer, conversion
      moments). Warm umber near-black; cream text on top. */
   --color-dusk: #201a12;
@@ -86,6 +94,11 @@
     --color-hairline: #352d20;
     --color-brass: #c9a468;
     --color-brass-deep: #ddbe86;
+    --color-chart: #bb8228; /* validated on dark bone: in L band, above chroma floor, ≥3:1 */
+    --color-stage-1: #8a6a34;
+    --color-stage-2: #a98443;
+    --color-stage-3: #c9a468;
+    --color-stage-4: #e3cda2;
     --color-dusk: #100d09;
     --color-dusk-edge: #2b2418;
     --glass-light-bg: rgb(22 18 13 / 0.6);
