@@ -14,7 +14,7 @@ import { join } from "node:path";
 import { prisma } from "../lib/db";
 
 async function main() {
-  const [projects, posts] = await Promise.all([
+  const [projects, posts, testimonials] = await Promise.all([
     prisma.project.findMany({
       where: { status: "PUBLISHED" },
       orderBy: { order: "asc" },
@@ -27,15 +27,23 @@ async function main() {
       where: { published: true },
       orderBy: { publishedAt: "desc" },
     }),
+    prisma.testimonial.findMany({
+      where: { published: true },
+      orderBy: { order: "asc" },
+    }),
   ]);
 
   const out = join(process.cwd(), "content", "site-snapshot.json");
   writeFileSync(
     out,
-    JSON.stringify({ exportedAt: new Date().toISOString(), projects, posts }, null, 1),
+    JSON.stringify(
+      { exportedAt: new Date().toISOString(), projects, posts, testimonials },
+      null,
+      1,
+    ),
   );
   console.log(
-    `Snapshot: ${projects.length} projects, ${posts.length} posts → content/site-snapshot.json`,
+    `Snapshot: ${projects.length} projects, ${posts.length} posts, ${testimonials.length} testimonials → content/site-snapshot.json`,
   );
 }
 

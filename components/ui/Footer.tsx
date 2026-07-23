@@ -1,12 +1,19 @@
 import Link from "next/link";
-import { navLinks, site, whatsappHref } from "@/lib/site";
+import { navLinks } from "@/lib/site";
+import { CATEGORIES, categoryHref } from "@/lib/categories";
+import { whatsappHref, type Identity } from "@/lib/settings";
 
 /**
  * Dusk footer — every page's closing act shifts into the dark warm
  * register and makes the studio's #1 ask (enquire) unmissable:
  * a written enquiry, WhatsApp, or a phone call.
  */
-export function Footer() {
+export function Footer({ identity: site }: { identity: Identity }) {
+  const wa = whatsappHref(
+    site.whatsapp,
+    `Hello ${site.shortName} — I’d like to discuss a project.`,
+  );
+
   return (
     <footer className="bg-dusk text-cream">
       {/* Conversation CTA */}
@@ -23,7 +30,7 @@ export function Footer() {
             Enquire about a project
           </Link>
           <a
-            href={whatsappHref("Hello Design Matters — I'd like to discuss a project.")}
+            href={wa}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full border border-cream/30 px-8 py-3.5 text-sm tracking-wide text-cream transition-colors hover:border-brass-bright hover:text-brass-bright"
@@ -46,11 +53,11 @@ export function Footer() {
           <p className="text-sm leading-relaxed text-cream/70">
             {site.name}
             <br />
-            {site.address.line1}
+            {site.addressLine1}
             <br />
-            {site.address.line2}
+            {site.addressLine2}
             <br />
-            {site.address.city} {site.address.pin}
+            {site.city} {site.pin}
           </p>
         </div>
 
@@ -69,7 +76,7 @@ export function Footer() {
             </li>
             <li>
               <a
-                href={whatsappHref("Hello Design Matters — I'd like to discuss a project.")}
+                href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-brass-bright"
@@ -88,6 +95,23 @@ export function Footer() {
                 <Link href={href} className="transition-colors hover:text-brass-bright">
                   {label}
                 </Link>
+
+                {/* The practice areas are the studio's main search
+                    surface — worth a crawlable link on every page. */}
+                {href === "/projects" && (
+                  <ul className="mt-2 space-y-2 border-l border-dusk-edge pl-3">
+                    {CATEGORIES.map((c) => (
+                      <li key={c.slug}>
+                        <Link
+                          href={categoryHref(c.slug)}
+                          className="text-cream/55 transition-colors hover:text-brass-bright"
+                        >
+                          {c.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -98,17 +122,17 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-cream/70">
             <li>
               <a
-                href={site.socials.instagram}
+                href={site.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-brass-bright"
               >
-                Instagram — @designmattersarchitects
+                Instagram
               </a>
             </li>
             <li>
               <a
-                href={site.socials.linkedin}
+                href={site.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-brass-bright"
@@ -125,7 +149,9 @@ export function Footer() {
         <p className="mono-label text-cream/50">
           &copy; {new Date().getFullYear()} {site.name}
         </p>
-        <p className="mono-label text-cream/50">Indiranagar, Bengaluru</p>
+        <p className="mono-label text-cream/50">
+          {site.addressLine2.split(",").pop()?.trim() || site.city}, {site.city}
+        </p>
       </div>
     </footer>
   );

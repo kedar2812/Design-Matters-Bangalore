@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { getIdentity } from "@/lib/settings";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -6,8 +6,10 @@ export const SITE_URL =
 /**
  * Site-wide structured data: the studio as an Organization and a
  * bookable LocalBusiness (ProfessionalService) in Indiranagar.
+ * Reads the live identity so dashboard edits reach search engines.
  */
-export function organizationJsonLd() {
+export async function organizationJsonLd() {
+  const site = await getIdentity();
   return {
     "@context": "https://schema.org",
     "@type": ["Organization", "ProfessionalService"],
@@ -20,20 +22,20 @@ export function organizationJsonLd() {
     founder: {
       "@type": "Person",
       name: site.principal,
-      jobTitle: "Principal Architect",
-      sameAs: site.socials.linkedin,
+      jobTitle: site.principalTitle,
+      sameAs: site.linkedin,
     },
     telephone: site.phone.replace(/\s/g, ""),
     email: site.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: `${site.address.line1}, ${site.address.line2}`,
-      addressLocality: site.address.city,
-      addressRegion: site.address.state,
-      postalCode: site.address.pin,
+      streetAddress: `${site.addressLine1}, ${site.addressLine2}`,
+      addressLocality: site.city,
+      addressRegion: site.state,
+      postalCode: site.pin,
       addressCountry: "IN",
     },
-    areaServed: "Bengaluru",
+    areaServed: site.city,
     knowsAbout: [
       "Architecture",
       "Interior Design",
@@ -41,7 +43,7 @@ export function organizationJsonLd() {
       "Commercial Design",
       "Hospitality Design",
     ],
-    sameAs: [site.socials.instagram, site.socials.linkedin].filter(Boolean),
+    sameAs: [site.instagram, site.linkedin, site.houzz].filter(Boolean),
   };
 }
 

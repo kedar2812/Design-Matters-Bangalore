@@ -57,13 +57,23 @@ export default async function ProjectPage({
   const prev = siblings[(idx - 1 + siblings.length) % siblings.length];
   const next = siblings[(idx + 1) % siblings.length];
 
-  const meta: [string, string | number | null][] = [
-    ["Location", project.location],
-    ["Year", project.year],
-    ["Typology", project.typology],
-    ["Area", project.area],
-    ["Team", project.team],
-  ];
+  // Title-block facts, straight off the studio's project sheet. Empty
+  // fields drop out rather than rendering an em-dash, so a project with
+  // partial data still reads as a complete title block.
+  const meta = (
+    [
+      ["Location", project.location],
+      ["Client", project.client],
+      ["Typology", project.typology],
+      ["Site area", project.siteArea],
+      ["Built-up area", project.area],
+      ["Units", project.units],
+      ["Status", project.statusNote ?? (project.year ? `Completed in ${project.year}` : null)],
+      ["Team", project.team],
+      ["Photography", project.photographer],
+      ["Collaboration", project.collaborator],
+    ] as [string, string | number | null][]
+  ).filter(([, value]) => value !== null && value !== "");
 
   // Every photo on the page opens in the lightbox: story images first
   // (in block order), then the gallery. Index maps must match the
@@ -127,7 +137,7 @@ export default async function ProjectPage({
             {meta.map(([label, value]) => (
               <div key={label}>
                 <dt className="mono-label mb-1">{label}</dt>
-                <dd className="text-sm text-ink-soft">{value ?? "—"}</dd>
+                <dd className="text-sm text-ink-soft">{value}</dd>
               </div>
             ))}
           </dl>

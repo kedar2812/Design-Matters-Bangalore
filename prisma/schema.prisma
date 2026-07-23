@@ -32,16 +32,25 @@ enum Role {
 }
 
 model Project {
-  id          String         @id @default(cuid())
-  slug        String         @unique
-  title       String
-  category    String // Residential | Apartment | Commercial | Hospitality | Interior
-  year        Int?
-  location    String?
-  typology    String?
-  area        String?
-  team        String?
-  heroImage   String?
+  id       String  @id @default(cuid())
+  slug     String  @unique
+  title    String
+  category String // Residential | Interiors | Institutional | Commercial | Hospitality
+  year     Int?
+  location String?
+  typology String?
+  // `area` is the built-up figure (what the site has always shown);
+  // `siteArea` is the plot, which the client's data sheet lists separately.
+  area     String?
+  siteArea String?
+  team     String?
+  // Credits straight off the client's project sheet.
+  client       String?
+  photographer String?
+  collaborator String? // e.g. "In association with Studio Parametric"
+  units        String? // e.g. "55 villaments", "15 units"
+  statusNote   String? // e.g. "Completed in 2023", "Construction phase"
+  heroImage    String?
   heroBlur    String?
   gallery     GalleryImage[]
   storyBlocks StoryBlock[]
@@ -79,6 +88,29 @@ model StoryBlock {
   @@index([projectId, order])
 }
 
+/// Client testimonials — seeded from the studio's Google reviews and
+/// curated from the dashboard. `featured` rows appear on the home page;
+/// `published` rows appear on /testimonials. `googleId` is the dedupe
+/// key for the Places-API sync, so re-syncing never duplicates a review.
+model Testimonial {
+  id         String   @id @default(cuid())
+  author     String
+  context    String? // e.g. "Private residence" — shown under the name
+  rating     Int      @default(5)
+  text       String // the full review, verbatim
+  excerpt    String? // shorter cut for the home page; blank = use text
+  source     String   @default("manual") // "google" | "manual"
+  sourceDate String? // display label, e.g. "June 2026"
+  googleId   String?  @unique
+  featured   Boolean  @default(false)
+  published  Boolean  @default(true)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([published, order])
+}
+
 model Lead {
   id        String     @id @default(cuid())
   name      String
@@ -113,6 +145,16 @@ model Post {
   updatedAt   DateTime  @updatedAt
 
   @@index([published, publishedAt])
+}
+
+/// Editable site copy + studio identity, one row per page section
+/// ("identity", "home", "about", "services", "contact"). Values are JSON
+/// so a section can grow new fields without a migration; `lib/settings.ts`
+/// merges each row over a typed default, so a missing row still renders.
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
 }
 
 model User {

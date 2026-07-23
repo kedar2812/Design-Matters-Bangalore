@@ -1,22 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { navLinks, site } from "@/lib/site";
+import { navLinks } from "@/lib/site";
+import { CATEGORY_SLUGS, type CategorySlug } from "@/lib/categories";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 
 /** Routes that open on a full-bleed photographic hero — the nav sits
- *  over the image there and needs light text until the page scrolls. */
+ *  over the image there and needs light text until the page scrolls.
+ *
+ *  Project *detail* pages qualify; the practice-area pages do not —
+ *  they open on the bone canvas, where cream nav text would vanish. */
 function hasImageHero(pathname: string) {
-  return (
-    pathname === "/" ||
-    (pathname.startsWith("/projects/") && pathname !== "/projects")
-  );
+  if (pathname === "/") return true;
+  if (!pathname.startsWith("/projects/")) return false;
+  const slug = pathname.slice("/projects/".length);
+  return slug.length > 0 && !CATEGORY_SLUGS.includes(slug as CategorySlug);
 }
 
 const linkBase =
@@ -36,15 +40,137 @@ function Underline({ active }: { active: boolean }) {
 }
 
 /**
+ * The Projects quick-links panel — the three practice areas, each with
+ * the studio's own one-line description. Opens on hover and on keyboard
+ * focus; closes on Escape, on route change, and when focus leaves.
+ */
+function CategoryMenu({
+  open,
+  links,
+  pathname,
+  reduce,
+  onBlurOut,
+}: {
+  open: boolean;
+  links: CategoryLink[];
+  pathname: string;
+  reduce: boolean;
+  onBlurOut: () => void;
+}) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
+          transition={{ duration: 0.28, ease: EASE }}
+          // Sits just under the pill; the padded top keeps a hoverable
+          // bridge so the pointer can travel without closing it.
+          className="absolute left-1/2 top-full z-50 w-[21rem] -translate-x-1/2 pt-4"
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node)) onBlurOut();
+          }}
+        >
+          {/* Near-opaque rather than the nav's glass: this panel often
+              opens over full-bleed photography, where 60% translucency
+              left the type unreadable. */}
+          <div className="overflow-hidden rounded-2xl border border-hairline bg-paper/[0.97] p-2 shadow-xl shadow-noir/15 backdrop-blur-xl">
+            <ul>
+              {links.map(({ href, label, tagline, numeral }) => {
+                const active = pathname === href;
+                return (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "group/item flex items-start gap-3 rounded-xl px-3 py-3 transition-colors",
+                        active ? "bg-ink/[0.06]" : "hover:bg-ink/[0.04]",
+                      )}
+                    >
+                      <span className="mono-label mt-0.5 shrink-0 text-brass">
+                        {numeral}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="flex items-center gap-1.5">
+                          <span
+                            className={cn(
+                              "font-display text-base leading-none transition-colors",
+                              active ? "text-brass" : "text-ink group-hover/item:text-brass",
+                            )}
+                          >
+                            {label}
+                          </span>
+                          <span
+                            aria-hidden
+                            className="text-xs text-brass opacity-0 transition-all duration-300 group-hover/item:translate-x-0.5 group-hover/item:opacity-100"
+                          >
+                            &rarr;
+                          </span>
+                        </span>
+                        <span className="mt-1 block text-xs leading-snug text-stone">
+                          {tagline}
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <Link
+              href="/projects"
+              className="mono-label mt-1 block border-t border-hairline px-3 pb-1 pt-3 transition-colors hover:text-brass"
+            >
+              All projects &rarr;
+            </Link>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/**
  * Site nav. Over photographic heroes it lies transparent across the
  * image; everywhere else it condenses into a floating glass pill that
  * follows the theme. Mobile gets the same pill with a drop-down panel.
  */
-export function Nav() {
+export type CategoryLink = {
+  href: string;
+  label: string;
+  tagline: string;
+  numeral: string;
+};
+
+export function Nav({
+  shortName,
+  categoryLinks = [],
+}: {
+  shortName: string;
+  categoryLinks?: CategoryLink[];
+}) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState(false); // Projects quick-links panel
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduce = useReducedMotion();
+
+  // Pointer leaves fire between the trigger and the panel; a short grace
+  // period keeps the menu from flickering shut in the gap.
+  const openMenu = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setMenu(true);
+  };
+  const closeMenu = (delay = 120) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setMenu(false), delay);
+  };
+  useEffect(() => () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -53,8 +179,18 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the menu on route change.
-  useEffect(() => setOpen(false), [pathname]);
+  // Close both menus on route change.
+  useEffect(() => {
+    setOpen(false);
+    setMenu(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menu) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenu(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menu]);
 
   const overHero = hasImageHero(pathname) && !scrolled && !open;
   const links = navLinks.filter(({ href }) => href !== "/contact");
@@ -77,7 +213,7 @@ export function Nav() {
                 overHero && "text-cream",
               )}
             >
-              {site.shortName}
+              {shortName}
             </span>
             <span
               className={cn(
@@ -95,8 +231,15 @@ export function Nav() {
           <ul className="hidden items-center gap-7 md:flex">
             {links.map(({ href, label }) => {
               const active = pathname.startsWith(href);
+              const hasMenu = href === "/projects" && categoryLinks.length > 0;
+
               return (
-                <li key={href}>
+                <li
+                  key={href}
+                  className={hasMenu ? "relative" : undefined}
+                  onPointerEnter={hasMenu ? openMenu : undefined}
+                  onPointerLeave={hasMenu ? () => closeMenu() : undefined}
+                >
                   <Link
                     href={href}
                     className={cn(
@@ -107,10 +250,22 @@ export function Nav() {
                       active && (overHero ? "text-cream" : "text-brass"),
                     )}
                     aria-current={active ? "page" : undefined}
+                    aria-expanded={hasMenu ? menu : undefined}
+                    onFocus={hasMenu ? openMenu : undefined}
                   >
                     {label}
                     <Underline active={active} />
                   </Link>
+
+                  {hasMenu && (
+                    <CategoryMenu
+                      open={menu}
+                      links={categoryLinks}
+                      pathname={pathname}
+                      reduce={Boolean(reduce)}
+                      onBlurOut={() => closeMenu(0)}
+                    />
+                  )}
                 </li>
               );
             })}
@@ -174,6 +329,29 @@ export function Nav() {
                     <Link href={href} className="font-display block py-4 text-h3">
                       {label}
                     </Link>
+
+                    {/* Practice areas ride along under Projects — no
+                        disclosure to tap, since the whole panel is
+                        already a deliberate open. */}
+                    {href === "/projects" && categoryLinks.length > 0 && (
+                      <ul className="-mt-1 pb-4 pl-4">
+                        {categoryLinks.map(({ href: h, label: l, numeral }) => (
+                          <li key={h}>
+                            <Link
+                              href={h}
+                              aria-current={pathname === h ? "page" : undefined}
+                              className={cn(
+                                "flex items-center gap-3 py-2 text-sm transition-colors",
+                                pathname === h ? "text-brass" : "text-stone hover:text-ink",
+                              )}
+                            >
+                              <span className="mono-label text-brass">{numeral}</span>
+                              {l}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </motion.li>
                 ))}
                 <motion.li

@@ -60,5 +60,7 @@ next-env.d.ts
 /actions/studio-leads.ts
 /actions/studio-posts.ts
 /actions/studio-projects.ts
+/actions/studio-settings.ts
+/actions/studio-testimonials.ts
 /lib/auth.ts
 /lib/require-auth.ts

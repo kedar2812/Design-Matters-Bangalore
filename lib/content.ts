@@ -4,6 +4,7 @@ import type {
   ProjectModel,
   GalleryImageModel,
   StoryBlockModel,
+  TestimonialModel,
 } from "@/lib/generated/prisma/models";
 import snapshotJson from "@/content/site-snapshot.json";
 
@@ -22,6 +23,7 @@ import snapshotJson from "@/content/site-snapshot.json";
  */
 
 export type Post = PostModel;
+export type Testimonial = TestimonialModel;
 export type SiteProject = ProjectModel & {
   gallery: GalleryImageModel[];
   storyBlocks: StoryBlockModel[];
@@ -42,9 +44,18 @@ type RawSnapshot = {
     updatedAt: string;
     publishedAt: string | null;
   })[];
+  /** Absent in snapshots taken before testimonials existed. */
+  testimonials?: (Omit<Testimonial, "createdAt" | "updatedAt"> & {
+    createdAt: string;
+    updatedAt: string;
+  })[];
 };
 
-let cache: { projects: SiteProject[]; posts: Post[] } | null = null;
+let cache: {
+  projects: SiteProject[];
+  posts: Post[];
+  testimonials: Testimonial[];
+} | null = null;
 
 function snapshot() {
   if (!cache) {
@@ -61,6 +72,11 @@ function snapshot() {
         updatedAt: new Date(p.updatedAt),
         publishedAt: p.publishedAt ? new Date(p.publishedAt) : null,
       })) as Post[],
+      testimonials: (raw.testimonials ?? []).map((t) => ({
+        ...t,
+        createdAt: new Date(t.createdAt),
+        updatedAt: new Date(t.updatedAt),
+      })) as Testimonial[],
     };
   }
   return cache;
@@ -90,6 +106,15 @@ export async function getPublishedProject(slug: string): Promise<SiteProject | n
     },
   });
   return project?.status === "PUBLISHED" ? project : null;
+}
+
+/** Published testimonials in display order. */
+export async function getPublishedTestimonials(): Promise<Testimonial[]> {
+  if (isSnapshotMode) return snapshot().testimonials;
+  return prisma.testimonial.findMany({
+    where: { published: true },
+    orderBy: { order: "asc" },
+  });
 }
 
 /** Published journal posts, newest first. */

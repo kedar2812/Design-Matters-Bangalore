@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+/* Tailwind v4 auto-detects source files but skips anything .gitignore
+   excludes — and the studio dashboard is deliberately gitignored until
+   the client's server is ready (see the TEMPORARY block in .gitignore).
+   Without these, any utility used *only* on a dashboard or login screen
+   is silently never generated: the markup ships, the CSS doesn't.
+   Naming each ignored directory explicitly is what bypasses the ignore
+   rules — a broad "../app/**" glob does not, because gitignore is
+   re-applied while walking. Keep this list in step with .gitignore.
+   (Parentheses in the route-group path must stay unescaped.) */
+@source "../app/(studio)";
+@source "../app/login";
+@source "../components/studio";
+
+/* Tailwind v4's automatic source detection skips anything in .gitignore,
+   and the studio dashboard is deliberately gitignored until the client's
+   server is ready (see .gitignore). Without these explicit sources, any
+   utility used *only* on a dashboard or login screen is silently never
+   generated — the markup ships, the CSS doesn't. Register them by hand.
+   Keep this in step with the ignore block in .gitignore. */
+
 /* Class-based dark theme — default is light; ThemeToggle stamps
    `.dark` on <html> (persisted in localStorage, applied pre-paint). */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -244,6 +264,30 @@
   background: var(--glass-light-bg, rgb(251 250 246 / 0.6));
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
   backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* Studio loading placeholders. A travelling highlight rather than an
+   opacity pulse — it reads as "arriving" instead of "broken". The
+   global reduced-motion rule freezes it to a flat block. */
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@utility shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-paper) 75%, transparent) 45%,
+    color-mix(in oklab, var(--color-paper) 75%, transparent) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
 }
 
 /* Slow cinematic drift for the active carousel slide. */

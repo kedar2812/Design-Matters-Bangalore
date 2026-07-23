@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { site, whatsappHref } from "@/lib/site";
+import { getIdentity, getSection, whatsappHref, telHref } from "@/lib/settings";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { EnquiryGlow } from "@/components/site/EnquiryGlow";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Contact — Start a Project",
@@ -12,14 +14,20 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [site, content] = await Promise.all([getIdentity(), getSection("contact")]);
+
+  const socials = [
+    { label: "Instagram", href: site.instagram },
+    { label: "LinkedIn", href: site.linkedin },
+    { label: "Houzz", href: site.houzz },
+  ].filter((s) => s.href);
+
   return (
     <main className="px-gutter pb-section pt-36">
       <Entry>
-        <p className="mono-label mb-4">Get in touch</p>
-        <h1 className="font-display text-h1 mb-16 max-w-3xl">
-          Every project starts with a conversation.
-        </h1>
+        <p className="mono-label mb-4">{content.eyebrow}</p>
+        <h1 className="font-display text-h1 mb-16 max-w-3xl">{content.heading}</h1>
       </Entry>
 
       <div className="grid gap-16 lg:grid-cols-12">
@@ -37,28 +45,25 @@ export default function ContactPage() {
             <div>
               <p className="mono-label mb-3">Prefer to talk?</p>
               <a
-                href={whatsappHref("Hello Design Matters — I'd like to discuss a project.")}
+                href={whatsappHref(site.whatsapp, content.whatsappMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-display text-h3 inline-block transition-colors hover:text-brass"
               >
-                WhatsApp the studio &rarr;
+                {content.whatsappLabel} &rarr;
               </a>
             </div>
 
             <div>
               <p className="mono-label mb-3">Call</p>
               <ul className="space-y-1 text-sm text-ink-soft">
-                <li>
-                  <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="hover:text-brass">
-                    {site.phone}
-                  </a>
-                </li>
-                <li>
-                  <a href={`tel:${site.phoneAlt.replace(/\s/g, "")}`} className="hover:text-brass">
-                    {site.phoneAlt}
-                  </a>
-                </li>
+                {[site.phone, site.phoneAlt].filter(Boolean).map((p) => (
+                  <li key={p}>
+                    <a href={telHref(p)} className="hover:text-brass">
+                      {p}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -72,29 +77,33 @@ export default function ContactPage() {
             <div>
               <p className="mono-label mb-3">Visit</p>
               <address className="text-sm not-italic leading-relaxed text-ink-soft">
-                {site.address.line1}
+                {site.addressLine1}
                 <br />
-                {site.address.line2}
+                {site.addressLine2}
                 <br />
-                {site.address.city}, {site.address.state} {site.address.pin}
+                {site.city}, {site.state} {site.pin}
               </address>
             </div>
 
-            <div>
-              <p className="mono-label mb-3">Follow</p>
-              <ul className="space-y-1 text-sm text-ink-soft">
-                <li>
-                  <a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brass">
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brass">
-                    LinkedIn
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {socials.length > 0 && (
+              <div>
+                <p className="mono-label mb-3">Follow</p>
+                <ul className="space-y-1 text-sm text-ink-soft">
+                  {socials.map((s) => (
+                    <li key={s.label}>
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-brass"
+                      >
+                        {s.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </Entry>
       </div>
@@ -103,8 +112,8 @@ export default function ContactPage() {
       <Reveal className="mt-20">
         <div className="rule pt-6">
           <iframe
-            title="Design Matters Architects — Indiranagar, Bengaluru"
-            src="https://www.google.com/maps?q=Design+Matters+Architects,+12th+A+Main+Rd,+HAL+2nd+Stage,+Indiranagar,+Bengaluru&output=embed"
+            title={`${site.name} — ${site.city}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&output=embed`}
             className="rounded-frame h-96 w-full border-0 grayscale-[0.4] dark:grayscale-[0.25] dark:invert dark:hue-rotate-180"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

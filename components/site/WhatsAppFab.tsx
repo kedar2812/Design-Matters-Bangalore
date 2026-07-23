@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { whatsappHref } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /**
  * Floating click-to-chat — the client's preferred enquiry channel.
  * Stays out of the way until the visitor has scrolled past the hero,
  * then sits quietly bottom-right. Transform/opacity only.
+ * The href is built server-side from the editable studio identity.
  */
-export function WhatsAppFab() {
+export function WhatsAppFab({ href }: { href: string }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function WhatsAppFab() {
 
   return (
     <a
-      href={whatsappHref("Hello Design Matters — I'd like to discuss a project.")}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with the studio on WhatsApp"
