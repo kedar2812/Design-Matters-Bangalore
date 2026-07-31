@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { IMG_Q, SIZES } from "@/lib/images";
 
 export type HeroSlide = {
   slug: string;
@@ -87,7 +88,15 @@ export function HeroCarousel({
             alt={`${s.title} — ${s.category}${s.location ? `, ${s.location}` : ""}`}
             fill
             priority={i === 0}
-            sizes="100vw"
+            // 107vw, not 100vw: the active slide drifts to scale(1.07),
+            // so the painted area is 7% wider than the slot.
+            sizes={SIZES.heroCarousel}
+            // Slide 0 is the LCP element and the frame the client judges
+            // the site by, so it gets the top tier. The rotating slides
+            // are only ever seen in motion, where 85 and 90 are
+            // indistinguishable — and holding them at 85 keeps ~120 KB
+            // off the initial load, since all five slides are in the DOM.
+            quality={i === 0 ? IMG_Q.hero : IMG_Q.feature}
             placeholder={s.heroBlur ? "blur" : "empty"}
             blurDataURL={s.heroBlur ?? undefined}
             className={cn("rounded-[inherit] object-cover", i === index && "ken-burns")}

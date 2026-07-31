@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/utils";
 import type { ProjectTile } from "@/components/site/ProjectsGrid";
+import { IMG_Q } from "@/lib/images";
 
 /**
  * The portfolio, told as an editorial sequence rather than a card grid.
@@ -65,6 +66,7 @@ export function ProjectShowcase({ projects, startIndex = 0, className }: Props) 
                         alt={p.title}
                         fill
                         sizes="(min-width: 1024px) 66vw, 100vw"
+                        quality={IMG_Q.feature}
                         placeholder={p.heroBlur ? "blur" : "empty"}
                         blurDataURL={p.heroBlur ?? undefined}
                         className="rounded-[inherit] object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045]"

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { IMG_Q } from "@/lib/images";
 
 type ProjectCardProps = {
   slug: string;
@@ -52,6 +53,7 @@ export function ProjectCard({
             alt={title}
             fill
             sizes={sizes}
+            quality={IMG_Q.card}
             priority={priority}
             placeholder={heroBlur ? "blur" : "empty"}
             blurDataURL={heroBlur ?? undefined}

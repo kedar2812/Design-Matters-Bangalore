@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { CATEGORIES, categoryHref, type CategorySlug } from "@/lib/categories";
+import { IMG_Q } from "@/lib/images";
 
 /**
  * The three practice areas as tall photographic portals — the first
@@ -41,6 +42,7 @@ export function CategoryPortals({ portals }: { portals: PortalData[] }) {
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    quality={IMG_Q.card}
                     placeholder={data.blur ? "blur" : "empty"}
                     blurDataURL={data.blur ?? undefined}
                     className="rounded-[inherit] object-cover opacity-90 transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"

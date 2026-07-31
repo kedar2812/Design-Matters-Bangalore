@@ -7,6 +7,7 @@ import { ProjectShowcase } from "@/components/site/ProjectShowcase";
 import { getCategoryTiles } from "@/lib/portfolio";
 import { getSection, categoryCopy } from "@/lib/settings";
 import { CATEGORIES, categoryHref, type Category } from "@/lib/categories";
+import { IMG_Q } from "@/lib/images";
 
 /**
  * Page metadata for a practice area, driven by the same editable copy
@@ -75,6 +76,7 @@ export async function CategoryView({ category }: { category: Category }) {
               fill
               priority
               sizes="100vw"
+              quality={IMG_Q.hero}
               placeholder={lead.heroBlur ? "blur" : "empty"}
               blurDataURL={lead.heroBlur ?? undefined}
               className="rounded-[inherit] object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
