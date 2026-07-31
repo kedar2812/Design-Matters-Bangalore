@@ -3,6 +3,8 @@ import { getPublishedTestimonials } from "@/lib/content";
 import { getSection } from "@/lib/settings";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stars } from "@/components/site/Stars";
+import { TestimonialFeature } from "@/components/site/TestimonialFeature";
+import { illustratedFirst, pairTestimonials } from "@/lib/testimonial-projects";
 
 /**
  * The home page's client-voices strip: one testimonial given real
@@ -19,7 +21,11 @@ export async function TestimonialsSection() {
   const featured = testimonials.filter((t) => t.featured);
   if (featured.length === 0) return null;
 
-  const [lead, ...rest] = featured;
+  // Lead with a review we can illustrate — a quote beside a photograph of
+  // the reviewer's own home is the strongest version of this section.
+  // Falls back to the first featured review when none of them is paired.
+  const paired = illustratedFirst(await pairTestimonials(featured));
+  const [lead, ...rest] = paired;
   const side = rest.slice(0, 2);
 
   return (
@@ -39,22 +45,27 @@ export async function TestimonialsSection() {
       </Reveal>
 
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-gutter">
-        {/* The lead voice — set like the site's pull-quotes. */}
+        {/* The lead voice — set like the site's pull-quotes, and shown
+            beside the reviewer's own house where we know which it is. */}
         <Reveal className="lg:col-span-7">
-          <figure>
-            <Stars rating={lead.rating} size={15} />
-            <blockquote className="font-display text-h3 mt-6 max-w-2xl leading-snug">
-              &ldquo;{lead.excerpt ?? lead.text}&rdquo;
-            </blockquote>
-            <figcaption className="mt-8">
-              <p className="text-sm font-medium text-ink">{lead.author}</p>
-              <p className="mono-label mt-1 text-stone/80">
-                {[lead.context, lead.source === "google" ? "via Google" : null]
-                  .filter(Boolean)
-                  .join(" — ")}
-              </p>
-            </figcaption>
-          </figure>
+          {lead.project ? (
+            <TestimonialFeature item={lead} />
+          ) : (
+            <figure>
+              <Stars rating={lead.rating} size={15} />
+              <blockquote className="font-display text-h3 mt-6 max-w-2xl leading-snug">
+                &ldquo;{lead.excerpt ?? lead.text}&rdquo;
+              </blockquote>
+              <figcaption className="mt-8">
+                <p className="text-sm font-medium text-ink">{lead.author}</p>
+                <p className="mono-label mt-1 text-stone/80">
+                  {[lead.context, lead.source === "google" ? "via Google" : null]
+                    .filter(Boolean)
+                    .join(" — ")}
+                </p>
+              </figcaption>
+            </figure>
+          )}
         </Reveal>
 
         {/* Two supporting voices + the rating that backs them. */}

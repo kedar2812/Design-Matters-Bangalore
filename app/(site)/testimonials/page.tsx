@@ -8,7 +8,9 @@ import { Reveal } from "@/components/motion/Reveal";
 import { TextScrub } from "@/components/motion/TextScrub";
 import { Stars } from "@/components/site/Stars";
 import { TestimonialCard } from "@/components/site/TestimonialCard";
+import { TestimonialFeature } from "@/components/site/TestimonialFeature";
 import { EnquirySection } from "@/components/site/EnquirySection";
+import { pairTestimonials } from "@/lib/testimonial-projects";
 
 export const revalidate = 3600;
 
@@ -50,6 +52,11 @@ export default async function TestimonialsPage() {
     getPublishedTestimonials(),
     getSection("testimonials"),
   ]);
+
+  // Reviews we can pair with a photograph of the reviewer's own home get
+  // the editorial treatment above the archive; the rest read as quotes.
+  const paired = await pairTestimonials(testimonials);
+  const illustrated = paired.filter((t) => t.project);
 
   return (
     <main className="pb-section pt-36">
@@ -105,6 +112,22 @@ export default async function TestimonialsPage() {
           </Entry>
         </div>
       </section>
+
+      {/* ------------------------------------ reviews, beside their homes */}
+      {illustrated.length > 0 && (
+        <section
+          className="mt-section px-gutter"
+          aria-label="Reviews and the projects they describe"
+        >
+          <div className="space-y-24">
+            {illustrated.map((t, i) => (
+              <Reveal key={t.id}>
+                <TestimonialFeature item={t} flip={i % 2 === 1} />
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* --------------------------------------------------- pull-quote */}
       <section className="mt-section px-gutter">
