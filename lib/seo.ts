@@ -71,6 +71,42 @@ export function projectJsonLd(p: {
   };
 }
 
+/**
+ * The press page as an ItemList of Article citations (§2.6). Each entry
+ * points at the publisher's page, with the studio as the subject rather
+ * than the author — these are pieces *about* the practice.
+ *
+ * Items without a verified date carry no `datePublished` rather than a
+ * fabricated one; the same rule the data file follows.
+ */
+export function pressJsonLd(
+  items: {
+    publication: string;
+    headline: string;
+    url?: string;
+    date?: string;
+  }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Design Matters in the press",
+    url: `${SITE_URL}/press`,
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Article",
+        headline: item.headline,
+        ...(item.url && { url: item.url }),
+        ...(item.date && { datePublished: item.date }),
+        publisher: { "@type": "Organization", name: item.publication },
+        about: { "@id": `${SITE_URL}/#organization` },
+      },
+    })),
+  };
+}
+
 /** Render helper — one <script> per schema object. */
 export function jsonLdScript(data: object) {
   return {

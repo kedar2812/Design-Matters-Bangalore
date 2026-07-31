@@ -208,11 +208,13 @@ export const SECTIONS: SectionMeta[] = [
         ],
       },
       {
+        // The roster itself moved to lib/team.ts when it gained portraits,
+        // designations and an explicit order — a flat list of names can no
+        // longer describe it. Only the heading stays editable here; a dead
+        // "Team members" control that changed nothing on save would be
+        // worse than no control at all.
         title: "The team",
-        fields: [
-          { kind: "text", name: "teamHeading", label: "Section heading" },
-          { kind: "list", name: "team", label: "Team members", itemLabel: "person" },
-        ],
+        fields: [{ kind: "text", name: "teamHeading", label: "Section heading" }],
       },
       {
         title: "How you work",

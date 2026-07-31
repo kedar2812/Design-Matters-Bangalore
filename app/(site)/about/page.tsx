@@ -4,6 +4,10 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
 import { TextScrub } from "@/components/motion/TextScrub";
 import { EnquirySection } from "@/components/site/EnquirySection";
+import { PressBand } from "@/components/site/PressBand";
+import { StudioCollage } from "@/components/site/StudioCollage";
+import { StudioCulture } from "@/components/site/StudioCulture";
+import { TeamSection } from "@/components/site/TeamSection";
 import { getIdentity, getSection } from "@/lib/settings";
 
 export const revalidate = 3600;
@@ -40,6 +44,13 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* The studio, in pictures — the collage from the old About page,
+          kept at Kiran's request (§2.4). It sits here, straight after the
+          story, because it reads as "who we are" rather than as work. */}
+      <section className="mt-section px-gutter" aria-label="The studio">
+        <StudioCollage />
+      </section>
+
       {/* Philosophy */}
       <section className="mt-section px-gutter">
         <div className="rule pt-8">
@@ -72,25 +83,14 @@ export default async function AboutPage() {
         </Reveal>
       </section>
 
-      {/* Team */}
-      {about.team.length > 0 && (
-        <section className="mt-section px-gutter">
-          <Reveal>
-            <div className="rule mb-10 flex items-baseline justify-between pt-4">
-              <h2 className="font-display text-h2">{about.teamHeading}</h2>
-              <p className="mono-label">{about.team.length} architects</p>
-            </div>
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
-              {about.team.map((name, i) => (
-                <li key={name}>
-                  <p className="mono-label mb-1">{String(i + 1).padStart(2, "0")}</p>
-                  <p className="text-sm text-ink-soft">{name}</p>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </section>
-      )}
+      {/* Team — roster, hierarchy and portraits (lib/team.ts) */}
+      <TeamSection heading={about.teamHeading} />
+
+      {/* Life at the studio — the outing and the office */}
+      <StudioCulture />
+
+      {/* Press — the strip that earns the click through to /press */}
+      <PressBand />
 
       {/* Approach */}
       <section className="mt-section px-gutter">

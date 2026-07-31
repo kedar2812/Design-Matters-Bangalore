@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navLinks } from "@/lib/site";
+import { navLinks, secondaryLinks } from "@/lib/site";
 import { CATEGORIES, categoryHref } from "@/lib/categories";
 import { whatsappHref, type Identity } from "@/lib/settings";
 
@@ -90,7 +90,7 @@ export function Footer({ identity: site }: { identity: Identity }) {
         <div>
           <p className="mono-label mb-4 text-brass-bright">Index</p>
           <ul className="space-y-2 text-sm text-cream/70">
-            {navLinks.map(({ href, label }) => (
+            {[...navLinks, ...secondaryLinks].map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className="transition-colors hover:text-brass-bright">
                   {label}

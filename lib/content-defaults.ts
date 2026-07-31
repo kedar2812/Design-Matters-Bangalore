@@ -53,7 +53,7 @@ export type AboutContent = {
   principalEyebrow: string;
   principalBio: string[];
   teamHeading: string;
-  team: string[];
+  /** The roster itself lives in `lib/team.ts` — see the note in content-schema. */
   approachHeading: string;
   approach: { title: string; body: string }[];
 };
@@ -207,16 +207,6 @@ export const DEFAULTS = {
       "Before founding Design Matters in 2011, he spent twelve years as senior associate architect at Team-2 Architects and Engineers, running projects of widely varying scale and complexity — an apprenticeship in the unglamorous disciplines that make buildings actually happen: coordination, costing, and site.",
     ],
     teamHeading: "The team",
-    team: [
-      "Ar. Harshitha",
-      "Ar. Keerthana",
-      "Ar. Pallavi VK",
-      "Ar. Maitri Shah",
-      "Ar. Jerin Sabu",
-      "Ar. Reshma",
-      "Ar. Mrudula",
-      "Ar. Shefreen",
-    ],
     approachHeading: "How we work",
     approach: [
       {

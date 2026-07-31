@@ -25,5 +25,13 @@ export const navLinks = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
+/**
+ * Pages that belong in the footer index and the sitemap but not in the
+ * top nav. Press is real content and worth crawling, but a sixth item in
+ * the floating nav pill crowds it — the About page carries a "Featured
+ * in" strip that links through instead.
+ */
+export const secondaryLinks = [{ href: "/press", label: "Press" }] as const;
+
 export const whatsappHref = (text?: string) =>
   `https://wa.me/${site.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
