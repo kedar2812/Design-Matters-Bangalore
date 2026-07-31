@@ -8,6 +8,9 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
 import { Parallax } from "@/components/motion/Parallax";
 import { jsonLdScript, projectJsonLd } from "@/lib/seo";
+import { IMG_Q, SIZES } from "@/lib/images";
+import { featureFor } from "@/lib/project-features";
+import { ProjectFeature } from "@/components/site/ProjectFeature";
 import { EnquirySection } from "@/components/site/EnquirySection";
 import {
   LightboxProvider,
@@ -80,6 +83,12 @@ export default async function ProjectPage({
   // render order below.
   const storyImages = project.storyBlocks.filter((b) => b.image);
   const storyIndex = new Map(storyImages.map((b, i) => [b.id, i]));
+  // A sub-project (e.g. Club Nadora inside Woodsvale) contributes its own
+  // frames to the end of the lightbox set.
+  const feature = featureFor(project.slug);
+  const featureOffset = storyImages.length + project.gallery.length;
+  const wideCell = (i: number) => project.gallery.length === 1 || i % 3 === 2;
+
   const media: LightboxImage[] = [
     ...storyImages.map((b) => ({
       url: b.image!,
@@ -90,6 +99,7 @@ export default async function ProjectPage({
       alt: img.alt ?? `${project.title} — view ${i + 1}`,
       blur: img.blurData,
     })),
+    ...(feature?.images ?? []).map((img) => ({ url: img.url, alt: img.alt })),
   ];
 
   return (
@@ -108,7 +118,8 @@ export default async function ProjectPage({
                 alt={`${project.title} — ${project.category}`}
                 fill
                 priority
-                sizes="100vw"
+                sizes={SIZES.hero}
+                quality={IMG_Q.hero}
                 placeholder={project.heroBlur ? "blur" : "empty"}
                 blurDataURL={project.heroBlur ?? undefined}
                 className="rounded-[inherit] object-cover"
@@ -119,8 +130,12 @@ export default async function ProjectPage({
             </>
           )}
           <div className="relative px-gutter pb-14 pt-40">
+            {/* Typology earns its place here for projects whose category
+                alone under-describes them — "Residential" says little
+                about a villa development. */}
             <p className="mono-label mb-4 text-cream/90">
               {project.category}
+              {project.typology && ` · ${project.typology}`}
               {project.location && ` — ${project.location}`}
             </p>
             <MaskedHeading className="font-display text-hero max-w-5xl text-cream">
@@ -169,7 +184,9 @@ export default async function ProjectPage({
                             src={block.image}
                             alt={`${project.title} — ${STORY_LABELS[block.type].toLowerCase()}`}
                             fill
-                            sizes="(min-width: 768px) 60vw, 100vw"
+                            // Slot is 60vw but sits in a scale-110 frame.
+                            sizes={SIZES.storyScaled}
+                            quality={IMG_Q.feature}
                             className="object-cover"
                           />
                         </div>
@@ -198,7 +215,9 @@ export default async function ProjectPage({
           </section>
         )}
 
-        {/* Gallery — every frame opens full screen */}
+        {/* Gallery — every frame opens full screen. Every third cell runs
+            the full width; a gallery of one runs wide too, rather than
+            leaving a lone portrait tile stranded beside empty space. */}
         {project.gallery.length > 0 && (
           <section className="px-gutter pb-section" aria-label="Project gallery">
             <div className="grid gap-gutter md:grid-cols-2">
@@ -206,20 +225,22 @@ export default async function ProjectPage({
                 <Reveal
                   key={img.id}
                   delay={(i % 2) * 0.1}
-                  className={i % 3 === 2 ? "md:col-span-2" : ""}
+                  className={wideCell(i) ? "md:col-span-2" : ""}
                 >
                   <LightboxTrigger index={storyImages.length + i}>
                     <Parallax className="rounded-frame">
                       <div
                         className={`relative scale-110 ${
-                          i % 3 === 2 ? "aspect-[21/9]" : "aspect-[4/5]"
+                          wideCell(i) ? "aspect-[21/9]" : "aspect-[4/5]"
                         }`}
                       >
                         <Image
                           src={img.url}
                           alt={img.alt ?? `${project.title} — view ${i + 1}`}
                           fill
-                          sizes={i % 3 === 2 ? "100vw" : "(min-width: 768px) 50vw, 100vw"}
+                          // Both cell shapes sit in a scale-110 frame.
+                          sizes={wideCell(i) ? SIZES.galleryWideScaled : SIZES.galleryScaled}
+                          quality={IMG_Q.feature}
                           placeholder={img.blurData ? "blur" : "empty"}
                           blurDataURL={img.blurData ?? undefined}
                           className="object-cover"
@@ -231,6 +252,12 @@ export default async function ProjectPage({
               ))}
             </div>
           </section>
+        )}
+
+        {/* A named piece of work inside this one — the clubhouse within
+            the villa development, rather than a project of its own. */}
+        {feature && (
+          <ProjectFeature feature={feature} lightboxOffset={featureOffset} />
         )}
       </LightboxProvider>
 

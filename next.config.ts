@@ -15,6 +15,22 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 
+  async redirects() {
+    return [
+      {
+        // §2.2 — "Club Nadora" was a standalone project; it is now the
+        // clubhouse section inside Woodsvale. Permanent so the existing
+        // ranking follows the page rather than dying with the old URL.
+        source: "/projects/club-nadora-woodsvale",
+        destination: "/projects/woodsvale",
+        // 301 explicitly, not `permanent: true` — that emits 308, which
+        // search engines honour but a lot of SEO tooling still reports as
+        // a soft/unknown redirect. 301 is the one everything understands.
+        statusCode: 301,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

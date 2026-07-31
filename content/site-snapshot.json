@@ -1,5 +1,5 @@
 {
- "exportedAt": "2026-07-23T15:38:10.508Z",
+ "exportedAt": "2026-07-29T18:16:34.109Z",
  "projects": [
   {
    "id": "cmr5527f40002wktdqolsb97t",
@@ -748,6 +748,42 @@
    ]
   },
   {
+   "id": "cmrrisbe0002mgctdd63z7bgc",
+   "slug": "woodsvale",
+   "title": "Woodsvale",
+   "category": "Residential",
+   "year": null,
+   "location": "Off Sarjapur Road, Bengaluru",
+   "typology": "Villas",
+   "area": null,
+   "siteArea": null,
+   "team": null,
+   "client": null,
+   "photographer": null,
+   "collaborator": null,
+   "units": null,
+   "statusNote": "Completed",
+   "heroImage": "/uploads/projects/club-nadora-woodsvale/hero.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAIBAAAQMEAgMAAAAAAAAAAAAAAgABAwQREiEFIjFBUf/EABQBAQAAAAAAAAAAAAAAAAAAAAH/xAAXEQEBAQEAAAAAAAAAAAAAAAABACEy/9oADAMBAAIRAxEAPwC9HyRhEbnDnbQ9ts/xZs9fNPMR5EHqzP4RECpsc7f/2Q==",
+   "status": "PUBLISHED",
+   "order": 8,
+   "metaTitle": "Woodsvale — Villas off Sarjapur Road | Design Matters",
+   "metaDesc": "Woodsvale, a villa development off Sarjapur Road, Bengaluru, by Design Matters Architects — including Club Nadora, the clubhouse at its centre.",
+   "createdAt": "2026-07-19T08:14:34.152Z",
+   "updatedAt": "2026-07-29T18:16:21.798Z",
+   "gallery": [
+    {
+     "id": "cms6eort90000ectdw1t2ukph",
+     "projectId": "cmrrisbe0002mgctdd63z7bgc",
+     "url": "/uploads/projects/club-nadora-woodsvale/03.jpg",
+     "alt": "Woodsvale — villa frontages along the internal avenue, brick and rendered façades set back behind planted verges",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIE/8QAIhAAAAYABgMAAAAAAAAAAAAAAAECAwQRBQYTITEyQVFx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAVEQEBAAAAAAAAAAAAAAAAAAABAP/aAAwDAQACEQMRAD8AmBi8qHRLtxFdVq4+ehpczFJU4o2GE6fizsy2ABCoS3//2Q==",
+     "order": 0
+    }
+   ],
+   "storyBlocks": []
+  },
+  {
    "id": "cmr5527g10008wktdvdvughru",
    "slug": "la-palazzo",
    "title": "La Palazzo",
@@ -1029,58 +1065,6 @@
    "storyBlocks": []
   },
   {
-   "id": "cmrrisbe0002mgctdd63z7bgc",
-   "slug": "club-nadora-woodsvale",
-   "title": "Club Nadora, Woodsvale",
-   "category": "Institutional",
-   "year": null,
-   "location": "Sarjapur, Bengaluru",
-   "typology": "Clubhouse",
-   "area": "20,000 sq ft",
-   "siteArea": null,
-   "team": null,
-   "client": null,
-   "photographer": null,
-   "collaborator": null,
-   "units": null,
-   "statusNote": "Completed",
-   "heroImage": "/uploads/projects/club-nadora-woodsvale/hero.jpg",
-   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAIBAAAQMEAgMAAAAAAAAAAAAAAgABAwQREiEFIjFBUf/EABQBAQAAAAAAAAAAAAAAAAAAAAH/xAAXEQEBAQEAAAAAAAAAAAAAAAABACEy/9oADAMBAAIRAxEAPwC9HyRhEbnDnbQ9ts/xZs9fNPMR5EHqzP4RECpsc7f/2Q==",
-   "status": "PUBLISHED",
-   "order": 13,
-   "metaTitle": null,
-   "metaDesc": "Club Nadora, Woodsvale — Clubhouse by Design Matters Architects, Sarjapur, Bengaluru.",
-   "createdAt": "2026-07-19T08:14:34.152Z",
-   "updatedAt": "2026-07-19T08:17:34.393Z",
-   "gallery": [
-    {
-     "id": "cmrriw6h3002npctdjsxxjizc",
-     "projectId": "cmrrisbe0002mgctdd63z7bgc",
-     "url": "/uploads/projects/club-nadora-woodsvale/01.jpg",
-     "alt": "Club Nadora, Woodsvale — Design Matters Architects, view 1",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAQMF/8QAHxAAAgEEAgMAAAAAAAAAAAAAAQIAAwQRIQUTEjGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAZEQEAAgMAAAAAAAAAAAAAAAARAAECEhP/2gAMAwEAAhEDEQA/AJXXIXNeo4HYqE6AGNQtuRu0peL0XbBwpKk5E0kJ6l2fQgXcEgMw+yftksTWgn//2Q==",
-     "order": 0
-    },
-    {
-     "id": "cmrriw6h4002opctdgrxo6q8d",
-     "projectId": "cmrrisbe0002mgctdd63z7bgc",
-     "url": "/uploads/projects/club-nadora-woodsvale/02.jpg",
-     "alt": "Club Nadora, Woodsvale — Design Matters Architects, view 2",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIF/8QAHhAAAQQBBQAAAAAAAAAAAAAAAgABAxEEEjFRYZH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAAIDAAAAAAAAAAAAAAAAAAARAhNh/9oADAMBAAIRAxEAPwDPlz55D1CAx9NW6uDNoXeYGMnK+K8RFKyTC8P/2Q==",
-     "order": 1
-    },
-    {
-     "id": "cmrriw6h4002ppctdig215kvo",
-     "projectId": "cmrrisbe0002mgctdd63z7bgc",
-     "url": "/uploads/projects/club-nadora-woodsvale/03.jpg",
-     "alt": "Club Nadora, Woodsvale — Design Matters Architects, view 3",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIE/8QAIhAAAAYABgMAAAAAAAAAAAAAAAECAwQRBQYTITEyQVFx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAVEQEBAAAAAAAAAAAAAAAAAAABAP/aAAwDAQACEQMRAD8AmBi8qHRLtxFdVq4+ehpczFJU4o2GE6fizsy2ABCoS3//2Q==",
-     "order": 2
-    }
-   ],
-   "storyBlocks": []
-  },
-  {
    "id": "cmrrisige002qgctd19mt5qqu",
    "slug": "life-by-lake-keya-homes",
    "title": "Life by Lake — Keya Homes",
@@ -1096,61 +1080,61 @@
    "collaborator": "In association with Studio Parametric",
    "units": "55 villaments",
    "statusNote": "Completed in 2022",
-   "heroImage": "/uploads/projects/life-by-lake-keya-homes/hero.jpg",
-   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAdEAACAgEFAAAAAAAAAAAAAAABAgADBBESFGGh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAWEQEBAQAAAAAAAAAAAAAAAAABAAL/2gAMAwEAAhEDEQA/ALWyTw62WsgOgIO4nyR257lyRSX70aIgyINVRS//2Q==",
+   "heroImage": "/uploads/projects/life-by-lake-keya-homes/04.jpg",
+   "heroBlur": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEE/8QAHRAAAgICAwEAAAAAAAAAAAAAAQMAAhEhBBIiUf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAERElH/2gAMAwEAAhEDEQA/AIbqBrUtvnHo61M3IcyjSEODKfesRJs9EI//2Q==",
    "status": "PUBLISHED",
    "order": 14,
    "metaTitle": null,
    "metaDesc": "Life by Lake — Keya Homes — Villaments by Design Matters Architects, Jakkur, Bengaluru.",
    "createdAt": "2026-07-19T08:14:43.310Z",
-   "updatedAt": "2026-07-19T08:17:43.551Z",
+   "updatedAt": "2026-07-29T18:16:23.324Z",
    "gallery": [
     {
-     "id": "cmrriwdja002rpctdef1khq8c",
+     "id": "cms6eos580001ectdt1imuk18",
      "projectId": "cmrrisige002qgctd19mt5qqu",
-     "url": "/uploads/projects/life-by-lake-keya-homes/01.jpg",
-     "alt": "Life by Lake — Keya Homes — Design Matters Architects, view 1",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAD/xAAeEAACAgMBAAMAAAAAAAAAAAABAgMRAAQhBRIiQf/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAExAv/aAAwDAQACEQMRAD8AbqNEdONj9WYD8sDKeTWDKAoNLV2MN5yFtSM/N6ElVfMbN5+sH4lX09yVB1T/2Q==",
+     "url": "/uploads/projects/life-by-lake-keya-homes/05.jpg",
+     "alt": "Life by the Lake — the central courtyard, stacked balconies and louvred screens facing a landscaped garden",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAP/xAAeEAABAwQDAAAAAAAAAAAAAAABAAIDBBESIUJRof/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAwEBAAAAAAAAAAAAAAAAABJRAQL/2gAMAwEAAhEDEQA/AIQzh3G5I1kbeJJWCN2JYNdbRFD9ULkP/9k=",
      "order": 0
     },
     {
-     "id": "cmrriwdja002spctdenpgoudg",
+     "id": "cms6eos5z0002ectdt1x450pw",
      "projectId": "cmrrisige002qgctd19mt5qqu",
-     "url": "/uploads/projects/life-by-lake-keya-homes/02.jpg",
-     "alt": "Life by Lake — Keya Homes — Design Matters Architects, view 2",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAID/8QAHRAAAQQCAwAAAAAAAAAAAAAAAQACAxEEIjFSsf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAERElH/2gAMAwEAAhEDEQA/ANosklu+OxortfimSYkgthDRXBFoilnohH//2Q==",
+     "url": "/uploads/projects/life-by-lake-keya-homes/06.jpg",
+     "alt": "Life by the Lake — courtyard elevation at dusk, projecting balconies framed in timber-toned louvres",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAID/8QAHhAAAQQBBQAAAAAAAAAAAAAAAQACAxFRBBITIzH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEBAQADAAAAAAAAAAAAAAAAAQACESH/2gAMAwEAAhEDEQA/AMjJAK3No1ggKdTPHy9DgGUPMoiLkvNyAv/Z",
      "order": 1
     },
     {
-     "id": "cmrriwdja002tpctd6yokgdl6",
+     "id": "cms6eos760003ectdo9x5cdyy",
      "projectId": "cmrrisige002qgctd19mt5qqu",
-     "url": "/uploads/projects/life-by-lake-keya-homes/03.jpg",
-     "alt": "Life by Lake — Keya Homes — Design Matters Architects, view 3",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAeEAABAwUBAQAAAAAAAAAAAAACAAMRAQQFEjEh0f/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAEhAv/aAAwDAQACEQMRAD8AstcgLzotsNFNebUifikyF083eGJFrHKbR4iKVR1D/9k=",
+     "url": "/uploads/projects/life-by-lake-keya-homes/02.jpg",
+     "alt": "Life by the Lake — a private roof terrace planted to its parapet, looking north across Jakkur lake",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAID/8QAHRAAAQQCAwAAAAAAAAAAAAAAAQACAxEEIjFSsf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAERElH/2gAMAwEAAhEDEQA/ANosklu+OxortfimSYkgthDRXBFoilnohH//2Q==",
      "order": 2
     },
     {
-     "id": "cmrriwdja002upctdlmx8lzqe",
+     "id": "cms6eos8r0004ectdy7dtdrgs",
      "projectId": "cmrrisige002qgctd19mt5qqu",
-     "url": "/uploads/projects/life-by-lake-keya-homes/04.jpg",
-     "alt": "Life by Lake — Keya Homes — Design Matters Architects, view 4",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEE/8QAHRAAAgICAwEAAAAAAAAAAAAAAQMAAhEhBBIiUf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAERElH/2gAMAwEAAhEDEQA/AIbqBrUtvnHo61M3IcyjSEODKfesRJs9EI//2Q==",
+     "url": "/uploads/projects/life-by-lake-keya-homes/hero.jpg",
+     "alt": "Life by the Lake — principal bedroom, full-height glazing opening to the lake side",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAdEAACAgEFAAAAAAAAAAAAAAABAgADBBESFGGh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAWEQEBAQAAAAAAAAAAAAAAAAABAAL/2gAMAwEAAhEDEQA/ALWyTw62WsgOgIO4nyR257lyRSX70aIgyINVRS//2Q==",
      "order": 3
     },
     {
-     "id": "cmrriwdja002vpctdzxeyfmmz",
+     "id": "cms6eos9u0005ectdqothsn9r",
      "projectId": "cmrrisige002qgctd19mt5qqu",
-     "url": "/uploads/projects/life-by-lake-keya-homes/05.jpg",
-     "alt": "Life by Lake — Keya Homes — Design Matters Architects, view 5",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAP/xAAeEAABAwQDAAAAAAAAAAAAAAABAAIDBBESIUJRof/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAwEBAAAAAAAAAAAAAAAAABJRAQL/2gAMAwEAAhEDEQA/AIQzh3G5I1kbeJJWCN2JYNdbRFD9ULkP/9k=",
+     "url": "/uploads/projects/life-by-lake-keya-homes/01.jpg",
+     "alt": "Life by the Lake — the double-height living room, clerestory glazing above the terrace doors",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAD/xAAeEAACAgMBAAMAAAAAAAAAAAABAgMRAAQhBRIiQf/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAExAv/aAAwDAQACEQMRAD8AbqNEdONj9WYD8sDKeTWDKAoNLV2MN5yFtSM/N6ElVfMbN5+sH4lX09yVB1T/2Q==",
      "order": 4
     },
     {
-     "id": "cmrriwdja002wpctd18yazeh6",
+     "id": "cms6eosb50006ectd891nid4o",
      "projectId": "cmrrisige002qgctd19mt5qqu",
-     "url": "/uploads/projects/life-by-lake-keya-homes/06.jpg",
-     "alt": "Life by Lake — Keya Homes — Design Matters Architects, view 6",
-     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAID/8QAHhAAAQQBBQAAAAAAAAAAAAAAAQACAxFRBBITIzH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEBAQADAAAAAAAAAAAAAAAAAQACESH/2gAMAwEAAhEDEQA/AMjJAK3No1ggKdTPHy9DgGUPMoiLkvNyAv/Z",
+     "url": "/uploads/projects/life-by-lake-keya-homes/03.jpg",
+     "alt": "Life by the Lake — bedroom with a glazed bay looking onto the courtyard",
+     "blurData": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAeEAABAwUBAQAAAAAAAAAAAAACAAMRAQQFEjEh0f/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAEhAv/aAAwDAQACEQMRAD8AstcgLzotsNFNebUifikyF083eGJFrHKbR4iKVR1D/9k=",
      "order": 5
     }
    ],
