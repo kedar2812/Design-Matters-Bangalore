@@ -24,7 +24,7 @@ function hasImageHero(pathname: string) {
 }
 
 const linkBase =
-  "group/link relative font-mono text-[0.8125rem] uppercase tracking-[0.08em] transition-colors duration-300";
+  "group/link relative block font-mono text-[0.8125rem] font-medium uppercase tracking-[0.08em] transition-colors duration-300";
 
 /** Animated underline that sweeps in on hover and stays for the active link. */
 function Underline({ active }: { active: boolean }) {
@@ -32,10 +32,35 @@ function Underline({ active }: { active: boolean }) {
     <span
       aria-hidden
       className={cn(
-        "absolute -bottom-1 left-0 h-px w-full origin-left bg-current transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        "absolute -bottom-1.5 left-0 h-px w-full origin-left bg-current transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
         active ? "scale-x-100" : "scale-x-0 group-hover/link:scale-x-100",
       )}
     />
+  );
+}
+
+/**
+ * The label itself, which rolls on hover: the word lifts out of the top
+ * of its own box while a copy rises into the space it left.
+ *
+ * This is the same idea as the page headlines, which mask up out of a
+ * clipped line on entry — so the nav is speaking the site's existing
+ * language rather than wearing a new effect. The duplicate is hidden
+ * from assistive tech; under reduced motion it is not rendered at all
+ * and the label simply changes colour.
+ */
+function NavLabel({ children }: { children: string }) {
+  // The box is clamped to exactly one line so the stacked copy sits
+  // below the fold of its own container; both then travel up together.
+  const line =
+    "motion-safe:group-hover/link:-translate-y-full block leading-[1.35] transition-transform duration-[450ms] ease-[cubic-bezier(0.76,0,0.24,1)]";
+  return (
+    <span className="block h-[1.35em] overflow-hidden">
+      <span className={line}>{children}</span>
+      <span aria-hidden className={cn(line, "motion-reduce:hidden")}>
+        {children}
+      </span>
+    </span>
   );
 }
 
@@ -228,7 +253,7 @@ export function Nav({
           </Link>
 
           {/* Desktop links */}
-          <ul className="hidden items-center gap-7 md:flex">
+          <ul className="hidden items-center gap-6 lg:flex">
             {links.map(({ href, label }) => {
               const active = pathname.startsWith(href);
               const hasMenu = href === "/projects" && categoryLinks.length > 0;
@@ -245,15 +270,15 @@ export function Nav({
                     className={cn(
                       linkBase,
                       overHero
-                        ? "text-cream/90 hover:text-cream"
-                        : "text-stone hover:text-ink",
+                        ? "text-cream/85 hover:text-cream"
+                        : "text-ink/70 hover:text-brass",
                       active && (overHero ? "text-cream" : "text-brass"),
                     )}
                     aria-current={active ? "page" : undefined}
                     aria-expanded={hasMenu ? menu : undefined}
                     onFocus={hasMenu ? openMenu : undefined}
                   >
-                    {label}
+                    <NavLabel>{label}</NavLabel>
                     <Underline active={active} />
                   </Link>
 
@@ -277,10 +302,10 @@ export function Nav({
               <Link
                 href="/contact"
                 className={cn(
-                  "font-mono text-[0.8125rem] uppercase tracking-[0.08em] rounded-full px-5 py-2.5 transition-all duration-300",
+                  "font-mono text-[0.8125rem] font-medium uppercase tracking-[0.08em] rounded-full px-5 py-2.5 transition-all duration-300 hover:-translate-y-px",
                   overHero
                     ? "border border-cream/50 text-cream hover:border-cream hover:bg-cream/10"
-                    : "bg-ink text-bone hover:bg-brass",
+                    : "bg-ink text-bone shadow-sm shadow-noir/10 hover:bg-brass hover:shadow-md hover:shadow-brass/25",
                 )}
               >
                 Start a project
@@ -289,7 +314,7 @@ export function Nav({
           </ul>
 
           {/* Mobile: toggle + menu button */}
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-3 lg:hidden">
             <ThemeToggle />
             <button
               type="button"
@@ -297,7 +322,7 @@ export function Nav({
               aria-expanded={open}
               aria-controls="mobile-menu"
               className={cn(
-                "font-mono text-[0.8125rem] uppercase tracking-[0.08em] transition-colors duration-300",
+                "font-mono text-[0.8125rem] font-medium uppercase tracking-[0.08em] transition-colors duration-300",
                 overHero ? "text-cream" : "text-ink",
               )}
             >
@@ -315,7 +340,7 @@ export function Nav({
               animate={{ opacity: 1, height: "auto" }}
               exit={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
               transition={{ duration: 0.35, ease: EASE }}
-              className="overflow-hidden md:hidden"
+              className="overflow-hidden lg:hidden"
             >
               <ul className="flex flex-col pt-4">
                 {links.map(({ href, label }, i) => (

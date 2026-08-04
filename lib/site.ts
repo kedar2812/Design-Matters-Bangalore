@@ -17,21 +17,20 @@ export const site = DEFAULTS.identity;
 
 // Discovery form: essential pages are Home / Projects / About / Services,
 // and the client opted out of a public blog — no Journal here.
+//
+// Press was originally kept out of the top nav to hold the pill to five
+// items, reachable instead through the "Featured in" strip on About. The
+// client asked for it in the nav, which is the right call anyway: where
+// the work has been published is a credential, and burying it one page
+// deep meant most visitors never saw it.
 export const navLinks = [
   { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
+  { href: "/press", label: "Press" },
   { href: "/testimonials", label: "Testimonials" },
   { href: "/contact", label: "Contact" },
 ] as const;
-
-/**
- * Pages that belong in the footer index and the sitemap but not in the
- * top nav. Press is real content and worth crawling, but a sixth item in
- * the floating nav pill crowds it — the About page carries a "Featured
- * in" strip that links through instead.
- */
-export const secondaryLinks = [{ href: "/press", label: "Press" }] as const;
 
 export const whatsappHref = (text?: string) =>
   `https://wa.me/${site.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
