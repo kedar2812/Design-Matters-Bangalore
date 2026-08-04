@@ -49,6 +49,11 @@ next-env.d.ts
 # client discovery data (not code)
 *.csv
 
+# Raw asset drops from the client (photo folders arrive as Drive exports).
+# The optimised output under public/uploads/ is what gets committed — the
+# archive itself is tens of megabytes of originals and belongs on disk.
+*.zip
+
 # TEMPORARY — studio dashboard kept out of the public repo until the
 # client's server is ready. To restore: delete this block, then
 # `git add app components actions lib` and commit.
