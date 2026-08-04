@@ -5,6 +5,7 @@ import { Entry } from "@/components/motion/Entry";
 import { TextScrub } from "@/components/motion/TextScrub";
 import { EnquirySection } from "@/components/site/EnquirySection";
 import { PressBand } from "@/components/site/PressBand";
+import { PrincipalSection } from "@/components/site/PrincipalSection";
 import { StudioCollage } from "@/components/site/StudioCollage";
 import { StudioCulture } from "@/components/site/StudioCulture";
 import { TeamSection } from "@/components/site/TeamSection";
@@ -68,20 +69,15 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Principal */}
-      <section className="blueprint-grid mt-section px-gutter py-20">
-        <Reveal>
-          <p className="mono-label mb-4">{about.principalEyebrow}</p>
-          <h2 className="font-display text-h2 mb-8">{site.principal}</h2>
-          <div className="grid gap-10 md:grid-cols-12">
-            <div className="space-y-6 leading-relaxed text-ink-soft md:col-span-6">
-              {about.principalBio.map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-      </section>
+      {/* Principal — portrait, name and bio in one block on its own surface.
+          This used to be a text-only section with the portrait appearing
+          again inside the roster below; Kiran was on the page twice and
+          fully neither time. */}
+      <PrincipalSection
+        eyebrow={about.principalEyebrow}
+        bio={about.principalBio}
+        founded={site.founded}
+      />
 
       {/* Team — roster, hierarchy and portraits (lib/team.ts) */}
       <TeamSection heading={about.teamHeading} />

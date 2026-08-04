@@ -14,6 +14,21 @@
  * MAITRI_edited, RESHMA, MRUDULA, SHEFREEN) — those five confirm the
  * offset, which is what lets the three unnamed files be placed.
  *
+ * SUPERSEDED IN PART — do not re-run this without reading the list below.
+ * The studio has since sent its own photography, imported by
+ * scripts/import-team-media.ts, and that is now the source of truth for:
+ *
+ *   team/kiran-hanumaiah.jpg   re-cropped larger from the same original
+ *   team/jerin-sabu.jpg        replaced by the studio's own shoot
+ *   team/pallavi-vk.jpg        replaced by the studio's own shoot
+ *   team/harshitha.jpg         replaced by team/harshitha-chandrashekhar.jpg
+ *
+ * Re-running this file would quietly overwrite four current portraits with
+ * the older, smaller Wix versions and resurrect four culture photographs
+ * that the About page no longer uses. The collage jobs are still live and
+ * still correct. Kept whole, rather than trimmed, because it is the record
+ * of where the collage came from and how to get any of it back.
+ *
  * Run: npx tsx scripts/import-studio-media.ts
  */
 import { mkdir, writeFile } from "node:fs/promises";

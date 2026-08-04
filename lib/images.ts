@@ -17,6 +17,18 @@ export const IMG_Q = {
   feature: 85,
   /** Cards, grids and thumbnails. */
   card: 82,
+  /**
+   * Documentary photography — team outings, office parties, candids.
+   *
+   * These are phone snapshots of groups of people, not the portfolio, and
+   * nobody inspects the render of a leaf behind somebody's head. That is
+   * worth separating out, because the numbers above buy nothing here: at
+   * the width these are shown, AVIF q70 and q85 are indistinguishable at
+   * 1:1, and q85 costs 29% more bytes across the six on the About page.
+   *
+   * Do not reach for this tier for anything the studio designed.
+   */
+  candid: 70,
 } as const;
 
 /**
