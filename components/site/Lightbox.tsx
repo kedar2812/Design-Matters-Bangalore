@@ -5,10 +5,11 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
-import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ZoomableImage, type ZoomControls } from "@/components/site/ZoomableImage";
 import { cn } from "@/lib/utils";
 
 export type LightboxImage = {
@@ -33,16 +34,30 @@ export function LightboxProvider({
   children: React.ReactNode;
 }) {
   const [current, setCurrent] = useState<number | null>(null);
+  // Only whether we are past 1x — the scale itself never enters React.
+  const [zoomed, setZoomed] = useState(false);
+  const zoom = useRef<ZoomControls | null>(null);
+  // Frames crossfade, so for a moment two surfaces are mounted. A plain
+  // ref would be nulled by the outgoing one detaching *after* the
+  // incoming one attaches; keeping the last non-null handle avoids that.
+  const bindZoom = useCallback((c: ZoomControls | null) => {
+    if (c) zoom.current = c;
+  }, []);
   const reduce = useReducedMotion();
   const isOpen = current !== null;
 
   const open = useCallback((i: number) => setCurrent(i), []);
-  const close = useCallback(() => setCurrent(null), []);
+  const close = useCallback(() => {
+    setCurrent(null);
+    setZoomed(false);
+  }, []);
   const step = useCallback(
-    (dir: 1 | -1) =>
+    (dir: 1 | -1) => {
+      setZoomed(false);
       setCurrent((c) =>
         c === null ? c : (c + dir + images.length) % images.length,
-      ),
+      );
+    },
     [images.length],
   );
 
@@ -54,6 +69,9 @@ export function LightboxProvider({
       if (e.key === "Escape") close();
       if (e.key === "ArrowRight") step(1);
       if (e.key === "ArrowLeft") step(-1);
+      if (e.key === "+" || e.key === "=") zoom.current?.zoomBy(1.6);
+      if (e.key === "-" || e.key === "_") zoom.current?.zoomBy(1 / 1.6);
+      if (e.key === "0") zoom.current?.reset();
     };
     window.addEventListener("keydown", onKey);
     document.documentElement.style.overflow = "hidden";
@@ -100,16 +118,14 @@ export function LightboxProvider({
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <Image
+                  <ZoomableImage
+                    ref={bindZoom}
                     src={img.url}
                     alt={img.alt}
-                    fill
-                    sizes="100vw"
-                    quality={88}
-                    loading="eager"
-                    placeholder={img.blur ? "blur" : "empty"}
-                    blurDataURL={img.blur ?? undefined}
-                    className="object-contain"
+                    blur={img.blur}
+                    reduce={Boolean(reduce)}
+                    onZoomChange={setZoomed}
+                    onSwipe={images.length > 1 ? step : undefined}
                   />
                 </motion.div>
               </AnimatePresence>
@@ -127,16 +143,44 @@ export function LightboxProvider({
                 {" — "}
                 {String(images.length).padStart(2, "0")}
               </p>
-              <button
-                type="button"
-                onClick={close}
-                aria-label="Close photo viewer"
-                className="glass-dark flex size-11 items-center justify-center rounded-full text-cream transition-colors hover:border-cream/40"
-              >
-                <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                  <path d="m3.5 3.5 9 9m0-9-9 9" />
-                </svg>
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Pinch, double-tap and the wheel all do this too — the
+                    buttons exist so the gesture is discoverable, and so
+                    it is reachable without a trackpad or a touchscreen. */}
+                <button
+                  type="button"
+                  onClick={() => zoom.current?.zoomBy(1 / 1.6)}
+                  aria-label="Zoom out"
+                  className="glass-dark flex size-11 items-center justify-center rounded-full text-cream transition-colors hover:border-cream/40 disabled:opacity-35"
+                  disabled={!zoomed}
+                >
+                  <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <circle cx="7" cy="7" r="4.5" />
+                    <path d="M10.5 10.5 14 14M5 7h4" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => zoom.current?.zoomBy(1.6)}
+                  aria-label="Zoom in"
+                  className="glass-dark flex size-11 items-center justify-center rounded-full text-cream transition-colors hover:border-cream/40"
+                >
+                  <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <circle cx="7" cy="7" r="4.5" />
+                    <path d="M10.5 10.5 14 14M5 7h4M7 5v4" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={close}
+                  aria-label="Close photo viewer"
+                  className="glass-dark flex size-11 items-center justify-center rounded-full text-cream transition-colors hover:border-cream/40"
+                >
+                  <svg viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <path d="m3.5 3.5 9 9m0-9-9 9" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             {images.length > 1 && (
