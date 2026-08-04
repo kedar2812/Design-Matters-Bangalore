@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { EnquirySection } from "@/components/site/EnquirySection";
+import { PageHero } from "@/components/site/PageHero";
+import { getHeroImages } from "@/lib/portfolio";
 import { getSection } from "@/lib/settings";
 
 export const revalidate = 3600;
@@ -16,17 +17,23 @@ export const metadata: Metadata = {
 const n = (i: number) => String(i + 1).padStart(2, "0");
 
 export default async function ServicesPage() {
-  const content = await getSection("services");
+  const [content, images] = await Promise.all([
+    getSection("services"),
+    // Leading published work — what commissioning any of these services
+    // actually produces.
+    getHeroImages(),
+  ]);
 
   return (
-    <main className="pb-section pt-36">
-      <section className="px-gutter">
-        <p className="mono-label mb-4">{content.eyebrow}</p>
-        <MaskedHeading className="font-display text-h1 max-w-4xl">
-          {content.heading}
-        </MaskedHeading>
+    <main className="pb-section">
+      <PageHero
+        eyebrow={content.eyebrow}
+        heading={content.heading}
+        images={images}
+      />
 
-        <div className="mt-20 space-y-20">
+      <section className="mt-section px-gutter">
+        <div className="space-y-20">
           {content.services.map((s, i) => (
             <Reveal key={s.title}>
               <div className="rule grid gap-6 pt-8 md:grid-cols-12">
