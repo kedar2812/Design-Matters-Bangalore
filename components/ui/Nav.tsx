@@ -11,11 +11,13 @@ import { cn } from "@/lib/utils";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 
-/** Routes that open on a full-bleed photographic hero — the nav sits
- *  over the image there and needs light text until the page scrolls.
+/** Routes that open on a full-bleed photographic hero — the nav needs
+ *  light text there until the page scrolls and the pill arrives.
  *
- *  Project *detail* pages qualify; the practice-area pages do not —
- *  they open on the bone canvas, where cream nav text would vanish. */
+ *  This only decides the *colour* of the resting state; every route gets
+ *  the resting state itself. Project *detail* pages qualify; the
+ *  practice-area pages do not — they open on the bone canvas, where
+ *  cream nav text would vanish. */
 function hasImageHero(pathname: string) {
   if (pathname === "/") return true;
   if (!pathname.startsWith("/projects/")) return false;
@@ -158,9 +160,10 @@ function CategoryMenu({
 }
 
 /**
- * Site nav. Over photographic heroes it lies transparent across the
- * image; everywhere else it condenses into a floating glass pill that
- * follows the theme. Mobile gets the same pill with a drop-down panel.
+ * Site nav, in two states on every route: at rest it lies transparent
+ * across the top of the page, and the moment the visitor starts
+ * scrolling it condenses into a floating glass pill that follows the
+ * theme. Mobile gets the same pill with a drop-down panel.
  */
 export type CategoryLink = {
   href: string;
@@ -204,10 +207,14 @@ export function Nav({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close both menus on route change.
+  // Close both menus on route change — and re-read the scroll position.
+  // ScrollToTop (root layout, so its effect has already run) has put the
+  // new page back at the top; without this the pill would linger from
+  // the page we left until the visitor scrolled again.
   useEffect(() => {
     setOpen(false);
     setMenu(false);
+    setScrolled(window.scrollY > 24);
   }, [pathname]);
 
   useEffect(() => {
@@ -217,20 +224,37 @@ export function Nav({
     return () => window.removeEventListener("keydown", onKey);
   }, [menu]);
 
-  const overHero = hasImageHero(pathname) && !scrolled && !open;
+  // The resting state: at the top of any page, with nothing open. Opening
+  // the mobile panel summons the pill early — the links need a surface.
+  const atRest = !scrolled && !open;
+  const overHero = atRest && hasImageHero(pathname);
   const links = navLinks.filter(({ href }) => href !== "/contact");
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div
         className={cn(
-          "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          overHero
-            ? "mx-0 mt-0 border-b border-transparent px-gutter py-4"
-            : "glass-light mx-3 mt-3 rounded-2xl border border-hairline px-5 py-3 shadow-lg shadow-noir/5 sm:mx-4",
+          "relative transition-[margin,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          atRest ? "mx-0 mt-0 px-gutter py-4" : "mx-3 mt-3 px-5 py-3 sm:mx-4",
         )}
       >
-        <nav aria-label="Main" className="flex items-center justify-between">
+        {/* The pill is a layer of its own rather than a background on the
+            bar, so it can fade and settle into presence on first scroll
+            instead of snapping on with the padding. */}
+        <div
+          aria-hidden
+          className={cn(
+            "glass-light pointer-events-none absolute inset-0 rounded-2xl border border-hairline shadow-lg shadow-noir/5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            atRest
+              ? "-translate-y-2 scale-[0.98] opacity-0"
+              : "translate-y-0 scale-100 opacity-100",
+          )}
+        />
+
+        <nav
+          aria-label="Main"
+          className="relative flex items-center justify-between"
+        >
           <Link href="/" className="group flex items-baseline gap-3">
             <span
               className={cn(
@@ -340,7 +364,7 @@ export function Nav({
               animate={{ opacity: 1, height: "auto" }}
               exit={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
               transition={{ duration: 0.35, ease: EASE }}
-              className="overflow-hidden lg:hidden"
+              className="relative overflow-hidden lg:hidden"
             >
               <ul className="flex flex-col pt-4">
                 {links.map(({ href, label }, i) => (
