@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ScrollToTop } from "@/components/motion/ScrollToTop";
 import "./globals.css";
 
 // next/font self-hosts these at build time — no runtime Google requests.
@@ -76,6 +77,7 @@ export default function RootLayout({
           storageKey="dma-theme"
           disableTransitionOnChange
         >
+          <ScrollToTop />
           {children}
         </ThemeProvider>
       </body>
