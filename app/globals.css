@@ -1,24 +1,23 @@
 @import "tailwindcss";
+/* The dashboard's own tokens, scoped to [data-studio]. Imported here so
+   Tailwind sees the file; the `@theme inline` block near the bottom is
+   what turns those tokens into utilities. */
+@import "./studio.css";
 
-/* Tailwind v4 auto-detects source files but skips anything .gitignore
-   excludes — and the studio dashboard is deliberately gitignored until
-   the client's server is ready (see the TEMPORARY block in .gitignore).
-   Without these, any utility used *only* on a dashboard or login screen
-   is silently never generated: the markup ships, the CSS doesn't.
-   Naming each ignored directory explicitly is what bypasses the ignore
-   rules — a broad "../app/**" glob does not, because gitignore is
-   re-applied while walking. Keep this list in step with .gitignore.
-   (Parentheses in the route-group path must stay unescaped.) */
+/* The dashboard used to be excluded from the repo by a block in
+   .gitignore, and Tailwind v4's automatic source detection skips anything
+   git ignores — so any utility used only on a studio screen was silently
+   never generated: the markup shipped, the CSS didn't. Naming the
+   directories explicitly is what bypassed that.
+
+   The ignore block is gone now, so detection covers these on its own.
+   They stay because they cost nothing and they are the cheapest possible
+   insurance against the same silent failure if any of these paths is ever
+   ignored again. (Parentheses in the route-group path must stay
+   unescaped.) */
 @source "../app/(studio)";
 @source "../app/login";
 @source "../components/studio";
-
-/* Tailwind v4's automatic source detection skips anything in .gitignore,
-   and the studio dashboard is deliberately gitignored until the client's
-   server is ready (see .gitignore). Without these explicit sources, any
-   utility used *only* on a dashboard or login screen is silently never
-   generated — the markup ships, the CSS doesn't. Register them by hand.
-   Keep this in step with the ignore block in .gitignore. */
 
 /* Class-based dark theme — default is light; ThemeToggle stamps
    `.dark` on <html> (persisted in localStorage, applied pre-paint). */
@@ -351,4 +350,51 @@
 
 @utility fade-rise {
   animation: fade-rise 0.8s var(--ease-out-expo) both;
+}
+
+/* ---------------------------------------------------------------------------
+   Studio utilities.
+
+   `@theme inline` emits the var() reference rather than resolving it at
+   build time, which is the whole point here: `--s-surface` is redefined
+   under `.dark [data-studio]`, so a utility must read it at the element
+   rather than bake in the light value. See app/studio.css for the tokens.
+--------------------------------------------------------------------------- */
+@theme inline {
+  --color-s-bg: var(--s-bg);
+  --color-s-surface: var(--s-surface);
+  --color-s-surface-2: var(--s-surface-2);
+  --color-s-surface-3: var(--s-surface-3);
+  --color-s-border: var(--s-border);
+  --color-s-border-strong: var(--s-border-strong);
+  --color-s-text: var(--s-text);
+  --color-s-text-2: var(--s-text-2);
+  --color-s-text-3: var(--s-text-3);
+  --color-s-accent: var(--s-accent);
+  --color-s-accent-hover: var(--s-accent-hover);
+  --color-s-accent-soft: var(--s-accent-soft);
+  --color-s-accent-line: var(--s-accent-line);
+  --color-s-solid: var(--s-solid);
+  --color-s-solid-hover: var(--s-solid-hover);
+  --color-s-on-solid: var(--s-on-solid);
+  --color-s-info: var(--s-info);
+  --color-s-info-soft: var(--s-info-soft);
+  --color-s-good: var(--s-good);
+  --color-s-good-soft: var(--s-good-soft);
+  --color-s-warn: var(--s-warn);
+  --color-s-warn-soft: var(--s-warn-soft);
+  --color-s-bad: var(--s-bad);
+  --color-s-bad-soft: var(--s-bad-soft);
+  --color-s-muted: var(--s-muted);
+  --color-s-muted-soft: var(--s-muted-soft);
+  --color-s-chart: var(--s-chart);
+  --color-s-chart-soft: var(--s-chart-soft);
+
+  --radius-s: var(--s-radius);
+  --radius-s-sm: var(--s-radius-sm);
+  --radius-s-xs: var(--s-radius-xs);
+
+  --shadow-s: var(--s-shadow);
+  --shadow-s-md: var(--s-shadow-md);
+  --shadow-s-lg: var(--s-shadow-lg);
 }

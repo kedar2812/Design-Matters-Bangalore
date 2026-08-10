@@ -1,0 +1,239 @@
+/* ---------------------------------------------------------------------------
+   Studio — the dashboard's own design language.
+
+   The public site is print-inspired: warm bone paper, hairline rules,
+   oversized serif, mono labels on everything. That is right for a
+   portfolio and wrong for a tool. Read as an interface it has no
+   elevation, so nothing groups; every label shouts in the same uppercase
+   mono, so nothing ranks; and the serif headlines cost a third of the
+   screen before any information appears.
+
+   So the dashboard gets its own tokens rather than borrowing the site's.
+   They live under `[data-studio]`, which the studio layout sets — nothing
+   here can leak onto a public page, and the site's tokens can move
+   without dragging the dashboard with them.
+
+   What carries over is deliberate and small: the bronze accent, and
+   Fraunces on the one number per card that is worth looking at. Primary
+   actions are near-black rather than bronze — bronze cannot carry white
+   text at an accessible contrast, and a black primary against a single
+   warm accent is more restrained than colouring everything.
+--------------------------------------------------------------------------- */
+
+[data-studio] {
+  /* Ground and surfaces. The ground is a hair warm rather than blue-grey,
+     which is what keeps it in the same family as the site without
+     becoming cream. Cards are pure white so elevation reads at all. */
+  --s-bg: #f4f4f3;
+  --s-surface: #ffffff;
+  --s-surface-2: #fafaf9; /* inset rows, table headers, wells */
+  --s-surface-3: #f1f0ee; /* hover on inset surfaces */
+
+  --s-border: #e6e4e0;
+  --s-border-strong: #d3d0ca;
+
+  --s-text: #191817;
+  --s-text-2: #55524c; /* 7.3:1 on white */
+  --s-text-3: #857f76; /* 3.9:1 — labels and metadata only, never body */
+
+  /* The one accent. 5.1:1 on white, so it can carry small text. */
+  --s-accent: #8a6520;
+  --s-accent-hover: #6f5019;
+  --s-accent-soft: #f6f0e4; /* tinted fill for active nav, chips */
+  --s-accent-line: #e4d7bd;
+
+  /* Near-black primary — buttons, the sidebar mark. */
+  --s-solid: #1b1a18;
+  --s-solid-hover: #322f2b;
+  --s-on-solid: #ffffff;
+
+  /* Semantic set for pipeline stages and statuses. Deliberately
+     desaturated and earthy: a dashboard that codes five states in
+     primary colours stops looking like this studio and starts looking
+     like a generic admin panel. */
+  --s-info: #3f5b7a;
+  --s-info-soft: #eaeff5;
+  --s-good: #3d6b52;
+  --s-good-soft: #e8f1eb;
+  --s-warn: #8a6520;
+  --s-warn-soft: #f6f0e4;
+  --s-bad: #97473a;
+  --s-bad-soft: #f8ebe8;
+  --s-muted: #6f6a63;
+  --s-muted-soft: #efeeec;
+
+  /* Data marks. A single-hue bronze ramp, light to dark, for the
+     pipeline; `--s-chart` for everything single-series. */
+  --s-chart: #a1751f;
+  --s-chart-soft: #ead9b8;
+  --s-stage-1: #c9a25a;
+  --s-stage-2: #a98341;
+  --s-stage-3: #86642f;
+  --s-stage-4: #5f4922;
+
+  --s-radius: 14px;
+  --s-radius-sm: 9px;
+  --s-radius-xs: 6px;
+
+  /* Two-layer shadows: a tight contact shadow plus a wider soft one. A
+     single large blur is what makes a card look like it is floating in
+     fog rather than resting on the page. */
+  --s-shadow: 0 1px 2px rgb(24 22 20 / 0.05), 0 1px 3px -1px rgb(24 22 20 / 0.04);
+  --s-shadow-md: 0 2px 4px rgb(24 22 20 / 0.05), 0 8px 20px -6px rgb(24 22 20 / 0.1);
+  --s-shadow-lg: 0 4px 8px rgb(24 22 20 / 0.06), 0 24px 48px -12px rgb(24 22 20 / 0.18);
+
+  --s-ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Dark. Not an inversion — the ground stays warm-neutral and the surfaces
+   step *up* in lightness, which is how elevation reads when there is no
+   shadow to speak of on a dark ground. */
+.dark [data-studio] {
+  --s-bg: #131211;
+  --s-surface: #1c1b19;
+  --s-surface-2: #232120;
+  --s-surface-3: #2b2927;
+
+  --s-border: #2e2b28;
+  --s-border-strong: #423e39;
+
+  --s-text: #f2f0ed;
+  --s-text-2: #aaa49b;
+  --s-text-3: #837d74;
+
+  --s-accent: #d3a75d;
+  --s-accent-hover: #e5bd79;
+  --s-accent-soft: #2a2318;
+  --s-accent-line: #453922;
+
+  --s-solid: #f2f0ed;
+  --s-solid-hover: #ffffff;
+  --s-on-solid: #171614;
+
+  --s-info: #8fb0d4;
+  --s-info-soft: #1b232c;
+  --s-good: #86c0a0;
+  --s-good-soft: #182320;
+  --s-warn: #d3a75d;
+  --s-warn-soft: #2a2318;
+  --s-bad: #dd9084;
+  --s-bad-soft: #2c1d1a;
+  --s-muted: #9a948b;
+  --s-muted-soft: #262422;
+
+  --s-chart: #c99a3f;
+  --s-chart-soft: #3a2f1a;
+  --s-stage-1: #6b5227;
+  --s-stage-2: #8f6f36;
+  --s-stage-3: #b98f4a;
+  --s-stage-4: #e0be80;
+
+  --s-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  --s-shadow-md: 0 2px 4px rgb(0 0 0 / 0.3), 0 8px 20px -6px rgb(0 0 0 / 0.5);
+  --s-shadow-lg: 0 4px 8px rgb(0 0 0 / 0.3), 0 24px 48px -12px rgb(0 0 0 / 0.6);
+}
+
+/* ------------------------------------------------------------ primitives */
+
+/* Tokens and paint are deliberately separate.
+   `[data-studio]` only *declares* variables, so it can be put on a
+   portal wrapper — toasts and dialogs render into document.body, outside
+   the shell, and would otherwise resolve none of these. `.studio-root`
+   is what actually paints, and only the shell carries it. */
+.studio-root {
+  background: var(--s-bg);
+  color: var(--s-text);
+}
+
+/* The site sets a 1rem radius on every <img> globally, which is right for
+   a full-bleed photograph and far too round for a 40px thumbnail. */
+[data-studio] img {
+  border-radius: var(--s-radius-xs);
+}
+
+/* Focus. One ring everywhere, drawn outside the element so it never
+   shifts layout, and visible on both grounds. */
+[data-studio] :focus-visible {
+  outline: 2px solid var(--s-accent);
+  outline-offset: 2px;
+  border-radius: var(--s-radius-xs);
+}
+
+/* Section label — the one piece of the site's mono vocabulary kept, and
+   kept for section headers only. Using it on every data point is what
+   made the old screens read as a spec sheet. */
+.s-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--s-text-3);
+}
+
+/* Tabular figures for anything in a column that will be compared. */
+.s-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* The one display moment: the headline number on a stat card. */
+.s-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbars inside studio panes — the default Windows bar is 17px of
+   grey that breaks every card edge it touches. */
+[data-studio] .s-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--s-border-strong) transparent;
+}
+[data-studio] .s-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+[data-studio] .s-scroll::-webkit-scrollbar-thumb {
+  background: var(--s-border-strong);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+[data-studio] .s-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Shimmer for skeletons. Transform-only so it cannot cause layout work,
+   and silent under reduced motion. */
+@keyframes s-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.s-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--s-surface-3);
+  border-radius: var(--s-radius-xs);
+}
+.s-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--s-surface) 65%, transparent),
+    transparent
+  );
+  animation: s-shimmer 1.6s var(--s-ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s-skeleton::after {
+    animation: none;
+  }
+}
