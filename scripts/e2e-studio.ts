@@ -20,6 +20,29 @@ const CHROME =
   process.env.CHROME ?? "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const OUT = process.env.OUT ?? ".";
 
+/**
+ * This suite drives a browser at BASE and asserts against whatever
+ * DATABASE_URL resolves to. Those are only the same system when BASE is
+ * local, and pointing it at a deployment silently turns every "restore
+ * what the test changed" step into a write to the *wrong* database —
+ * leaving the real one modified. It has done exactly that once: a drag
+ * test moved the studio's homepage hero on the live site and then
+ * "restored" the local copy.
+ *
+ * So refuse outright. There is no flag to override, because the failure
+ * is silent and the damage is to the client's own data.
+ */
+const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(BASE);
+if (!isLocal) {
+  console.error(
+    `Refusing to run: BASE is ${BASE}.\n` +
+      "This suite creates, drags and deletes real rows, and restores them\n" +
+      "through DATABASE_URL — which is not the same database as a remote\n" +
+      "deployment. Run it against a local server only.",
+  );
+  process.exit(2);
+}
+
 const passed: string[] = [];
 const failed: string[] = [];
 const ok = (m: string) => {
