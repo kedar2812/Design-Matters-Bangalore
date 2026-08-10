@@ -117,22 +117,53 @@ const JOBS: Job[] = [
     position: "north",
     quality: 82,
   },
-  /* The poster for the Kabini clip — same trip, same 16:9, and a poster is
-     a cover image rather than a claim about frame one.
-
-     Sized to 1280x720 because that is the resolution of the video it sits
-     on: a sharper poster than the thing behind it is bytes nobody sees.
-     A `poster` is a bare URL, so this one file never passes through
-     next/image and its own encoding is the delivered encoding. */
+  /* The Kabini group shot. This was originally cut down to 1280x720 to
+     serve as the poster for the Kabini clip — on the belief that the clip
+     was 1280x720. It is not: the clip is 720x1280, shot upright on a
+     phone. So the poster is now a real frame of the video, made with
+     ffmpeg alongside it (see the note under VIDEO below), and this file
+     goes back to being what it always was — a photograph, sized like the
+     other candids, and shown next to the video on the About page. */
   {
     from: "Team outing - Kabini.jpg",
     out: "culture/outing-kabini.jpg",
     ratio: [16, 9],
-    width: 1280,
+    width: 1600,
     position: "centre",
-    quality: 78,
+    quality: 82,
   },
 ];
+
+/**
+ * The Kabini clip and its poster are NOT produced here — sharp does not
+ * decode video. They are made once with ffmpeg and committed:
+ *
+ *   ffmpeg -i "<src>/Team outing Video - Kabini_.mp4" \
+ *     -vf "hqdn3d=1.5:1.5:6:6,unsharp=5:5:0.55:5:5:0.0" \
+ *     -c:v libx264 -profile:v high -crf 23 -preset slower -pix_fmt yuv420p \
+ *     -g 60 -c:a aac -b:a 96k -movflags +faststart \
+ *     public/uploads/studio/culture/outing-kabini.mp4
+ *
+ *   ffmpeg -ss 13.2 -i public/uploads/studio/culture/outing-kabini.mp4 \
+ *     -frames:v 1 public/uploads/studio/culture/outing-kabini-poster.jpg
+ *
+ * The studio's copy of the clip came through a messenger app: 720x1280,
+ * 1.85 Mbps, with the blocking and mosquito noise that implies. Nothing
+ * can put back detail that was thrown away there, so the filter pair only
+ * cleans up what the re-compression added — hqdn3d takes the noise out of
+ * the sky and the still water, unsharp puts the edge back on the palm
+ * fronds. CRF 23 then spends enough bits not to re-introduce the artefacts
+ * that were just removed; it costs 1.1 MB over the original, which is
+ * bytes nobody pays until they press play.
+ *
+ * If the studio can ever find the camera original, re-run this against
+ * that instead and drop the filters — they exist to undo someone else's
+ * compression, not to improve a clean source.
+ *
+ * The poster is a frame of the finished encode, so the still and the first
+ * moment of playback are the same picture. 13.2s is the palm avenue, which
+ * is the one shot in the clip composed for an upright frame.
+ */
 
 /** Decodes to a sharp pipeline, routing HEIC through the JS decoder. */
 async function open(file: string) {

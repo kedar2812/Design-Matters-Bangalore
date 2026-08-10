@@ -9,9 +9,9 @@ import { jsonLdScript, pressJsonLd } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Press — Design Matters in publication",
+  title: "Press & Features",
   description:
-    "Projects and writing by Design Matters Architects featured on Buildofy, The Architects Diary and in the Deccan Herald.",
+    "Houses by Design Matters Architects, Bangalore, featured on Buildofy, The Architects Diary and in the Deccan Herald.",
   alternates: { canonical: "/press" },
 };
 

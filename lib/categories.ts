@@ -21,6 +21,19 @@ export type Category = {
   label: string;
   /** Roman-ish index shown as the section numeral on the site. */
   numeral: string;
+  /**
+   * The page's <title> — written for the query, not for the nav.
+   *
+   * The label above is the studio's word for the practice area and it is
+   * what the page says out loud. This is the phrase people type, which is
+   * rarely the same thing: nobody searches "interiors", they search
+   * "interior designers in Bangalore". Kept here beside the slug because
+   * it is a structural fact about the route rather than copy — the
+   * dashboard owns the visible headline and the meta description; the
+   * title is the one field that should not drift with an edit, because
+   * it is what a ranking is attached to.
+   */
+  searchTitle: string;
   /** Alternative spellings that should resolve to this category. */
   aliases: string[];
 };
@@ -30,18 +43,21 @@ export const CATEGORIES: Category[] = [
     slug: "residential",
     label: "Residential",
     numeral: "01",
+    searchTitle: "Residential Architects in Bangalore",
     aliases: ["residence", "residences", "homes", "housing", "villa", "villas"],
   },
   {
     slug: "interiors",
     label: "Interiors",
     numeral: "02",
+    searchTitle: "Interior Designers in Bangalore",
     aliases: ["interior", "interior design", "fit-out", "fitout"],
   },
   {
     slug: "institutional",
     label: "Institutional",
     numeral: "03",
+    searchTitle: "Institutional Architects in Bengaluru",
     aliases: ["institution", "institutions", "civic", "education", "educational"],
   },
 ];

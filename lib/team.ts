@@ -13,12 +13,16 @@
  * and a magazine credit that suggested "Divya Shankar" turns out to have
  * been the wrong Divya. Nothing here is completed from guesswork.
  *
- * Two entries need the client's eye. Reshma S and Mrudula VR were not on
- * the written roster of nine, but both sent portraits in that same shoot,
- * and both are listed on the current site. A photograph taken alongside
- * the rest of the team is better evidence of who works there than a list
- * typed some weeks earlier, so they are here — flagged for confirmation
- * rather than dropped. Their rank is the one the current site gives them.
+ * The sequence below is the client's own, sent 2026-08-10 and described by
+ * him as seniority order. It supersedes the arrangement we inferred from
+ * the old site, and it also settles the open question about Reshma S and
+ * Mrudula VR: they were missing from the written roster of nine but sent
+ * portraits with everyone else, and he has now placed them fourth and
+ * fifth himself. Eleven people, confirmed.
+ *
+ * Rank and sequence are deliberately separate. Three people carry "Senior
+ * Architect" and they happen to lead the list, but the order is his, not a
+ * sort on `designation` — so a future reshuffle inside one rank survives.
  */
 
 export type Rank = "Principal Architect" | "Senior Architect" | "Architect";
@@ -57,50 +61,47 @@ export const TEAM: TeamMember[] = [
     order: 3,
     image: "/uploads/studio/team/pallavi-vk.jpg",
   },
-  /* The five the client listed, in the order he listed them. */
   {
-    name: "Divya Malviya",
+    name: "Mrudula VR",
     designation: "Architect",
     order: 4,
-    image: "/uploads/studio/team/divya-malviya.jpg",
+    image: "/uploads/studio/team/mrudula-vr.jpg",
+  },
+  {
+    name: "Reshma S",
+    designation: "Architect",
+    order: 5,
+    image: "/uploads/studio/team/reshma-s.jpg",
+  },
+  {
+    name: "Anusha Kolli",
+    designation: "Architect",
+    order: 6,
+    image: "/uploads/studio/team/anusha-kolli.jpg",
   },
   {
     name: "Diya Shah",
     designation: "Architect",
-    order: 5,
+    order: 7,
     image: "/uploads/studio/team/diya-shah.jpg",
+  },
+  {
+    name: "Divya Malviya",
+    designation: "Architect",
+    order: 8,
+    image: "/uploads/studio/team/divya-malviya.jpg",
   },
   {
     name: "Prathamesh Jadhav",
     designation: "Architect",
-    order: 6,
+    order: 9,
     image: "/uploads/studio/team/prathamesh-jadhav.jpg",
   },
   {
     name: "Nidhi V Senan",
     designation: "Architect",
-    order: 7,
-    image: "/uploads/studio/team/nidhi-v-senan.jpg",
-  },
-  {
-    name: "Anusha Kolli",
-    designation: "Architect",
-    order: 8,
-    image: "/uploads/studio/team/anusha-kolli.jpg",
-  },
-  /* Appended rather than interleaved — see the note at the top of the file.
-     Kept visibly at the end so the addition is easy to review or undo. */
-  {
-    name: "Reshma S",
-    designation: "Architect",
-    order: 9,
-    image: "/uploads/studio/team/reshma-s.jpg",
-  },
-  {
-    name: "Mrudula VR",
-    designation: "Architect",
     order: 10,
-    image: "/uploads/studio/team/mrudula-vr.jpg",
+    image: "/uploads/studio/team/nidhi-v-senan.jpg",
   },
 ];
 

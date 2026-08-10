@@ -50,7 +50,13 @@ export function Footer({ identity: site }: { identity: Identity }) {
       <div className="mx-gutter grid gap-10 border-t border-dusk-edge py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="mono-label mb-4 text-brass-bright">Studio</p>
-          <p className="text-sm leading-relaxed text-cream/70">
+          {/* A real <address>, not a <p>. The studio's postal address on
+              every page is the site's strongest local-search signal, and
+              the element is the semantic one — it also keeps the block
+              consistent with the PostalAddress in the JSON-LD, which is
+              what "NAP consistency" actually means. `not-italic` because
+              the UA sheet italicises <address> by default. */}
+          <address className="text-sm not-italic leading-relaxed text-cream/70">
             {site.name}
             <br />
             {site.addressLine1}
@@ -58,7 +64,7 @@ export function Footer({ identity: site }: { identity: Identity }) {
             {site.addressLine2}
             <br />
             {site.city} {site.pin}
-          </p>
+          </address>
         </div>
 
         <div>

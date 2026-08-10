@@ -15,9 +15,9 @@ import { pairTestimonials } from "@/lib/testimonial-projects";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Testimonials — What Clients Say",
+  title: "Client Reviews & Testimonials",
   description:
-    "Google reviews from Design Matters clients across Bengaluru — residences, villas and interiors, in the owners' own words.",
+    "Google reviews from Design Matters clients across Bangalore — residences, villas and interiors, in the owners' own words.",
   alternates: { canonical: "/testimonials" },
 };
 

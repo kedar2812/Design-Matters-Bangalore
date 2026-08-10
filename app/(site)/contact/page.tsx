@@ -10,7 +10,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Contact — Start a Project",
   description:
-    "Talk to Design Matters Architects about your site, residence or interior project. Studio in Indiranagar, Bengaluru. Call, WhatsApp or write to us.",
+    "Talk to Design Matters Architects about your site, residence or interior project. Studio in Indiranagar, Bangalore. Call, WhatsApp or write to us.",
   alternates: { canonical: "/contact" },
 };
 

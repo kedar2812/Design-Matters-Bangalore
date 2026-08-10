@@ -8,19 +8,43 @@ import { getCategoryTiles } from "@/lib/portfolio";
 import { getSection, categoryCopy } from "@/lib/settings";
 import { CATEGORIES, categoryHref, type Category } from "@/lib/categories";
 import { IMG_Q } from "@/lib/images";
+import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 
 /**
- * Page metadata for a practice area, driven by the same editable copy
- * the page renders — so retitling the section in the dashboard also
- * retitles it for Google.
+ * Trim to the last sentence that fits, falling back to the last whole
+ * word. Never mid-word, never mid-clause.
+ */
+function clampToSentence(text: string, max: number) {
+  if (text.length <= max) return text;
+  const window = text.slice(0, max);
+  const stop = window.lastIndexOf(". ");
+  if (stop > max * 0.5) return window.slice(0, stop + 1);
+  return window.slice(0, window.lastIndexOf(" ")).replace(/[,;:—-]$/, "") + "…";
+}
+
+/**
+ * Page metadata for a practice area.
+ *
+ * The title comes from `lib/categories` and is fixed; the description is
+ * the dashboard-editable intro, so the client can still change what the
+ * SERP snippet says without being able to accidentally retitle a page
+ * that is carrying a ranking.
  */
 export async function categoryMetadata(category: Category): Promise<Metadata> {
   const content = await getSection("projects");
   const copy = categoryCopy(content, category.slug);
   return {
-    title: `${category.label} projects — ${copy.tagline}`,
-    description: copy.intro.slice(0, 300),
+    title: category.searchTitle,
+    // The studio's own words for the practice area, clipped at a sentence
+    // rather than at 300 characters — Google rewrites a description it has
+    // to truncate, and a full stop is the cheapest way to keep control of
+    // what appears under the link.
+    description: clampToSentence(copy.intro, 158),
     alternates: { canonical: categoryHref(category.slug) },
+    openGraph: {
+      title: `${category.searchTitle} — Design Matters Architects`,
+      url: categoryHref(category.slug),
+    },
   };
 }
 
@@ -41,6 +65,15 @@ export async function CategoryView({ category }: { category: Category }) {
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(
+          breadcrumbJsonLd([
+            { name: "Projects", path: "/projects" },
+            { name: category.label, path: categoryHref(category.slug) },
+          ]),
+        )}
+      />
       {/* ------------------------------------------------------- masthead */}
       <header className="px-gutter pt-36">
         <Entry>

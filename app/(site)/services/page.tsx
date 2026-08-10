@@ -4,13 +4,14 @@ import { EnquirySection } from "@/components/site/EnquirySection";
 import { PageHero } from "@/components/site/PageHero";
 import { getHeroImages } from "@/lib/portfolio";
 import { getSection } from "@/lib/settings";
+import { jsonLdScript, servicesJsonLd } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Services — Architecture, Interior Design & Consultation",
+  title: "Architecture & Interior Design Services",
   description:
-    "Architecture for residences, apartments, commercial and hospitality projects; end-to-end interior design; and design consultation — from Design Matters, Bengaluru.",
+    "Architecture for residences, apartments, commercial and hospitality projects; end-to-end interior design; and consultation, from a Bangalore studio since 2011.",
   alternates: { canonical: "/services" },
 };
 
@@ -26,6 +27,17 @@ export default async function ServicesPage() {
 
   return (
     <main className="pb-section">
+      {/* The three services, restated for crawlers from the same copy the
+          page renders — so editing a service in the dashboard also edits
+          what search engines are told the studio does. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(
+          servicesJsonLd(
+            content.services.map((s) => ({ title: s.title, body: s.body })),
+          ),
+        )}
+      />
       <PageHero
         eyebrow={content.eyebrow}
         heading={content.heading}

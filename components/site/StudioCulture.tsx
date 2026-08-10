@@ -16,16 +16,38 @@ import blurs from "@/lib/studio-blurs.json";
  * consecutive holiday photographs make a practice look like it never
  * works; the desks put the trips in context.
  *
- * The video is the studio's own clip from the Kabini trip. It is wired
- * `preload="none"` behind a poster, so it costs one image until somebody
- * presses play — 4.4 MB is not something to hand every visitor. The
- * poster is a still from the same trip rather than a frame grab; it is a
- * cover image, and the caption names the trip, not the frame.
+ * The video is the studio's own clip from the Kabini trip, and it is the
+ * one asset here that is NOT wide: it was shot on a phone, held upright,
+ * and it is 720x1280. It gets a 9:16 frame for that reason. A 16:9 frame
+ * would have to `object-cover` a portrait source, which throws away two
+ * thirds of every frame and then enlarges the surviving band to fill the
+ * width — the single biggest thing that made this clip look poor. In a
+ * four-column cell the 720px source lands at roughly 2x density, so it
+ * renders sharp on a retina screen without being asked to invent pixels.
+ *
+ * The Kabini group photograph sits beside it, centred against the taller
+ * video, because a portrait cell alone in a twelve-column grid reads as a
+ * layout accident. Same trip, so one caption covers the pair and the
+ * whole row is a single `figure`.
+ *
+ * `preload="none"` behind a poster keeps the cost at one image until
+ * somebody presses play — 5.5 MB is not something to hand every visitor.
+ * The poster IS a frame of the clip now (and 9:16 like it), so pressing
+ * play no longer cuts to a different picture.
  */
 
-export const TEAM_VIDEO: { src: string; poster: string; caption: string } | null = {
+export const TEAM_VIDEO: {
+  src: string;
+  poster: string;
+  still: string;
+  stillAlt: string;
+  caption: string;
+} | null = {
   src: "/uploads/studio/culture/outing-kabini.mp4",
-  poster: "/uploads/studio/culture/outing-kabini.jpg",
+  poster: "/uploads/studio/culture/outing-kabini-poster.jpg",
+  still: "/uploads/studio/culture/outing-kabini.jpg",
+  stillAlt:
+    "The whole Design Matters studio lined up on the bank of the Kabini backwaters under a bright, cloud-stacked sky",
   caption: "The studio on its Kabini trip",
 };
 
@@ -93,16 +115,34 @@ export function StudioCulture({
       {TEAM_VIDEO && (
         <Reveal className="mb-gutter">
           <figure>
-            <div className="rounded-frame relative aspect-video overflow-hidden bg-stone/10">
-              <video
-                className="h-full w-full rounded-[inherit] object-cover"
-                src={TEAM_VIDEO.src}
-                poster={TEAM_VIDEO.poster}
-                controls
-                muted
-                playsInline
-                preload="none"
-              />
+            <div className="grid gap-gutter md:grid-cols-12 md:items-center">
+              <div className="md:col-span-4">
+                <div className="rounded-frame relative aspect-[9/16] overflow-hidden bg-stone/10">
+                  <video
+                    className="h-full w-full rounded-[inherit] object-cover"
+                    src={TEAM_VIDEO.src}
+                    poster={TEAM_VIDEO.poster}
+                    controls
+                    muted
+                    playsInline
+                    preload="none"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-8">
+                <div className="rounded-frame relative aspect-video overflow-hidden bg-stone/10">
+                  <Image
+                    src={TEAM_VIDEO.still}
+                    alt={TEAM_VIDEO.stillAlt}
+                    fill
+                    sizes="(min-width: 768px) 66vw, 100vw"
+                    quality={IMG_Q.candid}
+                    placeholder={blurOf(TEAM_VIDEO.still) ? "blur" : "empty"}
+                    blurDataURL={blurOf(TEAM_VIDEO.still)}
+                    className="rounded-[inherit] object-cover"
+                  />
+                </div>
+              </div>
             </div>
             <figcaption className="mono-label mt-3 text-stone">
               {TEAM_VIDEO.caption}

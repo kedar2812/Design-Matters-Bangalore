@@ -3,7 +3,7 @@ import { Nav } from "@/components/ui/Nav";
 import { Footer } from "@/components/ui/Footer";
 import { Beacon } from "@/components/site/Beacon";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
-import { jsonLdScript, organizationJsonLd } from "@/lib/seo";
+import { jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getIdentity, getSection, whatsappHref } from "@/lib/settings";
 import { CATEGORIES, categoryHref } from "@/lib/categories";
 
@@ -31,9 +31,18 @@ export default async function SiteLayout({
 
   return (
     <LenisProvider>
+      {/* Two site-wide nodes. The Organization is the entity everything
+          else points at by @id — reviews, projects, services; the WebSite
+          is what Google reads to print the site name above a result. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(orgJsonLd)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(
+          websiteJsonLd(identity.name, identity.shortName),
+        )}
       />
       <Nav shortName={identity.shortName} categoryLinks={categoryLinks} />
       {children}

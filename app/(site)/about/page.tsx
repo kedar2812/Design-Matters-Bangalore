@@ -14,9 +14,9 @@ import { getIdentity, getSection } from "@/lib/settings";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "About — The Studio & Ar. Kiran Hanumaiah",
+  title: "About the Studio & Ar. Kiran Hanumaiah",
   description:
-    "Design Matters is a Bengaluru architecture and interior design studio founded in 2011 by Ar. Kiran Hanumaiah. Meet the team and the thinking behind the work.",
+    "A Bangalore architecture and interior design studio founded in 2011 by Ar. Kiran Hanumaiah. Meet the eleven-strong team and the thinking behind the work.",
   alternates: { canonical: "/about" },
 };
 

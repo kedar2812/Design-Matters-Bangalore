@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+// A 404 answers with the right status code, so it will not be indexed —
+// but it is still a page a person can land on from a stale link or an old
+// Wix URL, and an untitled tab reading "localhost" is a dead end. The
+// noindex is belt-and-braces for the case where a host mis-serves it 200.
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

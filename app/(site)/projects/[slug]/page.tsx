@@ -7,9 +7,10 @@ import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
 import { Parallax } from "@/components/motion/Parallax";
-import { jsonLdScript, projectJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, jsonLdScript, projectJsonLd } from "@/lib/seo";
 import { IMG_Q, SIZES } from "@/lib/images";
 import { featureFor } from "@/lib/project-features";
+import { categoryHref, resolveCategory } from "@/lib/categories";
 import { ProjectFeature } from "@/components/site/ProjectFeature";
 import { EnquirySection } from "@/components/site/EnquirySection";
 import {
@@ -33,13 +34,39 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getPublishedProject(slug);
   if (!project) return {};
+
+  // "Banashankari 6th Stage, Bengaluru" → "Bengaluru". The full string
+  // carries a neighbourhood, which is worth having in the description and
+  // in `locationCreated`, but not in the title: the template appends
+  // " — Design Matters Architects", and a title long enough to be
+  // truncated loses the studio's name, which is the half a searcher
+  // recognises. Title stays short; the neighbourhood goes below it.
+  const city = project.location?.split(",").pop()?.trim();
+
+  // The root layout's title template appends " — Design Matters
+  // Architects" to everything. A meta title typed in the dashboard often
+  // already ends in the studio's name, and Woodsvale's did — the rendered
+  // title carried the brand twice and ran to 81 characters. When the
+  // stored title has already said it, take it as absolute.
+  const fallback = [project.title, city].filter(Boolean).join(" — ");
+  const title =
+    project.metaTitle && /design\s*matters/i.test(project.metaTitle)
+      ? { absolute: project.metaTitle }
+      : (project.metaTitle ?? fallback);
+
   return {
-    title: project.metaTitle ?? `${project.title} — ${project.category}, ${project.location}`,
+    title,
     description:
       project.metaDesc ??
-      `${project.title} by Design Matters Architects — ${project.category}, ${project.location}.`,
+      `${project.title} — a ${project.category.toLowerCase()} project by Design Matters Architects${
+        project.location ? ` in ${project.location}` : ""
+      }${project.year ? `, completed ${project.year}` : ""}.`,
     alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: project.heroImage ? { images: [project.heroImage] } : undefined,
+    openGraph: {
+      type: "article",
+      url: `/projects/${project.slug}`,
+      ...(project.heroImage && { images: [project.heroImage] }),
+    },
   };
 }
 
@@ -86,6 +113,7 @@ export default async function ProjectPage({
   // A sub-project (e.g. Club Nadora inside Woodsvale) contributes its own
   // frames to the end of the lightbox set.
   const feature = featureFor(project.slug);
+  const area = resolveCategory(project.category);
   const featureOffset = storyImages.length + project.gallery.length;
   const wideCell = (i: number) => project.gallery.length === 1 || i % 3 === 2;
 
@@ -107,6 +135,21 @@ export default async function ProjectPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(projectJsonLd(project))}
+      />
+      {/* The trail Google prints in place of the URL. It routes through
+          the practice area when the project belongs to one — the older
+          Commercial and Hospitality rows have no page of their own, so
+          they hang off /projects directly rather than inventing a crumb
+          that would 404. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(
+          breadcrumbJsonLd([
+            { name: "Projects", path: "/projects" },
+            ...(area ? [{ name: area.label, path: categoryHref(area.slug) }] : []),
+            { name: project.title, path: `/projects/${project.slug}` },
+          ]),
+        )}
       />
       {/* Hero — inset rounded frame, consistent with the home carousel */}
       <section className="p-2.5">
