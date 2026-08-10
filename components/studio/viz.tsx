@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/studio/ui";
 
@@ -130,32 +131,82 @@ export function Delta({ now, prev, period }: { now: number; prev: number; period
 
 /* ------------------------------------------------------------ stat card */
 
+/**
+ * A KPI tile.
+ *
+ * Given `href` the whole card becomes the link rather than growing a
+ * "view more" affordance in the corner: the number is the thing being
+ * asked about, so the number should be what you click. The chevron only
+ * appears on hover — a static one on four cards is four arrows competing
+ * with the four figures they point away from.
+ */
 export function StatCard({
   label,
   value,
   footer,
   spark,
+  href,
+  hint,
 }: {
   label: string;
   value: string | number;
   footer?: React.ReactNode;
   spark?: number[];
+  href?: string;
+  /** Tooltip + accessible name suffix, e.g. "Open enquiries". */
+  hint?: string;
 }) {
-  return (
-    <Card className="flex h-full flex-col overflow-hidden">
+  const body = (
+    <>
       <div className="p-4 pb-3">
-        <p className="text-[0.8125rem] font-medium text-s-text-3">{label}</p>
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-[0.8125rem] font-medium text-s-text-3">{label}</p>
+          {href && (
+            <ChevronRight className="mt-px size-3.5 shrink-0 text-s-text-3 opacity-0 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-s-accent group-hover:opacity-100" />
+          )}
+        </div>
         <p className="s-display mt-1.5 text-[2rem] leading-none text-s-text">
           {typeof value === "number" ? formatCount(value) : value}
         </p>
         {footer && <div className="mt-2.5">{footer}</div>}
       </div>
       {spark && spark.length > 1 && (
-        <div className="mt-auto px-0 pb-0" aria-hidden>
+        <div className="mt-auto" aria-hidden>
           <Sparkline points={spark} label={`${label} trend`} />
         </div>
       )}
-    </Card>
+    </>
+  );
+
+  if (!href) {
+    return <Card className="flex h-full flex-col overflow-hidden">{body}</Card>;
+  }
+
+  return (
+    <Link
+      href={href}
+      title={hint ?? label}
+      className="group flex h-full flex-col overflow-hidden rounded-s border border-s-border bg-s-surface shadow-s transition-colors hover:border-s-border-strong hover:bg-s-surface-2"
+    >
+      {body}
+    </Link>
+  );
+}
+
+function ChevronRight({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className={className}
+    >
+      <path d="m7.5 4.5 5 5.5-5 5.5" />
+    </svg>
   );
 }
 

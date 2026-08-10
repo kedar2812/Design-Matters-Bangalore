@@ -273,8 +273,9 @@ async function main() {
 
   /* ------------------------------------------------- screens render */
   const SCREENS: [string, string][] = [
-    ["/studio/analytics", "Daily views"],
-    ["/studio/analytics?range=7", "Last 7 days"],
+    ["/studio/analytics", "Views over time"],
+    ["/studio/analytics?range=7", "last 7 days"],
+    ["/studio/analytics?range=all", "All time"],
     ["/studio/testimonials", "All testimonials"],
     ["/studio/content", "Website content"],
     ["/studio/content/identity", "View page"],
@@ -286,6 +287,64 @@ async function main() {
     const text = await page.evaluate(() => document.body.innerText);
     check(text.includes(needle), path + " renders");
   }
+
+  /* ------------------------------------------------- KPI tiles link out */
+  await goto(page, "/studio/dashboard");
+  const tiles = await page.evaluate(`(() => {
+    var out = [];
+    var links = document.querySelectorAll('a[href^="/studio/"]');
+    for (var i = 0; i < links.length; i++) {
+      var t = links[i].textContent || "";
+      if (/Enquiries, all time|Enquiries this month|Views, 30 days|Views this week/.test(t)) {
+        out.push(links[i].getAttribute("href"));
+      }
+    }
+    return out;
+  })()`);
+  check((tiles as string[]).length === 4, "all four KPI tiles are links");
+  check(
+    (tiles as string[]).some((h) => h.startsWith("/studio/leads")) &&
+      (tiles as string[]).some((h) => h.startsWith("/studio/analytics")),
+    "KPI tiles point at enquiries and analytics",
+  );
+
+  /* --------------------------------------------- notification centre */
+  const beforeDismiss = await prisma.noticeDismissal.count();
+  await goto(page, "/studio/dashboard");
+  const bell = await page.evaluate(`(() => {
+    var b = document.querySelector('button[aria-haspopup="dialog"]');
+    if (!b) return null;
+    b.click();
+    return b.getAttribute("aria-label");
+  })()`);
+  check(Boolean(bell), "the topbar has a notifications bell");
+  await wait(800);
+  const noticeCount = await page.evaluate(
+    `document.querySelectorAll('[role="dialog"][aria-label="Updates"] li').length`,
+  );
+  check(typeof noticeCount === "number", "the notifications panel opens");
+
+  if ((noticeCount as number) > 0) {
+    await page.evaluate(
+      `document.querySelector('[role="dialog"][aria-label="Updates"] button[aria-label^="Dismiss"]').click()`,
+    );
+    await wait(2200);
+    check(
+      (await prisma.noticeDismissal.count()) === beforeDismiss + 1,
+      "dismissing one notice is persisted",
+    );
+
+    // And it stays gone across a full reload, which is the whole point.
+    await goto(page, "/studio/dashboard");
+    await page.evaluate(`document.querySelector('button[aria-haspopup="dialog"]').click()`);
+    await wait(800);
+    const after = await page.evaluate(
+      `document.querySelectorAll('[role="dialog"][aria-label="Updates"] li').length`,
+    );
+    check((after as number) === (noticeCount as number) - 1, "the dismissed notice stays gone");
+  }
+  // Leave the studio's notice state as we found it.
+  await prisma.noticeDismissal.deleteMany({});
 
   /* ------------------------------------------------------ mobile shell */
   await page.setViewport({ width: 390, height: 800 });

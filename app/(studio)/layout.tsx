@@ -5,6 +5,8 @@ import { StudioNav, StudioTitle } from "@/components/studio/StudioNav";
 import { StudioTransition } from "@/components/studio/StudioTransition";
 import { NavProgressProvider } from "@/components/studio/NavProgress";
 import { FeedbackProvider } from "@/components/studio/Feedback";
+import { Notifications } from "@/components/studio/Notifications";
+import { getNotices } from "@/lib/notices";
 
 export const metadata = {
   robots: { index: false, follow: false },
@@ -29,7 +31,10 @@ export default async function StudioLayout({
   const session = await auth();
   if (!session?.user) redirect("/login");
 
-  const newLeads = await prisma.lead.count({ where: { status: "NEW" } });
+  const [newLeads, notices] = await Promise.all([
+    prisma.lead.count({ where: { status: "NEW" } }),
+    getNotices(),
+  ]);
 
   async function logout() {
     "use server";
@@ -66,9 +71,12 @@ export default async function StudioLayout({
                 than as a seam. */}
             <header className="sticky top-0 z-40 flex h-14 shrink-0 items-center gap-3 border-b border-s-border bg-s-surface/85 px-4 backdrop-blur-md lg:px-7">
               <StudioTitle />
+              <div className="ml-auto flex items-center gap-1">
+                <Notifications notices={notices} />
+              </div>
             </header>
 
-            <main className="min-w-0 flex-1 px-4 py-6 lg:px-7 lg:py-8">
+            <main className="min-w-0 px-4 pb-8 pt-6 lg:px-7">
               <div className="mx-auto w-full max-w-[1360px]">
                 <StudioTransition>{children}</StudioTransition>
               </div>

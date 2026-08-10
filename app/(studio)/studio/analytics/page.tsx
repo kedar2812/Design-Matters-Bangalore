@@ -3,36 +3,59 @@ import { prisma } from "@/lib/db";
 import { DailyBars, RankedBars, SegmentedBar, StatCard } from "@/components/studio/viz";
 import { Card, CardHead, PageHead } from "@/components/studio/ui";
 import { Reveal } from "@/components/studio/Reveal";
+import {
+  RANGES,
+  bucketKey,
+  buildBuckets,
+  grainFor,
+  grainNoun,
+  resolveRange,
+  spanDays,
+} from "@/lib/analytics-range";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Studio — Analytics" };
 
 const DAY = 86_400_000;
-const dayKey = (d: Date) => d.toISOString().slice(0, 10);
-
-/** The ranges the picker offers. Anything else in the URL falls back to 30. */
-const RANGES = [7, 30, 90] as const;
 
 export default async function AnalyticsPage({
   searchParams,
 }: {
   searchParams: Promise<{ range?: string }>;
 }) {
-  const { range: rawRange } = await searchParams;
-  const parsed = Number(rawRange);
-  const range = (RANGES as readonly number[]).includes(parsed) ? parsed : 30;
+  const { range: raw } = await searchParams;
+  const range = resolveRange(raw);
 
-  const now = Date.now();
-  const startRange = new Date(now - range * DAY);
-  const startHalf = new Date(now - Math.round(range / 2) * DAY);
+  const now = new Date();
+
+  /* "All time" starts at the first page view ever recorded rather than at
+     some arbitrary launch date, so the chart begins where the data does.
+     With no views at all it falls back to the last 30 days, which gives an
+     empty chart with a sensible axis instead of an empty chart with none. */
+  const firstView =
+    range.days === null
+      ? await prisma.pageView.findFirst({
+          orderBy: { createdAt: "asc" },
+          select: { createdAt: true },
+        })
+      : null;
+
+  const from =
+    range.days === null
+      ? (firstView?.createdAt ?? new Date(now.getTime() - 30 * DAY))
+      : new Date(now.getTime() - range.days * DAY);
+
+  const span = spanDays(from, now);
+  const grain = grainFor(span);
+  const halfway = new Date(now.getTime() - (span / 2) * DAY);
 
   const [views, leadsInRange, projectTitles] = await Promise.all([
     prisma.pageView.findMany({
-      where: { createdAt: { gte: startRange } },
-      select: { path: true, source: true, device: true, country: true, createdAt: true },
+      where: { createdAt: { gte: from } },
+      select: { path: true, source: true, device: true, createdAt: true },
     }),
     prisma.lead.findMany({
-      where: { createdAt: { gte: startRange } },
+      where: { createdAt: { gte: from } },
       select: { source: true },
     }),
     prisma.project.findMany({ select: { slug: true, title: true } }),
@@ -42,16 +65,9 @@ export default async function AnalyticsPage({
   /* Volumes here are small — a few thousand rows at most — so aggregating
      in JS is faster than the round-trips a set of grouped queries costs,
      and it keeps every number derived from exactly one read. */
-  const days: { key: string; label: string; count: number }[] = [];
-  for (let i = range - 1; i >= 0; i--) {
-    const d = new Date(now - i * DAY);
-    days.push({
-      key: dayKey(d),
-      label: d.toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
-      count: 0,
-    });
-  }
-  const byDay = new Map(days.map((d) => [d.key, d]));
+  const buckets = buildBuckets(from, now, grain);
+  const byBucket = new Map(buckets.map((b) => [b.key, b]));
+
   const tally = (m: Map<string, number>, k: string | null | undefined) => {
     if (k) m.set(k, (m.get(k) ?? 0) + 1);
   };
@@ -59,21 +75,19 @@ export default async function AnalyticsPage({
   const pages = new Map<string, number>();
   const projects = new Map<string, number>();
   const sources = new Map<string, number>();
-  const countries = new Map<string, number>();
   let recentHalf = 0;
   let mobile = 0;
 
   for (const v of views) {
-    const day = byDay.get(dayKey(v.createdAt));
-    if (day) day.count++;
-    if (v.createdAt >= startHalf) recentHalf++;
+    const b = byBucket.get(bucketKey(v.createdAt, grain));
+    if (b) b.count++;
+    if (v.createdAt >= halfway) recentHalf++;
     tally(pages, v.path);
     if (v.path.startsWith("/projects/")) {
       const slug = v.path.slice("/projects/".length).replace(/\/$/, "");
       if (slug) tally(projects, titleBySlug.get(slug) ?? slug);
     }
     tally(sources, v.source ?? "direct");
-    tally(countries, v.country ?? "unknown");
     if (v.device === "mobile") mobile++;
   }
 
@@ -90,29 +104,36 @@ export default async function AnalyticsPage({
   const desktop = total - mobile;
   const mobileShare = total ? Math.round((mobile / total) * 100) : 0;
 
+  const periodLabel =
+    range.days === null
+      ? firstView
+        ? `since ${from.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}`
+        : "all time"
+      : `last ${range.label}`;
+
   return (
     <div>
       <PageHead
         title="Analytics"
-        subtitle="Who is looking, and at what. First-party — no cookies, no third-party scripts."
+        subtitle={`Who is looking, and at what — ${periodLabel}. First-party: no cookies, no third-party scripts.`}
         action={
           <nav
             aria-label="Date range"
-            className="flex items-center gap-0.5 rounded-s-sm border border-s-border bg-s-surface p-0.5"
+            className="s-scroll flex max-w-full items-center gap-0.5 overflow-x-auto rounded-s-sm border border-s-border bg-s-surface p-0.5"
           >
             {RANGES.map((r) => (
               <Link
-                key={r}
-                href={`/studio/analytics?range=${r}`}
-                aria-current={r === range ? "page" : undefined}
+                key={r.key}
+                href={`/studio/analytics?range=${r.key}`}
+                aria-current={r.key === range.key ? "page" : undefined}
                 className={cn(
-                  "rounded-s-xs px-2.5 py-1 text-[0.8125rem] transition-colors",
-                  r === range
+                  "shrink-0 whitespace-nowrap rounded-s-xs px-2.5 py-1 text-[0.8125rem] transition-colors",
+                  r.key === range.key
                     ? "bg-s-accent-soft font-medium text-s-accent"
                     : "text-s-text-2 hover:bg-s-surface-3 hover:text-s-text",
                 )}
               >
-                {r}d
+                {r.label}
               </Link>
             ))}
           </nav>
@@ -122,26 +143,30 @@ export default async function AnalyticsPage({
       <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
         <Reveal delay={0} className="h-full">
           <StatCard
-            label={`Views, ${range} days`}
+            label={`Views, ${range.label.toLowerCase()}`}
             value={total}
-            spark={days.map((d) => d.count)}
+            spark={buckets.map((b) => b.count)}
           />
         </Reveal>
         <Reveal delay={0.05} className="h-full">
           <StatCard
-            label={`Recent half (${Math.round(range / 2)}d)`}
+            label="Recent half"
             value={recentHalf}
             footer={
               <span className="text-[0.75rem] text-s-text-3">
-                {total ? `${Math.round((recentHalf / total) * 100)}% of the period` : "No views yet"}
+                {total
+                  ? `${Math.round((recentHalf / total) * 100)}% of the period`
+                  : "No views yet"}
               </span>
             }
           />
         </Reveal>
         <Reveal delay={0.1} className="h-full">
           <StatCard
-            label={`Enquiries, ${range} days`}
+            label="Enquiries"
             value={leadsInRange.length}
+            href="/studio/leads"
+            hint="Open every enquiry"
             footer={
               <span className="text-[0.75rem] text-s-text-3">
                 {total
@@ -166,16 +191,22 @@ export default async function AnalyticsPage({
 
       <Reveal delay={0.1} className="mt-4">
         <Card>
-          <CardHead title="Daily views" hint={`Last ${range} days`} />
+          <CardHead
+            title="Views over time"
+            hint={`${periodLabel}, by ${grainNoun(grain)}`}
+          />
           <div className="px-5 pb-5">
-            <DailyBars days={days} caption={`Page views per day, last ${range} days`} />
+            <DailyBars
+              days={buckets}
+              caption={`Page views per ${grainNoun(grain)}, ${periodLabel}`}
+            />
           </div>
         </Card>
       </Reveal>
 
-      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+      <div className="mt-4 grid items-start gap-4 lg:grid-cols-2">
         <Reveal delay={0.05}>
-          <Card className="h-full">
+          <Card>
             <CardHead title="Top pages" hint="Where visitors land and linger" />
             <div className="px-3 pb-4">
               <RankedBars rows={top(pages)} empty="No page views in this period." />
@@ -184,7 +215,7 @@ export default async function AnalyticsPage({
         </Reveal>
 
         <Reveal delay={0.1}>
-          <Card className="h-full">
+          <Card>
             <CardHead title="Projects drawing attention" hint="Views per project page" />
             <div className="px-3 pb-4">
               <RankedBars rows={top(projects)} empty="No project pages viewed in this period." />
@@ -193,7 +224,7 @@ export default async function AnalyticsPage({
         </Reveal>
 
         <Reveal delay={0.05}>
-          <Card className="h-full">
+          <Card>
             <CardHead title="Traffic sources" hint="Where the visit came from" />
             <div className="px-3 pb-4">
               <RankedBars rows={top(sources)} empty="Nothing recorded in this period." />
@@ -202,13 +233,10 @@ export default async function AnalyticsPage({
         </Reveal>
 
         <Reveal delay={0.1}>
-          <Card className="h-full">
+          <Card>
             <CardHead title="Where enquiries come from" hint="The page each enquiry was sent from" />
             <div className="px-3 pb-4">
-              <RankedBars
-                rows={top(enquirySources)}
-                empty={`No enquiries in the last ${range} days.`}
-              />
+              <RankedBars rows={top(enquirySources)} empty="No enquiries in this period." />
             </div>
           </Card>
         </Reveal>

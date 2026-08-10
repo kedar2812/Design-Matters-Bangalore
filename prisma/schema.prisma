@@ -178,3 +178,17 @@ model PageView {
   @@index([path])
   @@index([createdAt])
 }
+
+/// Dismissed dashboard notices.
+///
+/// Notices are derived from live data each render — a new enquiry, a
+/// project with no photographs, a Google review waiting to be reviewed —
+/// so there is nothing to mark as read on the notice itself. What is
+/// stored is only the key of something the studio has waved away.
+///
+/// Studio-wide rather than per-user, deliberately: two people share this
+/// dashboard, and if one of them has dealt with a thing it is dealt with.
+model NoticeDismissal {
+  key         String   @id
+  dismissedAt DateTime @default(now())
+}

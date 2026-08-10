@@ -228,7 +228,17 @@ export function Nav({
   // the mobile panel summons the pill early — the links need a surface.
   const atRest = !scrolled && !open;
   const overHero = atRest && hasImageHero(pathname);
-  const links = navLinks.filter(({ href }) => href !== "/contact");
+  /**
+   * Contact appears twice on purpose.
+   *
+   * The "Start a project" pill already goes to /contact and is the one
+   * action the client wants visitors to take — but it is phrased as an
+   * invitation, not as a label, and somebody scanning a nav bar for the
+   * word "Contact" does not find it. The two serve different readers: the
+   * pill catches the person who has decided, the link catches the person
+   * looking for a phone number.
+   */
+  const links = navLinks;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -255,7 +265,7 @@ export function Nav({
           aria-label="Main"
           className="relative flex items-center justify-between"
         >
-          <Link href="/" className="group flex items-baseline gap-3">
+          <Link href="/" className="group flex shrink-0 items-baseline gap-3 whitespace-nowrap">
             <span
               className={cn(
                 "font-display text-xl tracking-tight transition-colors duration-300",
@@ -266,7 +276,10 @@ export function Nav({
             </span>
             <span
               className={cn(
-                "font-mono text-[0.6875rem] uppercase tracking-[0.08em] hidden transition-colors duration-300 sm:inline",
+                // Six links, a toggle and a CTA fill the row at the 1024px end of
+                // `lg`. The tagline is the one thing here that carries no
+                // navigation, so it is what steps aside until there is room.
+                "font-mono text-[0.6875rem] uppercase tracking-[0.08em] hidden transition-colors duration-300 sm:inline lg:hidden xl:inline",
                 overHero
                   ? "text-cream/80 group-hover:text-cream"
                   : "text-stone group-hover:text-brass",
@@ -277,7 +290,7 @@ export function Nav({
           </Link>
 
           {/* Desktop links */}
-          <ul className="hidden items-center gap-6 lg:flex">
+          <ul className="hidden items-center gap-4 lg:flex xl:gap-6">
             {links.map(({ href, label }) => {
               const active = pathname.startsWith(href);
               const hasMenu = href === "/projects" && categoryLinks.length > 0;
@@ -326,7 +339,7 @@ export function Nav({
               <Link
                 href="/contact"
                 className={cn(
-                  "font-mono text-[0.8125rem] font-medium uppercase tracking-[0.08em] rounded-full px-5 py-2.5 transition-all duration-300 hover:-translate-y-px",
+                  "font-mono text-[0.8125rem] font-medium uppercase tracking-[0.08em] whitespace-nowrap rounded-full px-4 py-2.5 transition-all duration-300 hover:-translate-y-px xl:px-5",
                   overHero
                     ? "border border-cream/50 text-cream hover:border-cream hover:bg-cream/10"
                     : "bg-ink text-bone shadow-sm shadow-noir/10 hover:bg-brass hover:shadow-md hover:shadow-brass/25",

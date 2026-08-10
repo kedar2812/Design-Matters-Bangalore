@@ -239,3 +239,12 @@ export function ChevronIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function BellIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M10 2.6a4.9 4.9 0 0 0-4.9 4.9c0 3.3-1.1 4.4-1.5 4.9a.6.6 0 0 0 .45 1h11.9a.6.6 0 0 0 .45-1c-.4-.5-1.5-1.6-1.5-4.9A4.9 4.9 0 0 0 10 2.6Z" />
+      <path d="M8.4 16.1a1.8 1.8 0 0 0 3.2 0" />
+    </svg>
+  );
+}

@@ -193,6 +193,8 @@ export default async function StudioOverview() {
           <StatCard
             label="Enquiries, all time"
             value={leadTotal}
+            href="/studio/leads"
+            hint="Open every enquiry"
             spark={leadWeekly}
             footer={
               newLeads > 0 ? (
@@ -209,6 +211,8 @@ export default async function StudioOverview() {
           <StatCard
             label="Enquiries this month"
             value={leadsThisMonth}
+            href="/studio/leads"
+            hint="Open every enquiry"
             footer={<Delta now={leadsThisMonth} prev={leadsLastMonth} period="last month" />}
           />
         </Reveal>
@@ -216,6 +220,8 @@ export default async function StudioOverview() {
           <StatCard
             label="Views, 30 days"
             value={views30}
+            href="/studio/analytics?range=30"
+            hint="Open analytics for the last 30 days"
             footer={<Delta now={views30} prev={viewsPrev30} period="previous 30" />}
           />
         </Reveal>
@@ -223,6 +229,8 @@ export default async function StudioOverview() {
           <StatCard
             label="Views this week"
             value={viewsWeek}
+            href="/studio/analytics?range=7"
+            hint="Open analytics for the last 7 days"
             footer={<Delta now={viewsWeek} prev={viewsPrevWeek} period="week before" />}
           />
         </Reveal>
@@ -292,9 +300,9 @@ export default async function StudioOverview() {
       </div>
 
       {/* Portfolio + most viewed */}
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid items-start gap-4 lg:grid-cols-2">
         <Reveal delay={0.05}>
-          <Card className="flex h-full flex-col">
+          <Card className="flex flex-col">
             <CardHead
               title="Portfolio"
               hint={`${published.length} live · ${drafts.length} draft`}
@@ -304,7 +312,7 @@ export default async function StudioOverview() {
                 </Link>
               }
             />
-            <div className="flex flex-1 flex-col px-5 pb-5">
+            <div className="flex flex-col px-5 pb-5">
               <div className="flex flex-wrap gap-1.5">
                 {categories.map((c) => (
                   <Chip key={c}>
@@ -342,7 +350,7 @@ export default async function StudioOverview() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <Card className="flex h-full flex-col">
+          <Card className="flex flex-col">
             <CardHead
               title="Most viewed"
               hint="Projects, last 30 days"
@@ -352,7 +360,7 @@ export default async function StudioOverview() {
                 </Link>
               }
             />
-            <div className="flex-1 px-3 pb-4">
+            <div className="px-3 pb-4">
               {topProjects.length === 0 ? (
                 <EmptyState
                   title="No project views yet"
