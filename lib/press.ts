@@ -129,6 +129,7 @@ export function pressDate(item: Pick<PressItem, "date" | "year">) {
     return new Date(item.date).toLocaleDateString("en-GB", {
       month: "long",
       year: "numeric",
+      timeZone: "Asia/Kolkata",
     });
   }
   return item.year ? String(item.year) : undefined;

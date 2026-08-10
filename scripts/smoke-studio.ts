@@ -38,7 +38,7 @@ const SCREENS: [string, string, string][] = [
   ["/studio/dashboard", "Overview", "01-overview"],
   ["/studio/projects", "All projects", "02-projects"],
   ["/studio/leads", "Enquiries", "03-leads"],
-  ["/studio/analytics", "Daily views", "04-analytics"],
+  ["/studio/analytics", "Views over time", "04-analytics"],
   ["/studio/testimonials", "All testimonials", "05-testimonials"],
   ["/studio/content", "Website content", "06-content"],
   ["/studio/content/identity", "View page", "07-identity"],
@@ -53,9 +53,9 @@ async function main() {
   });
   const page = await browser.newPage();
   const errors: string[] = [];
-  page.on("pageerror", (e: unknown) => errors.push(String((e as Error)?.message ?? e)));
+  page.on("pageerror", (e: unknown) => errors.push(page.url() + " :: " + String((e as Error)?.message ?? e)));
   page.on("console", (m) => {
-    if (m.type() === "error" && !m.text().includes("favicon")) errors.push(m.text().slice(0, 200));
+    if (m.type() === "error" && !m.text().includes("favicon")) errors.push(page.url() + " :: " + m.text().slice(0, 300));
   });
   await page.setViewport({ width: 1600, height: 1000 });
 
@@ -100,6 +100,34 @@ async function main() {
     ),
     "project rows expose drag handles",
   );
+
+  // The notification centre must at least mount and open — the bell is
+  // the only piece of chrome here that renders nothing when it has
+  // nothing to say, so "absent" and "broken" look identical otherwise.
+  await goto(page, "/studio/dashboard");
+  check(
+    await page.evaluate(`Boolean(document.querySelector('button[aria-haspopup="dialog"]'))`),
+    "topbar has a notifications bell",
+  );
+  await page.evaluate(
+    `(document.querySelector('button[aria-haspopup="dialog"]') || {click(){}}).click()`,
+  );
+  await wait(700);
+  check(
+    await page.evaluate(
+      `Boolean(document.querySelector('[role="dialog"][aria-label="Updates"]'))`,
+    ),
+    "notifications panel opens",
+  );
+  await page.screenshot({ path: `${OUT}/08-notifications.png` });
+
+  for (const r of ["7", "365", "all"]) {
+    await goto(page, "/studio/analytics?range=" + r);
+    check(
+      await page.evaluate(`document.body.innerText.includes("Views over time")`),
+      "analytics range=" + r + " renders",
+    );
+  }
 
   // Dashboard tokens resolved — a missing stylesheet shows up as a
   // transparent card rather than a broken page, so assert on the paint.
