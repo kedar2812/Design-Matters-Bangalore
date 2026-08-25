@@ -79,7 +79,7 @@ export async function POST(req: Request) {
   }
   if (file.size > MAX_BYTES) {
     return NextResponse.json(
-      { error: `That image is ${(file.size / 1024 / 1024).toFixed(1)} MB — the limit is 25 MB.` },
+      { error: `That image is ${(file.size / 1024 / 1024).toFixed(1)} MB. The limit is 25 MB.` },
       { status: 413 },
     );
   }
@@ -128,7 +128,7 @@ export async function POST(req: Request) {
         error:
           kind === "heic"
             ? "That iPhone photo couldn't be converted. Re-save it as JPEG and try again."
-            : "That image couldn't be processed — it may be corrupt or use an unusual encoding.",
+            : "That image couldn't be processed. It may be corrupt or use an unusual encoding.",
       },
       { status: 422 },
     );

@@ -33,7 +33,7 @@ export function SyncReviewsButton() {
           toast(
             r.added > 0
               ? `${r.added} new ${r.added === 1 ? "review" : "reviews"} added as hidden drafts.`
-              : "Up to date — no new reviews.",
+              : "Up to date, no new reviews.",
           );
         } else {
           toast("Sync didn't run. See the note on the card.", "error");
@@ -66,7 +66,7 @@ export function SyncReviewsButton() {
           )}
         >
           {result.ok
-            ? `Google says ${result.rating.toFixed(1)} across ${result.count} reviews — badge updated.${
+            ? `Google says ${result.rating.toFixed(1)} across ${result.count} reviews, badge updated.${
                 result.added > 0
                   ? ` ${result.added} new ${result.added === 1 ? "review" : "reviews"} added below as hidden drafts.`
                   : " No new reviews."

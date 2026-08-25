@@ -8,7 +8,7 @@ import { Entry } from "@/components/motion/Entry";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Contact — Start a Project",
+  title: "Contact | Start a Project",
   description:
     "Talk to Design Matters Architects about your site, residence or interior project. Studio in Indiranagar, Bangalore. Call, WhatsApp or write to us.",
   alternates: { canonical: "/contact" },
@@ -112,7 +112,7 @@ export default async function ContactPage() {
       <Reveal className="mt-20">
         <div className="rule pt-6">
           <iframe
-            title={`${site.name} — ${site.city}`}
+            title={`${site.name}, ${site.city}`}
             src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&output=embed`}
             className="rounded-frame h-96 w-full border-0 grayscale-[0.4] dark:grayscale-[0.25] dark:invert dark:hue-rotate-180"
             loading="lazy"

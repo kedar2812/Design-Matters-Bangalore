@@ -10,7 +10,7 @@ import { WhatsAppIcon } from "@/components/studio/icons";
  */
 export function whatsAppReply(name: string, phone: string) {
   const first = name.trim().split(/\s+/)[0] ?? "there";
-  const text = `Hello ${first}, thank you for reaching out to Design Matters. We'd be glad to hear more about your project — when is a good time to talk?`;
+  const text = `Hello ${first}, thank you for reaching out to Design Matters. We'd be glad to hear more about your project, when is a good time to talk?`;
   return `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 }
 

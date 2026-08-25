@@ -35,7 +35,7 @@ function OnlineRow({ item, lead }: { item: PressItem; lead?: boolean }) {
       <div className="grid gap-x-gutter gap-y-2 md:grid-cols-12">
         <p className="mono-label md:col-span-3">
           {item.publication}
-          {when && <span className="text-stone"> — {when}</span>}
+          {when && <span className="text-stone"> · {when}</span>}
         </p>
 
         <div className="md:col-span-6">
@@ -90,7 +90,7 @@ export function PressList() {
   const scans = FEATURED_PRINT.filter((i) => i.scan);
   const media = scans.map((i) => ({
     url: i.scan!,
-    alt: `${i.publication} — “${i.headline}”, by ${i.byline}`,
+    alt: `${i.publication}, “${i.headline}”, by ${i.byline}`,
   }));
 
   return (
@@ -130,7 +130,7 @@ export function PressList() {
                 the bylines belong to the paper's own writer. */}
             <p className="mt-5 max-w-2xl leading-relaxed text-ink-soft">
               Kiran Hanumaiah is quoted in the Deccan Herald’s design pages on
-              daylight, kitchens and garden rooms — how homes in this climate
+              daylight, kitchens and garden rooms, how homes in this climate
               are actually built and lived in.
             </p>
           </div>
@@ -145,7 +145,7 @@ export function PressList() {
                     <div className="rounded-frame relative aspect-[3/4] overflow-hidden bg-paper">
                       <Image
                         src={item.scan!}
-                        alt={`Newspaper cutting — “${item.headline}”, ${item.publication}`}
+                        alt={`Newspaper cutting, “${item.headline}”, ${item.publication}`}
                         fill
                         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
                         quality={IMG_Q.feature}
@@ -165,7 +165,7 @@ export function PressList() {
                     </h3>
                     <p className="mono-label mt-1.5 text-stone">
                       {item.publication}
-                      {item.byline && ` — ${item.byline}`}
+                      {item.byline && ` · ${item.byline}`}
                     </p>
                   </div>
                 </li>

@@ -38,7 +38,7 @@ export async function submitEnquiry(
     return {
       ok: false,
       message:
-        "That's a few enquiries from here already — we have them. Please call or WhatsApp us if it's urgent.",
+        "That's a few enquiries from here already, and we have them. Please call or WhatsApp us if it's urgent.",
     };
   }
 
@@ -116,6 +116,6 @@ export async function submitEnquiry(
 
   return {
     ok: true,
-    message: "Thank you — we've received your enquiry and will be in touch within a working day.",
+    message: "Thank you. We've received your enquiry and will be in touch within a working day.",
   };
 }

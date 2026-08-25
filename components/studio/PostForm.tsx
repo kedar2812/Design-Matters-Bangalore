@@ -121,7 +121,7 @@ export function PostForm({ initial }: { initial?: PostFormData }) {
 
   return (
     <div className="max-w-3xl space-y-12">
-      {/* Pinned upload queue — same treatment as the project editor. */}
+      {/* Pinned upload queue, same treatment as the project editor. */}
       {jobs.length > 0 && (
         <div className="fixed bottom-4 right-4 z-50 w-[min(22rem,calc(100vw-2rem))]">
           <div className="bg-s-surface rounded-2xl border border-s-border p-3 shadow-s-lg">
@@ -135,7 +135,7 @@ export function PostForm({ initial }: { initial?: PostFormData }) {
 
       {Object.keys(errors).length > 0 && (
         <p className="border border-s-bad px-4 py-3 text-sm text-s-bad" role="alert">
-          A few things need attention — check the fields below.
+          A few things need attention, check the fields below.
           {errors.slug && ` ${errors.slug[0]}`}
         </p>
       )}
@@ -169,7 +169,7 @@ export function PostForm({ initial }: { initial?: PostFormData }) {
 
         <div>
           <label className="s-label mb-1.5 block" htmlFor="post-tags">
-            Tags — comma separated
+            Tags, comma separated
           </label>
           <input
             id="post-tags"

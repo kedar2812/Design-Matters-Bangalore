@@ -42,7 +42,7 @@ export async function categoryMetadata(category: Category): Promise<Metadata> {
     description: clampToSentence(copy.intro, 158),
     alternates: { canonical: categoryHref(category.slug) },
     openGraph: {
-      title: `${category.searchTitle} — Design Matters Architects`,
+      title: `${category.searchTitle} | Design Matters Architects`,
       url: categoryHref(category.slug),
     },
   };
@@ -86,7 +86,7 @@ export async function CategoryView({ category }: { category: Category }) {
         <Entry delay={0.1}>
           <div className="mt-10 grid gap-x-gutter gap-y-6 border-t border-hairline pt-8 lg:grid-cols-12">
             <p className="mono-label lg:col-span-3">
-              {category.label} — {String(projects.length).padStart(2, "0")}{" "}
+              {category.label} · {String(projects.length).padStart(2, "0")}{" "}
               {projects.length === 1 ? "project" : "projects"}
             </p>
             <p className="max-w-2xl text-lg leading-relaxed text-ink-soft lg:col-span-8 lg:col-start-5">
@@ -124,7 +124,7 @@ export async function CategoryView({ category }: { category: Category }) {
               {lead.location && (
                 <p className="mono-label mt-2 text-cream/75">
                   {lead.location}
-                  {lead.year && ` — ${lead.year}`}
+                  {lead.year && ` · ${lead.year}`}
                 </p>
               )}
             </div>

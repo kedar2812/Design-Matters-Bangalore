@@ -285,7 +285,7 @@ export function Nav({
                   : "text-stone group-hover:text-brass",
               )}
             >
-              Architects — BLR
+              Architects · BLR
             </span>
           </Link>
 
@@ -368,7 +368,7 @@ export function Nav({
           </div>
         </nav>
 
-        {/* Mobile menu — folds out of the pill */}
+        {/* Mobile menu, folds out of the pill */}
         <AnimatePresence>
           {open && (
             <motion.div
@@ -392,7 +392,7 @@ export function Nav({
                       {label}
                     </Link>
 
-                    {/* Practice areas ride along under Projects — no
+                    {/* Practice areas ride along under Projects, no
                         disclosure to tap, since the whole panel is
                         already a deliberate open. */}
                     {href === "/projects" && categoryLinks.length > 0 && (

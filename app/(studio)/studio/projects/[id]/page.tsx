@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { ProjectForm, type ProjectFormData } from "@/components/studio/ProjectForm";
 
-export const metadata = { title: "Studio — Edit project" };
+export const metadata = { title: "Studio | Edit project" };
 
 const STORY_ORDER = ["CONCEPT", "PROCESS", "FINAL"] as const;
 
@@ -57,7 +57,7 @@ export default async function EditProjectPage({
     <div>
       <header className="mb-10">
         <p className="s-label mb-2">
-          Projects — {project.status === "PUBLISHED" ? "on site" : "draft"}
+          Projects · {project.status === "PUBLISHED" ? "on site" : "draft"}
         </p>
         <h1 className="text-[1.375rem] font-semibold tracking-[-0.02em]">{project.title}</h1>
       </header>

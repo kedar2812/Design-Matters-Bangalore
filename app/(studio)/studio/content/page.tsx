@@ -6,7 +6,7 @@ import { Badge, PageHead } from "@/components/studio/ui";
 import { Reveal } from "@/components/studio/Reveal";
 import { ChevronIcon } from "@/components/studio/icons";
 
-export const metadata = { title: "Studio — Website content" };
+export const metadata = { title: "Studio | Website content" };
 
 export default async function ContentIndex() {
   const rows = await prisma.siteSetting.findMany({

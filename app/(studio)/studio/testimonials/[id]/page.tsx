@@ -5,7 +5,7 @@ import {
   type TestimonialFormData,
 } from "@/components/studio/TestimonialForm";
 
-export const metadata = { title: "Studio — Edit testimonial" };
+export const metadata = { title: "Studio | Edit testimonial" };
 
 export default async function EditTestimonialPage({
   params,
@@ -33,8 +33,8 @@ export default async function EditTestimonialPage({
     <div>
       <header className="mb-10">
         <p className="s-label mb-2">
-          Testimonials — {t.published ? "on site" : "hidden"}
-          {t.source === "google" ? " — from Google" : ""}
+          Testimonials · {t.published ? "on site" : "hidden"}
+          {t.source === "google" ? " · from Google" : ""}
         </p>
         <h1 className="text-[1.375rem] font-semibold tracking-[-0.02em]">{t.author}</h1>
       </header>

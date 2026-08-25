@@ -124,7 +124,7 @@ export function TestimonialList({ testimonials }: { testimonials: TestimonialRow
       <p className="mb-2 flex items-center gap-2 text-[0.75rem] text-s-text-3">
         {filtering ? (
           <>
-            Showing {visible.length} of {order.length} — clear the filters to reorder.
+            Showing {visible.length} of {order.length}, clear the filters to reorder.
           </>
         ) : (
           <>
@@ -319,7 +319,7 @@ function Row({
               title: `Delete the review from ${t.author}?`,
               body:
                 t.source === "google"
-                  ? "It stays on Google — this only removes the copy shown on the site. A future sync may bring it back as a hidden draft."
+                  ? "It stays on Google, this only removes the copy shown on the site. A future sync may bring it back as a hidden draft."
                   : "This can't be undone.",
               confirmLabel: "Delete",
               tone: "danger",

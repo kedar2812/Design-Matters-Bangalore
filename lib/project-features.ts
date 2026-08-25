@@ -37,16 +37,16 @@ export const PROJECT_FEATURES: Record<string, ProjectFeature> = {
     // is not a risk worth taking — this states only what the record and
     // the photographs support. Replace with Kiran's copy when it arrives.
     body: [
-      "Club Nadora is the clubhouse at the centre of Woodsvale — a 20,000 sq ft amenity block in exposed brick, set on the development's central lawn with its social rooms opening onto the grass.",
+      "Club Nadora is the clubhouse at the centre of Woodsvale, a 20,000 sq ft amenity block in exposed brick, set on the development's central lawn with its social rooms opening onto the grass.",
     ],
     images: [
       {
         url: "/uploads/projects/club-nadora-woodsvale/01.jpg",
-        alt: "Club Nadora — the clubhouse in exposed brick, its cantilevered porch opening onto the lawn and paved terrace",
+        alt: "Club Nadora, the clubhouse in exposed brick, its cantilevered porch opening onto the lawn and paved terrace",
       },
       {
         url: "/uploads/projects/club-nadora-woodsvale/02.jpg",
-        alt: "Club Nadora at dusk — the lit clubhouse rising behind the planted Woodsvale signage wall",
+        alt: "Club Nadora at dusk, the lit clubhouse rising behind the planted Woodsvale signage wall",
       },
     ],
   },

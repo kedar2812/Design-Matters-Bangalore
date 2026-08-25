@@ -86,7 +86,7 @@ export async function getHeroImages(
     .slice(0, limit)
     .map((p) => ({
       src: p.heroImage!,
-      alt: `${p.title}${p.location ? `, ${p.location}` : ""} — Design Matters`,
+      alt: `${p.title}${p.location ? `, ${p.location}` : ""} · Design Matters`,
       blur: p.heroBlur,
     }));
 }

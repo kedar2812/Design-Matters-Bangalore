@@ -13,7 +13,7 @@ export const enquirySchema = z.object({
   message: z
     .string()
     .trim()
-    .min(10, "Tell us a little about your project — a sentence or two is fine.")
+    .min(10, "Tell us a little about your project, a sentence or two is fine.")
     .max(5000),
   source: z.string().max(200).optional(),
   // Optional context the studio asked to capture (discovery form):

@@ -11,7 +11,7 @@ import { whatsappHref, type Identity } from "@/lib/settings";
 export function Footer({ identity: site }: { identity: Identity }) {
   const wa = whatsappHref(
     site.whatsapp,
-    `Hello ${site.shortName} — I’d like to discuss a project.`,
+    `Hello ${site.shortName}, I’d like to discuss a project.`,
   );
 
   return (
@@ -52,7 +52,7 @@ export function Footer({ identity: site }: { identity: Identity }) {
           <p className="mono-label mb-4 text-brass-bright">Studio</p>
           {/* A real <address>, not a <p>. The studio's postal address on
               every page is the site's strongest local-search signal, and
-              the element is the semantic one — it also keeps the block
+              the element is the semantic one, it also keeps the block
               consistent with the PostalAddress in the JSON-LD, which is
               what "NAP consistency" actually means. `not-italic` because
               the UA sheet italicises <address> by default. */}
@@ -103,7 +103,7 @@ export function Footer({ identity: site }: { identity: Identity }) {
                 </Link>
 
                 {/* The practice areas are the studio's main search
-                    surface — worth a crawlable link on every page. */}
+                    surface, worth a crawlable link on every page. */}
                 {href === "/projects" && (
                   <ul className="mt-2 space-y-2 border-l border-dusk-edge pl-3">
                     {CATEGORIES.map((c) => (

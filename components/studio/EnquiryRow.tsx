@@ -563,7 +563,7 @@ function EnquiryPanel({ enquiry, onClose }: { enquiry: Enquiry; onClose: () => v
               <h3 className="s-label mb-3">History</h3>
               <ol className="relative flex flex-col gap-3 pl-4">
                 {/* One hairline behind the dots, rather than a border on
-                    each item — otherwise the line breaks at every gap. */}
+                    each item, otherwise the line breaks at every gap. */}
                 <span
                   aria-hidden
                   className="absolute bottom-1 left-[3px] top-1 w-px bg-s-border"

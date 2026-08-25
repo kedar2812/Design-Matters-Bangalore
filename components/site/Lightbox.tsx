@@ -94,7 +94,7 @@ export function LightboxProvider({
           <motion.div
             role="dialog"
             aria-modal="true"
-            aria-label={`Photo viewer — ${img.alt}`}
+            aria-label={`Photo viewer: ${img.alt}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -102,7 +102,7 @@ export function LightboxProvider({
             className="fixed inset-0 z-[70] bg-noir/85 backdrop-blur-2xl"
             onClick={close}
           >
-            {/* Frame — frames stack absolutely and crossfade, so the
+            {/* Frame, frames stack absolutely and crossfade, so the
                 outgoing photo stays visible until the next has faded
                 in over it: no blank flash between arrows. */}
             <div
@@ -131,7 +131,7 @@ export function LightboxProvider({
               </AnimatePresence>
             </div>
 
-            {/* Chrome — stop propagation so controls don't close */}
+            {/* Chrome, stop propagation so controls don't close */}
             <div
               className="absolute inset-x-0 top-0 flex items-center justify-between px-5 py-4 sm:px-8"
               onClick={(e) => e.stopPropagation()}
@@ -140,11 +140,11 @@ export function LightboxProvider({
                 <span className="text-brass-bright">
                   {String((current ?? 0) + 1).padStart(2, "0")}
                 </span>
-                {" — "}
+                {" · "}
                 {String(images.length).padStart(2, "0")}
               </p>
               <div className="flex items-center gap-2">
-                {/* Pinch, double-tap and the wheel all do this too — the
+                {/* Pinch, double-tap and the wheel all do this too, the
                     buttons exist so the gesture is discoverable, and so
                     it is reachable without a trackpad or a touchscreen. */}
                 <button

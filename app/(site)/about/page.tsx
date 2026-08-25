@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
 import { TextScrub } from "@/components/motion/TextScrub";
 import { EnquirySection } from "@/components/site/EnquirySection";
 import { PressBand } from "@/components/site/PressBand";
 import { PrincipalSection } from "@/components/site/PrincipalSection";
+import { SectionHead } from "@/components/site/SectionHead";
 import { StudioCollage } from "@/components/site/StudioCollage";
 import { StudioCulture } from "@/components/site/StudioCulture";
 import { TeamSection } from "@/components/site/TeamSection";
@@ -25,27 +25,29 @@ export default async function AboutPage() {
 
   return (
     <main className="pb-section pt-36">
-      {/* Story */}
+      {/* Who We Are.
+          The client's own copy, verbatim, and the first thing on the page
+          when it loads, which is what round 3 asked for. Laid out the way
+          digitalbluefoam.com/company/team opens: ruled monospace eyebrow,
+          a large heading, then the paragraph set wide and left rather than
+          indented into the middle of a twelve-column grid the way this
+          page used to do it. */}
       <section className="px-gutter">
-        <p className="mono-label mb-4">
-          {about.eyebrow} — est. {site.founded}
-        </p>
-        <MaskedHeading className="font-display text-h1 max-w-4xl">
-          {about.heading}
-        </MaskedHeading>
-
-        <div className="mt-16 grid gap-10 md:grid-cols-12">
-          <Entry className="md:col-span-6 md:col-start-4">
-            <div className="space-y-6 leading-relaxed text-ink-soft">
-              {about.story.map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
-          </Entry>
-        </div>
+        <SectionHead
+          as="h1"
+          eyebrow={about.eyebrow}
+          heading={about.heading}
+        />
+        <Entry className="mt-10 max-w-3xl">
+          <div className="space-y-6 text-lg leading-relaxed text-ink-soft">
+            {about.story.map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        </Entry>
       </section>
 
-      {/* The studio, in pictures — the collage from the old About page,
+      {/* The studio, in pictures, the collage from the old About page,
           kept at Kiran's request (§2.4). It sits here, straight after the
           story, because it reads as "who we are" rather than as work. */}
       <section className="mt-section px-gutter" aria-label="The studio">
@@ -63,13 +65,13 @@ export default async function AboutPage() {
           </TextScrub>
           <Reveal>
             <p className="mono-label mt-8 text-brass">
-              — {site.principal}, {site.principalTitle}
+              {site.principal}, {site.principalTitle}
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Principal — portrait, name and bio in one block on its own surface.
+      {/* Principal, portrait, name and bio in one block on its own surface.
           This used to be a text-only section with the portrait appearing
           again inside the roster below; Kiran was on the page twice and
           fully neither time. */}
@@ -79,59 +81,60 @@ export default async function AboutPage() {
         founded={site.founded}
       />
 
-      {/* Recognition — the awards and press half of the studio's own
-          rewrite (§7). It sits after the principal because every claim in
-          it is about the practice's record, and it earns the press strip
-          further down rather than duplicating it. */}
+      {/* Recognized for Excellence.
+          The client's three lines, in the reference page's bordered cell
+          grid rather than as three floating columns of text. Same rule
+          treatment as the roster below it, so the two read as one system. */}
       <section className="mt-section px-gutter" aria-labelledby="recognition-heading">
-        <Reveal>
-          <div className="rule mb-12 pt-4">
-            <h2 id="recognition-heading" className="font-display text-h2">
-              {about.recognitionHeading}
-            </h2>
-            <p className="mt-5 max-w-2xl leading-relaxed text-ink-soft">
-              {about.recognitionIntro}
-            </p>
-          </div>
-        </Reveal>
-        <div className="grid gap-x-gutter gap-y-12 md:grid-cols-3">
-          {about.recognition.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.1}>
-              <p className="mono-label mb-3 text-brass">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <h3 className="font-display text-h3 mb-4">{item.title}</h3>
-              <p className="max-w-sm leading-relaxed text-ink-soft">{item.body}</p>
-            </Reveal>
-          ))}
+        <div id="recognition-heading">
+          <SectionHead
+            eyebrow="The record"
+            heading={about.recognitionHeading}
+            intro={about.recognitionIntro}
+          />
         </div>
+        <ul className="mt-14 grid border-l border-t border-hairline md:grid-cols-3">
+          {about.recognition.map((item, i) => (
+            <li key={item.title} className="list-none border-b border-r border-hairline">
+              <Reveal delay={(i % 3) * 0.08}>
+                <div className="flex h-full flex-col p-6 sm:p-8">
+                  <p className="mono-label text-brass">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="font-display text-h3 mt-4 leading-tight">{item.title}</h3>
+                  <span aria-hidden className="mt-5 block h-px w-full bg-hairline" />
+                  <p className="mt-5 text-sm leading-relaxed text-ink-soft">{item.body}</p>
+                </div>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
       </section>
 
-      {/* Team — roster, hierarchy and portraits (lib/team.ts) */}
+      {/* Team, roster, hierarchy and portraits (lib/team.ts) */}
       <TeamSection heading={about.teamHeading} />
 
-      {/* Life at the studio — the outing and the office */}
+      {/* Life at the studio, the outing and the office */}
       <StudioCulture />
 
-      {/* Press — the strip that earns the click through to /press */}
+      {/* Press, the strip that earns the click through to /press */}
       <PressBand />
 
-      {/* Approach */}
+      {/* How we work, in the same cell grid as the two sections above. */}
       <section className="mt-section px-gutter">
-        <Reveal>
-          <div className="rule mb-12 pt-4">
-            <h2 className="font-display text-h2">{about.approachHeading}</h2>
-          </div>
-        </Reveal>
-        <div className="grid gap-x-gutter gap-y-14 md:grid-cols-2">
+        <SectionHead eyebrow="The method" heading={about.approachHeading} />
+        <ul className="mt-14 grid border-l border-t border-hairline md:grid-cols-2">
           {about.approach.map((item, i) => (
-            <Reveal key={item.title} delay={(i % 2) * 0.12}>
-              <p className="mono-label mb-3">{String(i + 1).padStart(2, "0")}</p>
-              <h3 className="font-display text-h3 mb-4">{item.title}</h3>
-              <p className="max-w-md leading-relaxed text-ink-soft">{item.body}</p>
-            </Reveal>
+            <li key={item.title} className="list-none border-b border-r border-hairline">
+              <Reveal delay={(i % 2) * 0.1}>
+                <div className="flex h-full flex-col p-6 sm:p-8">
+                  <p className="mono-label text-brass">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="font-display text-h3 mt-4 leading-tight">{item.title}</h3>
+                  <span aria-hidden className="mt-5 block h-px w-full bg-hairline" />
+                  <p className="mt-5 leading-relaxed text-ink-soft">{item.body}</p>
+                </div>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <div className="pt-section">

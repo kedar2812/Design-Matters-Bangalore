@@ -60,7 +60,7 @@ export function ProjectFeature({
       </div>
 
       {/* Uneven pair: the wider frame leads, the narrower one sits below
-          the fold of the first on desktop — the same asymmetry the
+          the fold of the first on desktop, the same asymmetry the
           project gallery uses, at a smaller scale. */}
       <div className="mt-14 grid gap-gutter md:grid-cols-12">
         {feature.images.map((img, i) => (

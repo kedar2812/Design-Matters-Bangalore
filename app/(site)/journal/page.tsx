@@ -12,7 +12,7 @@ export const revalidate = 3600;
 // the journal is unlinked and unindexed — kept alive for the studio
 // dashboard until a final keep/remove call is made.
 export const metadata: Metadata = {
-  title: "Journal — Notes from the Studio",
+  title: "Journal | Notes from the Studio",
   description:
     "Occasional writing from Design Matters Architects: project notes, material studies, and thinking on building well in Bengaluru.",
   alternates: { canonical: "/journal" },
@@ -36,7 +36,7 @@ export default async function JournalPage() {
           <div className="rule pt-6">
             <p className="max-w-md leading-relaxed text-ink-soft">
               First entries are being drafted. In the meantime, the work says
-              plenty —{" "}
+              plenty.{" "}
               <Link href="/projects" className="underline underline-offset-4 hover:text-brass">
                 see the projects
               </Link>
@@ -68,7 +68,7 @@ export default async function JournalPage() {
                   </h2>
                   <p className="mono-label mt-2">
                     {post.publishedAt && formatDate(post.publishedAt)}
-                    {post.tags.length > 0 && ` — ${post.tags.join(" / ")}`}
+                    {post.tags.length > 0 && ` · ${post.tags.join(" / ")}`}
                   </p>
                 </Link>
               </li>

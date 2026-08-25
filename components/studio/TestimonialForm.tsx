@@ -96,7 +96,7 @@ export function TestimonialForm({ initial }: { initial?: TestimonialFormData }) 
     <div className="max-w-3xl space-y-14">
       {Object.keys(errors).length > 0 && (
         <p className="border border-s-bad px-4 py-3 text-sm text-s-bad" role="alert">
-          A few things need attention — check the highlighted fields below.
+          A few things need attention, check the highlighted fields below.
         </p>
       )}
 
@@ -114,7 +114,7 @@ export function TestimonialForm({ initial }: { initial?: TestimonialFormData }) 
           </Field>
           <Field
             label="Project"
-            hint="Shown under the name — e.g. Private residence"
+            hint="Shown under the name, e.g. Private residence"
             error={errors.context}
           >
             <input
@@ -151,7 +151,7 @@ export function TestimonialForm({ initial }: { initial?: TestimonialFormData }) 
           </Field>
           <Field
             label="When"
-            hint="A display label, e.g. June 2026 — leave blank to hide"
+            hint="A display label, e.g. June 2026, leave blank to hide"
             error={errors.sourceDate}
           >
             <input
@@ -181,7 +181,7 @@ export function TestimonialForm({ initial }: { initial?: TestimonialFormData }) 
         </Field>
         <Field
           label="Short version"
-          hint="Used where space is tight — the home page strip. Blank = the full text is used."
+          hint="Used where space is tight, the home page strip. Blank = the full text is used."
           error={errors.excerpt}
         >
           <textarea
@@ -193,7 +193,7 @@ export function TestimonialForm({ initial }: { initial?: TestimonialFormData }) 
         </Field>
         {form.source === "google" && (
           <p className="text-xs text-s-text-3">
-            Pulled from the studio&rsquo;s Google reviews — edits here change the site only,
+            Pulled from the studio&rsquo;s Google reviews, edits here change the site only,
             never the review on Google.
           </p>
         )}

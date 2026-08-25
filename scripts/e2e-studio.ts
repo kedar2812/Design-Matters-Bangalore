@@ -37,7 +37,7 @@ if (!isLocal) {
   console.error(
     `Refusing to run: BASE is ${BASE}.\n` +
       "This suite creates, drags and deletes real rows, and restores them\n" +
-      "through DATABASE_URL — which is not the same database as a remote\n" +
+      "through DATABASE_URL, which is not the same database as a remote\n" +
       "deployment. Run it against a local server only.",
   );
   process.exit(2);

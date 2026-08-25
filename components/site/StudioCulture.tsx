@@ -57,7 +57,7 @@ export const TEAM_VIDEO: {
 const PHOTOS = [
   {
     src: "/uploads/studio/culture/studio-desks.jpg",
-    alt: "The Design Matters studio at work — a long shared desk running beneath a deep blue wall",
+    alt: "The Design Matters studio at work, a long shared desk running beneath a deep blue wall",
     grid: "md:col-span-7",
     aspect: "aspect-[3/2]",
   },

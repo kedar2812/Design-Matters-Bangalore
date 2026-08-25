@@ -232,7 +232,7 @@ const PROJECTS: Seed[] = [
   },
   {
     slug: "life-by-lake-keya-homes",
-    title: "Life by Lake — Keya Homes",
+    title: "Life by Lake, Keya Homes",
     category: "Institutional",
     folder: "Institutional/Life by the lake",
     year: 2022,
@@ -259,7 +259,7 @@ const PROJECTS: Seed[] = [
   },
   {
     slug: "the-green-terraces-keya-homes",
-    title: "The Green Terraces — Keya Homes",
+    title: "The Green Terraces, Keya Homes",
     category: "Institutional",
     folder: "Institutional/The Green terraces-Keya Homes",
     year: 2020,
@@ -391,7 +391,7 @@ async function main() {
         const blurData = await writeJpeg(f.file, path.join(outDir, name), 2200, 78);
         gallery.push({
           url: `/uploads/projects/${seed.slug}/${name}`,
-          alt: `${seed.title} — Design Matters Architects, view ${i + 1}`,
+          alt: `${seed.title}, Design Matters Architects, view ${i + 1}`,
           blurData,
           order: i,
         });
@@ -405,7 +405,7 @@ async function main() {
       heroBlur,
       // Nothing to show = nothing to publish.
       status: (heroImage ? "PUBLISHED" : "DRAFT") as "PUBLISHED" | "DRAFT",
-      metaDesc: `${seed.title} — ${seed.typology ?? seed.category} by Design Matters Architects${
+      metaDesc: `${seed.title}, ${seed.typology ?? seed.category} by Design Matters Architects${
         seed.location ? `, ${seed.location}` : ""
       }.`,
     };
@@ -427,7 +427,7 @@ async function main() {
     console.log(
       hero
         ? `✓ ${seed.slug.padEnd(36)} hero ${hero.width}×${hero.height} + ${gallery.length} gallery`
-        : `· ${seed.slug.padEnd(36)} no photography — saved as DRAFT`,
+        : `· ${seed.slug.padEnd(36)} no photography, saved as DRAFT`,
     );
   }
 

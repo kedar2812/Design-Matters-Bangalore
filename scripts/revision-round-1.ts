@@ -80,9 +80,9 @@ async function woodsvale() {
       statusNote: "Completed",
       // Sits at the end of the Residential run, ahead of Interiors.
       order: 8,
-      metaTitle: "Woodsvale — Villas off Sarjapur Road | Design Matters",
+      metaTitle: "Woodsvale, Villas off Sarjapur Road | Design Matters",
       metaDesc:
-        "Woodsvale, a villa development off Sarjapur Road, Bengaluru, by Design Matters Architects — including Club Nadora, the clubhouse at its centre.",
+        "Woodsvale, a villa development off Sarjapur Road, Bengaluru, by Design Matters Architects, including Club Nadora, the clubhouse at its centre.",
     },
   });
 
@@ -91,11 +91,11 @@ async function woodsvale() {
   await setGallery(project.id, [
     {
       url: `${WOODSVALE_DIR}/03.jpg`,
-      alt: "Woodsvale — villa frontages along the internal avenue, brick and rendered façades set back behind planted verges",
+      alt: "Woodsvale, villa frontages along the internal avenue, brick and rendered façades set back behind planted verges",
     },
   ]);
 
-  console.log("✓ §2.2 Woodsvale — renamed, recategorised Residential/Villas, gallery split");
+  console.log("✓ §2.2 Woodsvale, renamed, recategorised Residential/Villas, gallery split");
 }
 
 /* --------------------------------------------- §2.3 Life by the Lake */
@@ -126,31 +126,31 @@ async function lifeByTheLake() {
   await setGallery(project.id, [
     {
       url: `${LBL_DIR}/05.jpg`,
-      alt: "Life by the Lake — the central courtyard, stacked balconies and louvred screens facing a landscaped garden",
+      alt: "Life by the Lake, the central courtyard, stacked balconies and louvred screens facing a landscaped garden",
     },
     {
       url: `${LBL_DIR}/06.jpg`,
-      alt: "Life by the Lake — courtyard elevation at dusk, projecting balconies framed in timber-toned louvres",
+      alt: "Life by the Lake, courtyard elevation at dusk, projecting balconies framed in timber-toned louvres",
     },
     {
       url: `${LBL_DIR}/02.jpg`,
-      alt: "Life by the Lake — a private roof terrace planted to its parapet, looking north across Jakkur lake",
+      alt: "Life by the Lake, a private roof terrace planted to its parapet, looking north across Jakkur lake",
     },
     {
       url: `${LBL_DIR}/hero.jpg`,
-      alt: "Life by the Lake — principal bedroom, full-height glazing opening to the lake side",
+      alt: "Life by the Lake, principal bedroom, full-height glazing opening to the lake side",
     },
     {
       url: `${LBL_DIR}/01.jpg`,
-      alt: "Life by the Lake — the double-height living room, clerestory glazing above the terrace doors",
+      alt: "Life by the Lake, the double-height living room, clerestory glazing above the terrace doors",
     },
     {
       url: `${LBL_DIR}/03.jpg`,
-      alt: "Life by the Lake — bedroom with a glazed bay looking onto the courtyard",
+      alt: "Life by the Lake, bedroom with a glazed bay looking onto the courtyard",
     },
   ]);
 
-  console.log("✓ §2.3 Life by the Lake — exterior hero, gallery re-ordered exteriors first");
+  console.log("✓ §2.3 Life by the Lake, exterior hero, gallery re-ordered exteriors first");
 }
 
 async function main() {

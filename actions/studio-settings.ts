@@ -32,7 +32,7 @@ const schemas: Record<SectionKey, z.ZodType> = {
     email: z.email("Enter a valid email address."),
     whatsapp: z
       .string()
-      .regex(/^\d{8,15}$/, "Digits only, with country code — e.g. 919886016711."),
+      .regex(/^\d{8,15}$/, "Digits only, with country code, e.g. 919886016711."),
     instagram: z.url().or(z.literal("")),
     linkedin: z.url().or(z.literal("")),
     houzz: z.url().or(z.literal("")),
@@ -87,8 +87,8 @@ const schemas: Record<SectionKey, z.ZodType> = {
     intro: str,
     ratingValue: z
       .string()
-      .regex(/^[0-5](\.\d)?$/, "A rating like 4.9 — between 0 and 5."),
-    reviewCount: z.string().regex(/^\d{1,6}$/, "Digits only — e.g. 87."),
+      .regex(/^[0-5](\.\d)?$/, "A rating like 4.9, between 0 and 5."),
+    reviewCount: z.string().regex(/^\d{1,6}$/, "Digits only, e.g. 87."),
     googleUrl: z.url("A full URL, starting with https://"),
     pullQuote: str,
     pullQuoteAuthor: line,

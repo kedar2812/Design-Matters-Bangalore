@@ -6,7 +6,7 @@ import { Card, CardHead, PageHead, buttonClass } from "@/components/studio/ui";
 import { Reveal } from "@/components/studio/Reveal";
 import { ExternalIcon, PlusIcon } from "@/components/studio/icons";
 
-export const metadata = { title: "Studio — Projects" };
+export const metadata = { title: "Studio | Projects" };
 
 export default async function StudioProjects() {
   const projects = await prisma.project.findMany({

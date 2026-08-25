@@ -84,7 +84,7 @@ async function main() {
         data: {
           projectId: p.id,
           url: `/uploads/placeholders/${p.slug}-${j + 1}.jpg`,
-          alt: `${p.title} — placeholder frame ${j + 1}`,
+          alt: `${p.title}, placeholder frame ${j + 1}`,
           blurData,
           order: j,
         },

@@ -17,7 +17,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Client Reviews & Testimonials",
   description:
-    "Google reviews from Design Matters clients across Bangalore — residences, villas and interiors, in the owners' own words.",
+    "Google reviews from Design Matters clients across Bangalore: residences, villas and interiors, in the owners' own words.",
   alternates: { canonical: "/testimonials" },
 };
 
@@ -137,7 +137,7 @@ export default async function TestimonialsPage() {
           </TextScrub>
           <Reveal>
             <p className="mono-label mt-8 text-brass">
-              — {copy.pullQuoteAuthor}, on Google
+              {copy.pullQuoteAuthor}, on Google
             </p>
           </Reveal>
         </div>
@@ -148,7 +148,7 @@ export default async function TestimonialsPage() {
         <Reveal>
           <div className="rule mb-12 flex flex-wrap items-baseline justify-between gap-4 pt-4">
             <p className="mono-label">
-              {testimonials.length} reviews — reproduced as written
+              {testimonials.length} reviews, reproduced as written
             </p>
             <a
               href={copy.googleUrl}

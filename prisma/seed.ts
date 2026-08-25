@@ -51,7 +51,7 @@ async function main() {
         ...p,
         status: "PUBLISHED",
         order: i,
-        metaDesc: `${p.title} — ${p.typology ?? p.category} by Design Matters Architects, ${p.location}.`,
+        metaDesc: `${p.title}, ${p.typology ?? p.category} by Design Matters Architects, ${p.location}.`,
       },
     });
   }

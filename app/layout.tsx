@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     // match what gets typed, and it is queried several times more often.
     // The WebSite schema carries the full studio name, so the brand is
     // still what prints above the result.
-    default: "Architects & Interior Designers in Bangalore — Design Matters",
-    template: "%s — Design Matters Architects",
+    default: "Architects & Interior Designers in Bangalore | Design Matters",
+    template: "%s | Design Matters Architects",
   },
   description:
     "Architecture and interior design studio in Indiranagar, Bangalore, led by Ar. Kiran Hanumaiah. Residences, villas, interiors and commercial work since 2011.",
@@ -107,7 +107,7 @@ export default function RootLayout({
     >
       <head>
         {/* `?theme=dark|light` seeds the stored preference before
-            next-themes initialises — used for previews/screenshots.
+            next-themes initialises, used for previews/screenshots.
             next-themes injects its own pre-paint script for the class. */}
         <script
           dangerouslySetInnerHTML={{

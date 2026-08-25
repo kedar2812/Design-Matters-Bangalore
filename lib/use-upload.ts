@@ -53,13 +53,13 @@ function postWithProgress(
         const message =
           body && typeof body === "object" && "error" in body
             ? String((body as { error: unknown }).error)
-            : "Upload failed — please try again.";
+            : "Upload failed, please try again.";
         reject(new Error(message));
       }
     });
 
     xhr.addEventListener("error", () =>
-      reject(new Error("Upload failed — check your connection and try again.")),
+      reject(new Error("Upload failed, check your connection and try again.")),
     );
     xhr.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")));
 

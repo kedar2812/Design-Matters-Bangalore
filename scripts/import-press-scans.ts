@@ -36,7 +36,7 @@ const CROPS: Crop[] = [
   {
     out: "dh-natural-light.jpg",
     box: [272, 4, 528, 810],
-    note: "Let There Be Natural Light — skylights",
+    note: "Let There Be Natural Light, skylights",
   },
   // These two sit on a shared newspaper page: the DMA article on the left
   // of the column, an unrelated books column on the right. Cropped to the
@@ -44,7 +44,7 @@ const CROPS: Crop[] = [
   {
     out: "dh-culinary-haven.jpg",
     box: [804, 4, 252, 404],
-    note: "Creating a culinary haven — kitchens",
+    note: "Creating a culinary haven, kitchens",
   },
   {
     out: "dh-gazebos-pergolas.jpg",
@@ -79,7 +79,7 @@ async function main() {
 
     console.log(
       `✓ ${c.out.padEnd(26)} ${width}×${height} → ${width * 2}×${height * 2}  ` +
-        `${Math.round(buf.length / 1024)} KB  — ${c.note}`,
+        `${Math.round(buf.length / 1024)} KB , ${c.note}`,
     );
   }
 

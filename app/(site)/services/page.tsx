@@ -28,7 +28,7 @@ export default async function ServicesPage() {
   return (
     <main className="pb-section">
       {/* The three services, restated for crawlers from the same copy the
-          page renders — so editing a service in the dashboard also edits
+          page renders, so editing a service in the dashboard also edits
           what search engines are told the studio does. */}
       <script
         type="application/ld+json"

@@ -49,7 +49,7 @@ export function CategoryPortals({ portals }: { portals: PortalData[] }) {
                   />
                 )}
 
-                {/* Ink wash — deep enough at the foot for cream type to
+                {/* Ink wash, deep enough at the foot for cream type to
                     clear contrast over any photograph. */}
                 <div
                   aria-hidden

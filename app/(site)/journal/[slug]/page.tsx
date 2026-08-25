@@ -29,7 +29,7 @@ export async function generateMetadata({
   if (!post) return {};
   return {
     title: post.metaTitle ?? post.title,
-    description: post.metaDesc ?? `${post.title} — from the Design Matters journal.`,
+    description: post.metaDesc ?? `${post.title}, from the Design Matters journal.`,
     alternates: { canonical: `/journal/${post.slug}` },
     openGraph: post.cover ? { images: [post.cover] } : undefined,
     // Journal is unlinked per the client's no-blog decision.
@@ -55,7 +55,7 @@ export default async function JournalArticle({
         <header className="mx-auto max-w-2xl">
           <p className="mono-label mb-4">
             {post.publishedAt && formatDate(post.publishedAt)}
-            {post.tags.length > 0 && ` — ${post.tags.join(" / ")}`}
+            {post.tags.length > 0 && ` · ${post.tags.join(" / ")}`}
           </p>
           <h1 className="font-display text-h1">{post.title}</h1>
         </header>
@@ -75,7 +75,7 @@ export default async function JournalArticle({
           </div>
         )}
 
-        {/* Body — optimal reading measure */}
+        {/* Body, optimal reading measure */}
         <div className="mx-auto mt-14 max-w-2xl space-y-7">
           {blocks.map((block, i) => {
             switch (block.type) {

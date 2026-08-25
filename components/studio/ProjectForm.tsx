@@ -45,8 +45,8 @@ export type ProjectFormData = {
 };
 
 const STORY_TYPES = [
-  ["CONCEPT", "Concept", "Where the design started — the site, the brief, the idea."],
-  ["PROCESS", "Process", "How it developed — decisions, materials, iterations."],
+  ["CONCEPT", "Concept", "Where the design started, the site, the brief, the idea."],
+  ["PROCESS", "Process", "How it developed, decisions, materials, iterations."],
   ["FINAL", "The result", "What got built, and how it's lived in."],
 ] as const;
 
@@ -174,7 +174,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       } catch {
-        toast("Couldn't save — nothing has been lost, try again.", "error");
+        toast("Couldn't save, nothing has been lost, try again.", "error");
       }
     });
   }
@@ -199,7 +199,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
           className="flex items-center gap-2 rounded-s-sm border border-s-bad/30 bg-s-bad-soft px-3.5 py-2.5 text-[0.8125rem] text-s-bad"
         >
           <WarningIcon className="size-4 shrink-0" />
-          A few things need attention — check the highlighted fields below.
+          A few things need attention, check the highlighted fields below.
         </p>
       )}
 
@@ -222,7 +222,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
             hint={
               resolveCategory(form.category)
                 ? `Appears on the ${resolveCategory(form.category)!.label} page`
-                : "Not one of the three practice areas — shows on the main projects index only"
+                : "Not one of the three practice areas, shows on the main projects index only"
             }
             error={errors.category}
           >
@@ -274,7 +274,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
           <Field label="Typology" hint="e.g. Duplex residence, Villa interiors" error={errors.typology}>
             <input className={inputClass} value={form.typology} onChange={(e) => set("typology", e.target.value)} />
           </Field>
-          <Field label="Site area" hint="The plot — e.g. 1,200 sq ft" error={errors.siteArea}>
+          <Field label="Site area" hint="The plot, e.g. 1,200 sq ft" error={errors.siteArea}>
             <input className={inputClass} value={form.siteArea} onChange={(e) => set("siteArea", e.target.value)} />
           </Field>
           <Field label="Built-up area" hint="e.g. 4,200 sq ft" error={errors.area}>
@@ -286,7 +286,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
           <Field label="Status" hint="e.g. Completed in 2023, Construction phase" error={errors.statusNote}>
             <input className={inputClass} value={form.statusNote} onChange={(e) => set("statusNote", e.target.value)} />
           </Field>
-          <Field label="Units" hint="Only for multi-unit projects — e.g. 55 villaments" error={errors.units}>
+          <Field label="Units" hint="Only for multi-unit projects, e.g. 55 villaments" error={errors.units}>
             <input className={inputClass} value={form.units} onChange={(e) => set("units", e.target.value)} />
           </Field>
           <Field label="Project team" error={errors.team}>
@@ -326,7 +326,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
 
       {/* Story */}
       <Card className="space-y-7 p-5">
-        <h2 className="text-[0.9375rem] font-semibold text-s-text">The story <span className="font-normal text-s-text-3">— concept, process, result</span></h2>
+        <h2 className="text-[0.9375rem] font-semibold text-s-text">The story <span className="font-normal text-s-text-3">· concept, process, result</span></h2>
         {form.story.map((s) => {
           const [, label, hint] = STORY_TYPES.find(([t]) => t === s.type)!;
           return (
@@ -379,7 +379,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
 
       {/* Gallery */}
       <Card className="space-y-4 p-5">
-        <h2 className="text-[0.9375rem] font-semibold text-s-text">Gallery <span className="font-normal text-s-text-3">— drag to reorder</span></h2>
+        <h2 className="text-[0.9375rem] font-semibold text-s-text">Gallery <span className="font-normal text-s-text-3">· drag to reorder</span></h2>
         <Reorder.Group axis="y" values={gallery} onReorder={setGallery} className="space-y-2">
           {gallery.map((img) => (
             <Reorder.Item
@@ -445,7 +445,7 @@ export function ProjectForm({ initial }: { initial?: ProjectFormData }) {
           Pinned to the bottom of the viewport rather than sitting at the
           end of a long form. This form runs well past a screen, and a
           save button you have to scroll to find is one people stop
-          trusting — they scroll down to check it is still there. */}
+          trusting, they scroll down to check it is still there. */}
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-s-border bg-s-surface/90 backdrop-blur-md lg:left-[236px]">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-center gap-2 px-4 py-3 lg:px-7">
           <Button

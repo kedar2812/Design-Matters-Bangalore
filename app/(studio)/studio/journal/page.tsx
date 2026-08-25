@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db";
 import { togglePostPublish } from "@/actions/studio-posts";
 import { formatDate } from "@/lib/utils";
 
-export const metadata = { title: "Studio — Journal" };
+export const metadata = { title: "Studio | Journal" };
 
 export default async function StudioJournal() {
   const posts = await prisma.post.findMany({ orderBy: { updatedAt: "desc" } });
@@ -26,7 +26,7 @@ export default async function StudioJournal() {
       {posts.length === 0 ? (
         <p className="rule pt-6 text-sm text-s-text-3">
           Nothing written yet. Project walk-throughs, material studies, site
-          notes — entries published here appear on the public journal.
+          notes. Entries published here appear on the public journal.
         </p>
       ) : (
         <ul className="rule divide-y divide-s-border">
@@ -40,7 +40,7 @@ export default async function StudioJournal() {
                   {post.published && post.publishedAt
                     ? `Published ${formatDate(post.publishedAt)}`
                     : `Edited ${formatDate(post.updatedAt)}`}
-                  {post.tags.length > 0 && ` — ${post.tags.join(" / ")}`}
+                  {post.tags.length > 0 && ` · ${post.tags.join(" / ")}`}
                 </p>
               </Link>
               <form action={togglePostPublish.bind(null, post.id)}>

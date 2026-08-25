@@ -81,7 +81,7 @@ export async function saveProject(input: unknown): Promise<SaveProjectResult> {
       ok: false,
       errors: {
         slug: [
-          `“${slug}” is reserved for the ${slug} practice-area page — choose a different URL slug.`,
+          `“${slug}” is reserved for the ${slug} practice-area page. Choose a different URL slug.`,
         ],
       },
     };

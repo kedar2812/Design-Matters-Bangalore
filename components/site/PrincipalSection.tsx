@@ -79,7 +79,7 @@ export function PrincipalSection({
 
           <Reveal delay={0.1} className="md:col-span-6 md:col-start-7">
             <p className="mono-label text-cream/60">
-              {kiran.designation} — founded the studio in {founded}
+              {kiran.designation} · founded the studio in {founded}
             </p>
             <div className="mt-7 space-y-6 leading-relaxed text-cream/80">
               {bio.map((para, i) => (

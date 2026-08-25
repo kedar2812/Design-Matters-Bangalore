@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { PostForm, type PostFormData } from "@/components/studio/PostForm";
 
-export const metadata = { title: "Studio — Edit journal entry" };
+export const metadata = { title: "Studio | Edit journal entry" };
 
 export default async function EditPostPage({
   params,
@@ -30,7 +30,7 @@ export default async function EditPostPage({
     <div>
       <header className="mb-10">
         <p className="s-label mb-2">
-          Journal — {post.published ? "on site" : "draft"}
+          Journal · {post.published ? "on site" : "draft"}
         </p>
         <h1 className="text-[1.375rem] font-semibold tracking-[-0.02em]">{post.title}</h1>
       </header>

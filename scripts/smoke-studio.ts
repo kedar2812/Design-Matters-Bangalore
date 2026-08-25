@@ -90,7 +90,7 @@ async function main() {
   if (leads.rows > 0) {
     check(leads.hasEmail, "enquiries table shows email addresses inline");
   } else {
-    check(leads.emptyState, "no enquiries yet — empty state shown instead of a bare table");
+    check(leads.emptyState, "no enquiries yet, empty state shown instead of a bare table");
   }
 
   await goto(page, "/studio/projects");

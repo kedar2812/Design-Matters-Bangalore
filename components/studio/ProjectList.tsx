@@ -73,7 +73,7 @@ export function ProjectList({ projects }: { projects: ProjectRow[] }) {
     startSaving(async () => {
       try {
         await reorderProjects(next.map((p) => p.id));
-        toast("Order saved — the site is already updated.");
+        toast("Order saved, the site is already updated.");
       } catch {
         setOrder(projects);
         toast("Couldn't save the new order.", "error");
@@ -147,7 +147,7 @@ export function ProjectList({ projects }: { projects: ProjectRow[] }) {
       <p className="mb-2 flex items-center gap-2 text-[0.75rem] text-s-text-3">
         {filtering ? (
           <>
-            Showing {visible.length} of {order.length} — clear the filters to reorder.
+            Showing {visible.length} of {order.length}, clear the filters to reorder.
           </>
         ) : (
           <>

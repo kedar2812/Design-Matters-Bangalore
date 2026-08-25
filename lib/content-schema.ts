@@ -52,7 +52,7 @@ export const SECTIONS: SectionMeta[] = [
   {
     key: "identity",
     title: "Studio details",
-    blurb: "Name, address, phone, email and social links — used across every page, the footer and Google.",
+    blurb: "Name, address, phone, email and social links, used across every page, the footer and Google.",
     preview: "/contact",
     groups: [
       {
@@ -76,7 +76,7 @@ export const SECTIONS: SectionMeta[] = [
             kind: "text",
             name: "whatsapp",
             label: "WhatsApp number",
-            hint: "Digits only, with country code — e.g. 919886016711",
+            hint: "Digits only, with country code, e.g. 919886016711",
           },
         ],
       },
@@ -117,11 +117,11 @@ export const SECTIONS: SectionMeta[] = [
         title: "Hero",
         fields: [
           { kind: "text", name: "heroEyebrow", label: "Small line above the headline" },
-          { kind: "text", name: "heroLine", label: "Headline — first line", hint: "e.g. Buildings that" },
+          { kind: "text", name: "heroLine", label: "Headline, first line", hint: "e.g. Buildings that" },
           {
             kind: "list",
             name: "heroWords",
-            label: "Headline — cycling words",
+            label: "Headline, cycling words",
             itemLabel: "word",
             hint: "Only used if there are no hero slides below",
           },

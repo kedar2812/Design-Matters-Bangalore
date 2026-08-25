@@ -22,7 +22,7 @@ export async function EnquirySection({
   const site = await getIdentity();
   const wa = whatsappHref(
     site.whatsapp,
-    whatsappText ?? `Hello ${site.shortName} — I’d like to discuss a project.`,
+    whatsappText ?? `Hello ${site.shortName}, I’d like to discuss a project.`,
   );
 
   return (
@@ -35,7 +35,7 @@ export async function EnquirySection({
             <p className="mono-label mb-4">{eyebrow}</p>
             <h2 className="font-display text-h2 max-w-md">{title}</h2>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-ink-soft">
-              A sentence or two is plenty — we&rsquo;ll reply within a
+              A sentence or two is plenty, we&rsquo;ll reply within a
               working day. Prefer to talk it through?
             </p>
             <ul className="mt-5 space-y-2 text-sm">

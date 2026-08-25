@@ -79,7 +79,7 @@ export default async function LoginPage({
         </div>
 
         <p className="mt-6 text-center text-[0.75rem] text-s-text-3">
-          Private — for the {identity.shortName} team
+          Private, for the {identity.shortName} team
         </p>
       </div>
     </main>

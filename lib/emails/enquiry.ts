@@ -125,7 +125,7 @@ export function notificationEmail(lead: LeadForEmail, identity: Identity, siteUr
   );
 
   const text = [
-    `New enquiry — ${lead.name}`,
+    `New enquiry, ${lead.name}`,
     when,
     "",
     `Email: ${lead.email}`,
@@ -149,9 +149,9 @@ export function notificationEmail(lead: LeadForEmail, identity: Identity, siteUr
   return {
     // The name leads the subject line, because the inbox truncates and
     // the name is the part worth reading in a notification list.
-    subject: `${lead.name} — new enquiry${lead.topic ? ` (${lead.topic})` : ""}`,
+    subject: `${lead.name}, new enquiry${lead.topic ? ` (${lead.topic})` : ""}`,
     html: layout({
-      preheader: `${lead.name}${lead.location ? `, ${lead.location}` : ""} — ${lead.message.slice(0, 90)}`,
+      preheader: `${lead.name}${lead.location ? `, ${lead.location}` : ""}, ${lead.message.slice(0, 90)}`,
       content,
       footer,
     }),
@@ -171,7 +171,7 @@ export function acknowledgementEmail(lead: LeadForEmail, identity: Identity, sit
     card(
       heading(`Thank you, ${firstName(lead.name)}.`) +
         paragraph(
-          `We have your enquiry and it is with ${esc(identity.principal)} now. You can expect a considered reply within one working day — not a form letter.`,
+          `We have your enquiry and it is with ${esc(identity.principal)} now. You can expect a considered reply within one working day, not a form letter.`,
           "padding-top:10px;",
         ) +
         rule(24) +
@@ -201,7 +201,7 @@ export function acknowledgementEmail(lead: LeadForEmail, identity: Identity, sit
   const footer = footNote(
     `${esc(identity.name)}<br />
      ${esc(address)}<br />
-     <span style="color:${C.hairline};">—</span><br />
+     <span style="color:${C.hairline};">·</span><br />
      You are receiving this because an enquiry was submitted at ${link(siteUrl, siteUrl.replace(/^https?:\/\//, ""), C.stone)}.`,
   );
 
@@ -220,9 +220,9 @@ export function acknowledgementEmail(lead: LeadForEmail, identity: Identity, sit
   ].join("\n");
 
   return {
-    subject: `We have your enquiry — ${identity.shortName || identity.name}`,
+    subject: `We have your enquiry, ${identity.shortName || identity.name}`,
     html: layout({
-      preheader: `Thank you — ${identity.principal} will reply within one working day.`,
+      preheader: `Thank you, ${identity.principal} will reply within one working day.`,
       content,
       footer,
     }),

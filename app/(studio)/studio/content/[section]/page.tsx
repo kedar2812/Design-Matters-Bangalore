@@ -13,7 +13,7 @@ export async function generateMetadata({
 }) {
   const { section } = await params;
   const meta = SECTIONS.find((s) => s.key === section);
-  return { title: meta ? `Studio — ${meta.title}` : "Studio" };
+  return { title: meta ? `Studio | ${meta.title}` : "Studio" };
 }
 
 export default async function ContentSectionPage({

@@ -14,7 +14,7 @@ import {
 } from "@/lib/analytics-range";
 import { cn } from "@/lib/utils";
 
-export const metadata = { title: "Studio — Analytics" };
+export const metadata = { title: "Studio | Analytics" };
 
 const DAY = 86_400_000;
 
@@ -115,7 +115,7 @@ export default async function AnalyticsPage({
     <div>
       <PageHead
         title="Analytics"
-        subtitle={`Who is looking, and at what — ${periodLabel}. First-party: no cookies, no third-party scripts.`}
+        subtitle={`Who is looking, and at what, ${periodLabel}. First-party: no cookies, no third-party scripts.`}
         action={
           <nav
             aria-label="Date range"
@@ -278,7 +278,7 @@ export default async function AnalyticsPage({
       </Reveal>
 
       <p className="mt-4 text-[0.75rem] leading-relaxed text-s-text-3">
-        First-party analytics — no cookies, no visitor identifiers, nothing sent to third parties.
+        First-party analytics: no cookies, no visitor identifiers, nothing sent to third parties.
         Studio pages are excluded from counting.
       </p>
     </div>

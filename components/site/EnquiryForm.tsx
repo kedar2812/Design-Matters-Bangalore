@@ -9,8 +9,8 @@ const TOPICS = ["New home", "Interiors", "Commercial", "Consultation"];
 
 const BUDGETS = [
   "Under ₹50 lakh",
-  "₹50 lakh – 1 crore",
-  "₹1 – 2 crore",
+  "₹50 lakh to 1 crore",
+  "₹1 to 2 crore",
   "Above ₹2 crore",
   "Not sure yet",
 ];
@@ -67,13 +67,13 @@ export function EnquiryForm({ source }: { source?: string }) {
     >
       {source && <input type="hidden" name="source" value={source} />}
       {topic && <input type="hidden" name="topic" value={topic} />}
-      {/* Honeypot — hidden from real visitors */}
+      {/* Honeypot, hidden from real visitors */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="company">Company</label>
         <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      {/* Project type — optional, one tap */}
+      {/* Project type, optional, one tap */}
       <fieldset className="mb-7">
         <legend className="mono-label mb-3">What are you planning?</legend>
         <div className="flex flex-wrap gap-2">
@@ -181,7 +181,7 @@ export function EnquiryForm({ source }: { source?: string }) {
             name="message"
             required
             rows={4}
-            placeholder="Site, brief, timeline — whatever you have so far."
+            placeholder="Site, brief, timeline, whatever you have so far."
             className={cn(field, "resize-y")}
           />
           <Error messages={state?.errors?.message} />

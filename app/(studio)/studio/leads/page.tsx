@@ -7,7 +7,7 @@ import { Card, PageHead } from "@/components/studio/ui";
 import { Reveal } from "@/components/studio/Reveal";
 import { cn } from "@/lib/utils";
 
-export const metadata = { title: "Studio — Enquiries" };
+export const metadata = { title: "Studio | Enquiries" };
 
 export default async function EnquiriesPage({
   searchParams,
@@ -52,7 +52,7 @@ export default async function EnquiriesPage({
 
       {/* Stage tabs. Server-rendered links rather than client state, so a
           stage is a real URL the studio can bookmark or send to a
-          colleague — and so the counts are always the database's. */}
+          colleague, and so the counts are always the database's. */}
       <Reveal className="mb-4">
         <nav
           aria-label="Filter by stage"

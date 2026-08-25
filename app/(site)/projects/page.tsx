@@ -12,7 +12,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Architecture Projects in Bangalore",
   description:
-    "The built work of Design Matters Architects — private residences, villas, apartment interiors and institutional buildings across Bengaluru and Karnataka.",
+    "The built work of Design Matters Architects: private residences, villas, apartment interiors and institutional buildings across Bengaluru and Karnataka.",
   alternates: { canonical: "/projects" },
 };
 

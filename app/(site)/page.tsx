@@ -65,7 +65,7 @@ export default async function HomePage() {
       heroBlur: p.heroBlur,
       hook: p.storyBlocks[0]?.text ?? null,
       word: home.heroWords[i % home.heroWords.length] ?? "",
-      alt: `${p.title} — ${p.category}${p.location ? `, ${p.location}` : ""}`,
+      alt: `${p.title}, ${p.category}${p.location ? `, ${p.location}` : ""}`,
     }));
 
   const slides = curated.length ? curated : fallback;
@@ -77,7 +77,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      {/* ------------------------------------------- hero — carousel */}
+      {/* ------------------------------------------- hero, carousel */}
       <HeroCarousel slides={slides} eyebrow={home.heroEyebrow} line={home.heroLine} />
 
       {/* ---------------------------------------------------- the studio */}
@@ -85,7 +85,7 @@ export default async function HomePage() {
         <Reveal>
           <p className="mono-label mb-6">{home.studioEyebrow}</p>
         </Reveal>
-        {/* Words brighten with scroll — scrubbed, so the reveal glides
+        {/* Words brighten with scroll, scrubbed, so the reveal glides
             with Lenis instead of firing once. */}
         <TextScrub className="font-display text-h1 max-w-4xl">
           {home.studioStatement}

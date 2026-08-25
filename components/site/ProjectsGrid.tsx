@@ -38,7 +38,7 @@ export function ProjectsGrid({
 
   return (
     <div>
-      {/* Filter rail — pills, with the active state carried by a shared
+      {/* Filter rail, pills, with the active state carried by a shared
           layout element that slides between them. */}
       <div
         className="mb-12 flex flex-wrap items-center gap-2"

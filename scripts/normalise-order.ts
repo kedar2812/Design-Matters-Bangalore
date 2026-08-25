@@ -36,7 +36,7 @@ async function main() {
   const testimonialFixes = testimonials.filter((t, i) => t.order !== i);
 
   if (projectFixes.length === 0 && testimonialFixes.length === 0) {
-    console.log("Nothing to do — both sequences are already 0..n-1.");
+    console.log("Nothing to do, both sequences are already 0..n-1.");
     await prisma.$disconnect();
     return;
   }

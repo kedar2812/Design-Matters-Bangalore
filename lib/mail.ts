@@ -56,7 +56,7 @@ export async function sendMail(mail: Mail): Promise<MailResult> {
 
   if (!key || !sender) {
     const error = !key ? "RESEND_API_KEY is not set" : "MAIL_FROM is not set";
-    console.warn(`[mail:skipped] ${error} — "${mail.subject}" to ${String(mail.to)}`);
+    console.warn(`[mail:skipped] ${error}, "${mail.subject}" to ${String(mail.to)}`);
     return { ok: false, skipped: true, error };
   }
 

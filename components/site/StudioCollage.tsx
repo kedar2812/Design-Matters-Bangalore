@@ -33,13 +33,13 @@ type Frame = {
 const FRAMES: Frame[] = [
   {
     src: "/uploads/studio/collage/signage.jpg",
-    alt: "The Design Matters studio entrance — the wordmark set on a board-marked concrete wall behind a plumeria in flower",
+    alt: "The Design Matters studio entrance, the wordmark set on a board-marked concrete wall behind a plumeria in flower",
     grid: "md:col-span-5 md:row-span-2 md:aspect-auto md:h-full",
     mobile: "aspect-[4/5]",
   },
   {
     src: "/uploads/studio/collage/materials.jpg",
-    alt: "A materials flat-lay on a timber table — oak and walnut veneer samples, a copper section, tile swatches and an open book",
+    alt: "A materials flat-lay on a timber table, oak and walnut veneer samples, a copper section, tile swatches and an open book",
     grid: "md:col-span-6 md:col-start-7 md:mr-0",
     mobile: "aspect-[3/2] mr-10",
   },
@@ -51,7 +51,7 @@ const FRAMES: Frame[] = [
   },
   {
     src: "/uploads/studio/collage/meeting-room.jpg",
-    alt: "The studio meeting room — a hand-painted palm mural facing a deep green wall above a long timber table",
+    alt: "The studio meeting room, a hand-painted palm mural facing a deep green wall above a long timber table",
     grid: "md:col-span-4 md:col-start-9 md:mt-16",
     mobile: "aspect-[3/2]",
   },

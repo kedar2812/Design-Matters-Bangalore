@@ -42,7 +42,7 @@ export function ProjectCard({
   index,
   className,
 }: ProjectCardProps) {
-  const meta = [location, year].filter(Boolean).join(" — ");
+  const meta = [location, year].filter(Boolean).join(", ");
 
   return (
     <Link href={`/projects/${slug}`} className={cn("group block", className)}>
@@ -61,7 +61,7 @@ export function ProjectCard({
           />
         )}
 
-        {/* Frosted category chip — ties the index to the hero's glass language */}
+        {/* Frosted category chip, ties the index to the hero's glass language */}
         <span className="glass-dark mono-label absolute left-4 top-4 rounded-full px-3.5 py-1.5 text-cream/90">
           {category}
         </span>

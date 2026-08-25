@@ -24,9 +24,9 @@ const lead: LeadForEmail = {
   email: "ananya.rao@example.com",
   phone: "+91 98450 22119",
   message:
-    "We've bought a 40x60 corner site in Sahakar Nagar and want to build a home for three generations — my parents, us, and eventually our daughter.\n\nThe brief we keep coming back to is light and cross-ventilation; the rented flat we're in now gets neither. We loved the courtyard in your Vivek residence. Could we come and see you sometime this month?",
+    "We've bought a 40x60 corner site in Sahakar Nagar and want to build a home for three generations, my parents, us, and eventually our daughter.\n\nThe brief we keep coming back to is light and cross-ventilation; the rented flat we're in now gets neither. We loved the courtyard in your Vivek residence. Could we come and see you sometime this month?",
   source: "/projects/vivek-residence",
-  topic: "Residential — new build",
+  topic: "Residential, new build",
   budget: "₹1.5–2 Cr",
   location: "Sahakar Nagar, Bengaluru",
   createdAt: new Date(),

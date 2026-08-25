@@ -285,7 +285,7 @@ export function StudioNav({
         <RailContent newLeads={newLeads} email={email} logout={logout} />
       </aside>
 
-      {/* Mobile trigger — lives in the topbar's left slot */}
+      {/* Mobile trigger, lives in the topbar's left slot */}
       <button
         type="button"
         onClick={() => setOpen(true)}

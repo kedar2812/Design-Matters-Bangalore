@@ -138,7 +138,7 @@ export function ContentForm({
     <div className="max-w-3xl space-y-10">
       {Object.keys(errors).length > 0 && (
         <p className="rounded-xl border border-s-bad/30 bg-s-bad-soft px-4 py-3 text-sm text-s-bad" role="alert">
-          Some fields need attention — check the notes below.
+          Some fields need attention, check the notes below.
         </p>
       )}
 
@@ -321,7 +321,7 @@ export function ContentForm({
         </section>
       ))}
 
-      {/* Sticky action bar — saving is always one click away */}
+      {/* Sticky action bar, saving is always one click away */}
       <div className="bg-s-surface sticky bottom-4 flex flex-wrap items-center gap-3 rounded-2xl border border-s-border p-3 shadow-s-md">
         <button
           type="button"

@@ -35,7 +35,7 @@ export default async function PressPage() {
       <PageHero
         eyebrow="Press"
         heading="Where the work has been written about."
-        intro={`${names.join(", ")} — ${FEATURED_ONLINE.length + FEATURED_PRINT.length} features covering the studio's houses, its approach to daylight and ventilation, and the small decisions that make a compact plot feel generous.`}
+        intro={`${names.join(", ")}. ${FEATURED_ONLINE.length + FEATURED_PRINT.length} features covering the studio's houses, its approach to daylight and ventilation, and the small decisions that make a compact plot feel generous.`}
         images={images}
       />
 

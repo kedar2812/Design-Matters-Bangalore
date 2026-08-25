@@ -61,7 +61,7 @@ const JOBS: Job[] = [
     id: "cb4291_f68276250ece4af2a61205a01f007352",
     out: "collage/materials.jpg",
     width: 2400,
-    note: "materials flat-lay — timber samples, swatches, open book",
+    note: "materials flat-lay, timber samples, swatches, open book",
   },
   {
     id: "cb4291_14a989dc063a428eae53bd8510031dab",
@@ -82,7 +82,7 @@ const JOBS: Job[] = [
     out: "team/kiran-hanumaiah.jpg",
     width: 1200,
     ratio: [3, 4],
-    note: "Kiran Hanumaiah — the photo Kiran pointed at",
+    note: "Kiran Hanumaiah, the photo Kiran pointed at",
   },
   {
     id: "cb4291_cbf7c40751924038aadf2a95af56dc7b",
@@ -103,7 +103,7 @@ const JOBS: Job[] = [
     out: "team/pallavi-vk.jpg",
     width: 1200,
     ratio: [3, 4],
-    note: "Pallavi VK — source is black and white, hence the site-wide grayscale treatment",
+    note: "Pallavi VK, source is black and white, hence the site-wide grayscale treatment",
   },
 
   /* ------------------------------------------- §2.5 the culture block */
@@ -129,7 +129,7 @@ const JOBS: Job[] = [
     id: "cb4291_3d3729a29619432da070841cc8de33e3",
     out: "culture/studio-desks.jpg",
     width: 2400,
-    note: "the studio at work — the long desk under the blue wall",
+    note: "the studio at work, the long desk under the blue wall",
   },
   {
     id: "cb4291_940e643901a9459497599c86b5ad6c0f",
@@ -154,7 +154,7 @@ async function main() {
 
     const res = await fetch(MEDIA(job.id));
     if (!res.ok) {
-      console.error(`✗ ${job.out} — ${res.status} ${res.statusText}`);
+      console.error(`✗ ${job.out}, ${res.status} ${res.statusText}`);
       continue;
     }
     const source = Buffer.from(await res.arrayBuffer());
@@ -180,7 +180,7 @@ async function main() {
     const after = await sharp(out).metadata();
     console.log(
       `✓ ${job.out.padEnd(30)} ${meta.width}×${meta.height} → ${after.width}×${after.height}` +
-        `  ${Math.round(out.length / 1024)} KB  — ${job.note}`,
+        `  ${Math.round(out.length / 1024)} KB , ${job.note}`,
     );
   }
 

@@ -72,7 +72,7 @@ async function main() {
   for (const p of projects) {
     const frames = await probe(path.join(IMPORT_DIR, p.slug));
     if (frames.length === 0) {
-      console.warn(`! ${p.slug}: no images found — placeholder kept`);
+      console.warn(`! ${p.slug}: no images found, placeholder kept`);
       continue;
     }
 
@@ -99,7 +99,7 @@ async function main() {
         data: {
           projectId: p.id,
           url: `/uploads/placeholders/${p.slug}-${j + 1}.jpg`,
-          alt: `${p.title} — Design Matters Architects, view ${j + 1}`,
+          alt: `${p.title}, Design Matters Architects, view ${j + 1}`,
           blurData,
           order: j,
         },

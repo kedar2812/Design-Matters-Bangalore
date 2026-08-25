@@ -9,7 +9,7 @@ export const OG_IMAGE = {
   url: "/og-default.jpg",
   width: 1200,
   height: 630,
-  alt: "Looking up through a Design Matters house in Bengaluru — a terracotta jaali ceiling over a double-height court hung with woven pendants",
+  alt: "Looking up through a Design Matters house in Bangalore, a terracotta jaali ceiling over a double-height court hung with woven pendants",
 } as const;
 
 /**
@@ -18,11 +18,19 @@ export const OG_IMAGE = {
  * Two things drive this list. First, the city has two names and the
  * search traffic does not split evenly: "architects in Bangalore" is
  * queried several times more often than the same phrase with Bengaluru,
- * because the official rename never reached the way people type. The site
- * writes Bengaluru — that is the studio's own voice and it stays — so
- * Bangalore has to enter through the places a reader does not read:
- * this list, `alternateName`, `areaServed`, and a handful of meta
- * descriptions where both names sit in one honest sentence.
+ * because the official rename never reached the way people type.
+ *
+ * Body copy used to write Bengaluru and let Bangalore in only through
+ * the places a reader does not read. That flipped in round 3: the client
+ * sent his own About text saying "our Bangalore-based practice" and
+ * asked for it verbatim, so the visible copy and the project locations
+ * are Bangalore now and the two halves of the site agree again.
+ *
+ * What stays Bengaluru is the machine-readable layer, deliberately.
+ * `City` in the structured data is the official name and Google matches
+ * it against its own place record; the keyword list keeps both spellings
+ * because people type both. Press headlines keep whatever the publication
+ * printed, because those are somebody else's words.
  *
  * Second, every phrase here has to be one the site can actually answer.
  * "Architects in Indiranagar" earns its place because the studio is in
@@ -73,7 +81,7 @@ export async function organizationJsonLd() {
     ],
     url: SITE_URL,
     description:
-      "Architecture and interior design studio in Indiranagar, Bengaluru (Bangalore) — residences, villas, apartment interiors, commercial and hospitality projects.",
+      "Architecture and interior design studio in Indiranagar, Bengaluru (Bangalore), residences, villas, apartment interiors, commercial and hospitality projects.",
     foundingDate: String(site.founded),
     founder: {
       "@type": "Person",

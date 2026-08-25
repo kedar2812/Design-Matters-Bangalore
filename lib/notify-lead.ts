@@ -80,8 +80,8 @@ export async function notifyNewLead(lead: LeadForEmail): Promise<NotifyOutcome> 
       leadId: lead.id,
       type: "NOTIFY_FAILED",
       summary: sent.skipped
-        ? `Notification not sent — ${sent.error}`
-        : `Notification failed — ${sent.error}`,
+        ? `Notification not sent, ${sent.error}`
+        : `Notification failed, ${sent.error}`,
       meta: { error: sent.error, skipped: Boolean(sent.skipped) },
     });
   }
@@ -110,7 +110,7 @@ export async function notifyNewLead(lead: LeadForEmail): Promise<NotifyOutcome> 
       await record({
         leadId: lead.id,
         type: "NOTIFY_FAILED",
-        summary: `Acknowledgement to ${lead.email} failed — ${ackSent.error}`,
+        summary: `Acknowledgement to ${lead.email} failed, ${ackSent.error}`,
         meta: { error: ackSent.error, kind: "acknowledgement" },
       });
     }

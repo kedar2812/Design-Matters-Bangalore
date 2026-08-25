@@ -126,7 +126,7 @@ export function HeroCarousel({
       {/* Scrims.
           Two layers, not one. The vertical wash alone was tuned against a
           set of dark heroes and dropped to 5% opacity through the middle
-          of the frame — which is exactly where the headline sits. Point it
+          of the frame, which is exactly where the headline sits. Point it
           at a bright photograph (the Shambhavi living room, all white
           curtains and pale terrazzo) and cream text on it disappears
           completely.
@@ -137,7 +137,7 @@ export function HeroCarousel({
           of a headline that runs to mid-frame it had to be opened up so
           wide that it stopped being a corner at all.
           Both are tuned against the Mohan terrace, the brightest frame in
-          the set — white sky, pale concrete, cream type straight across
+          the set, white sky, pale concrete, cream type straight across
           the middle of it. Anything that holds there holds anywhere, and
           that is the bar, because the studio can add slides from the
           dashboard and nobody will re-tune this for them. */}
@@ -165,7 +165,7 @@ export function HeroCarousel({
               <span className="mask-rise block">{line}</span>
             </span>
             {/* RotatingWord supplies its own `mask-rise`, so this is the
-                mask only — nesting it inside a second rising wrapper put
+                mask only, nesting it inside a second rising wrapper put
                 the word under two filling animations at once, which is
                 what kept it from tracking the slides. */}
             <span className="mask-safe block overflow-hidden">
@@ -188,7 +188,7 @@ export function HeroCarousel({
                 {String(index + 1).padStart(2, "0")}
               </span>
               {" / "}
-              {String(count).padStart(2, "0")} — {active.category}
+              {String(count).padStart(2, "0")} · {active.category}
               {active.location && ` · ${active.location}`}
             </p>
             <h2 className="font-display text-h3">

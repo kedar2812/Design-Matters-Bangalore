@@ -7,7 +7,7 @@ import { Reveal } from "@/components/studio/Reveal";
 import { ExternalIcon, PlusIcon } from "@/components/studio/icons";
 import { getSection } from "@/lib/settings";
 
-export const metadata = { title: "Studio — Testimonials" };
+export const metadata = { title: "Studio | Testimonials" };
 
 export default async function StudioTestimonials() {
   const [testimonials, copy] = await Promise.all([

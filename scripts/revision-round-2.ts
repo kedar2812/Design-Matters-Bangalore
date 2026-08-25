@@ -96,7 +96,7 @@ const SHOOTS: Shoot[] = [
       year: 2026,
       typology: "Farmhouse",
       metaDesc:
-        "A courtyard farmhouse in brick and terracotta by Design Matters Architects — verandahs on every side, tiled pitched roofs and patterned oxide floors.",
+        "A courtyard farmhouse in brick and terracotta by Design Matters Architects, verandahs on every side, tiled pitched roofs and patterned oxide floors.",
     },
     hero: "DSC_5257.jpg",
     gallery: [
@@ -119,7 +119,7 @@ const SHOOTS: Shoot[] = [
       "DSC_4804.jpg":
         "The entrance elevation across the lawn, a gabled porch centred between two tiled wings",
       "DJI_20260804080248_0049_D.jpg":
-        "Overhead view of the plan — terracotta roofs wrapped around a planted central courtyard",
+        "Overhead view of the plan, terracotta roofs wrapped around a planted central courtyard",
       "DSC_5019.jpg":
         "The verandah looking into the courtyard, timber columns carrying a sloped tile roof",
       "DSC_4977.jpg":
@@ -148,7 +148,7 @@ const SHOOTS: Shoot[] = [
       location: "Bengaluru",
       typology: "Private residence",
       metaDesc:
-        "An exposed-brick house in Bengaluru by Design Matters Architects — carved timber columns, a double-height entrance hall and kolam drawn on the walls.",
+        "An exposed-brick house in Bengaluru by Design Matters Architects, carved timber columns, a double-height entrance hall and kolam drawn on the walls.",
     },
     hero: "NSP-12.jpg",
     gallery: [
@@ -192,7 +192,7 @@ const SHOOTS: Shoot[] = [
       location: "JP Nagar, Bengaluru",
       typology: "Private residence",
       metaDesc:
-        "A house in JP Nagar, Bengaluru by Design Matters Architects — exposed block walls, terracotta jaali screens and timber louvres tuned to the light.",
+        "A house in JP Nagar, Bengaluru by Design Matters Architects, exposed block walls, terracotta jaali screens and timber louvres tuned to the light.",
     },
     hero: "NIGHT VIEW.jpg",
     gallery: [
@@ -209,7 +209,7 @@ const SHOOTS: Shoot[] = [
       "NIGHT VIEW.jpg":
         "The house at night from the street, balconies and jaali screens lit from within",
       "DSCF6940-HDR.jpg":
-        "The street elevation by day — stacked balconies, terracotta jaali and timber shutters",
+        "The street elevation by day, stacked balconies, terracotta jaali and timber shutters",
       "DSCF7027.jpg":
         "A figure at the end of a corridor, jaali light falling in patterns across the floor",
       "DSCF7058-HDR.jpg": "A window seat with timber shutters folded open against the block wall",
@@ -279,7 +279,7 @@ const SHOOTS: Shoot[] = [
         "The stair seen through a timber and steel screen, pendant lights hanging beside it",
       "_DSC0022 2.jpg": "A figure climbing the stair past a planted pot and patterned floor",
       "_DSC0058-HDR.jpg":
-        "The stair volume from below — flights crossing the full height of the house",
+        "The stair volume from below, flights crossing the full height of the house",
       "_DSC0121 2-HDR.jpg": "The living room with a boy reading in the window, timber ceiling above",
       "_DSC0123.jpg": "The kitchen in pale blue and white, patterned tiles behind the counter",
       "_DSC0230-HDR.jpg":
@@ -305,7 +305,7 @@ const SHOOTS: Shoot[] = [
       "ASH04527.jpg":
         "The roof terrace under its steel pergola, the city spread out beyond the glass balustrade",
       "ASH04962.jpg":
-        "The street elevation at dusk — stone, timber louvres and planting, lit from within",
+        "The street elevation at dusk, stone, timber louvres and planting, lit from within",
       "ASH04475.jpg": "The house from across the road, children running past in the shade",
       "ASH04612.jpg": "A figure at the terrace edge among the planters, the city beyond",
       "ASH04608.jpg": "Timber benches and planting along the terrace under the pergola",
@@ -334,7 +334,7 @@ const SHOOTS: Shoot[] = [
       "IMG_3368.JPG",
     ],
     alt: {
-      "IMG_3373.JPG": "The street elevation — brick and white render around a large circular window",
+      "IMG_3373.JPG": "The street elevation, brick and white render around a large circular window",
       "IMG_3343.JPG": "A woman passing the house on the pavement, the round window above her",
       "IMG_3344.JPG": "The living room under its arched window, curtains drawn back to the garden",
       "IMG_3347.JPG": "Turned timber columns screening the dining room from the hall",
@@ -447,7 +447,7 @@ async function main() {
         data: {
           projectId: project.id,
           url: `/uploads/projects/${shoot.slug}/${name}`,
-          alt: shoot.alt[file] ?? `${project.title} — Design Matters Architects`,
+          alt: shoot.alt[file] ?? `${project.title}, Design Matters Architects`,
           blurData,
           order: i,
         },

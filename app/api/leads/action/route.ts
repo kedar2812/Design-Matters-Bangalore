@@ -82,7 +82,7 @@ export async function GET(request: Request) {
   if (!verified.ok) {
     const reason =
       verified.reason === "expired"
-        ? "This link has expired. Enquiries stay in the dashboard, so nothing is lost — open it there instead."
+        ? "This link has expired. Enquiries stay in the dashboard, so nothing is lost. Open it there instead."
         : "This link isn't valid. If you were sent it by email, open the enquiry in the dashboard instead.";
     return html(
       page({

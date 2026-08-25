@@ -45,7 +45,7 @@ export async function TestimonialsSection() {
       </Reveal>
 
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-gutter">
-        {/* The lead voice — set like the site's pull-quotes, and shown
+        {/* The lead voice, set like the site's pull-quotes, and shown
             beside the reviewer's own house where we know which it is. */}
         <Reveal className="lg:col-span-7">
           {lead.project ? (
@@ -61,7 +61,7 @@ export async function TestimonialsSection() {
                 <p className="mono-label mt-1 text-stone/80">
                   {[lead.context, lead.source === "google" ? "via Google" : null]
                     .filter(Boolean)
-                    .join(" — ")}
+                    .join(" · ")}
                 </p>
               </figcaption>
             </figure>
@@ -100,7 +100,7 @@ export async function TestimonialsSection() {
             >
               <span className="text-brass">&#9733; {copy.ratingValue}</span>
               <span>
-                — {copy.reviewCount} Google reviews{" "}
+                {copy.reviewCount} Google reviews{" "}
                 <span
                   aria-hidden
                   className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"

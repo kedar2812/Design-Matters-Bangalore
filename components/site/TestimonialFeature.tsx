@@ -38,7 +38,7 @@ export function TestimonialFeature({
           <div className="rounded-frame relative aspect-[4/3] overflow-hidden bg-stone/10">
             <Image
               src={project.image}
-              alt={`${project.title} — the home this review is about`}
+              alt={`${project.title}, the home this review is about`}
               fill
               sizes="(min-width: 768px) 42vw, 100vw"
               quality={IMG_Q.feature}
@@ -68,7 +68,7 @@ export function TestimonialFeature({
               item.source === "google" ? "via Google" : null,
             ]
               .filter(Boolean)
-              .join(" — ")}
+              .join(", ")}
           </p>
         </figcaption>
       </div>

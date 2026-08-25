@@ -22,7 +22,7 @@ import {
 } from "@/components/studio/icons";
 import { QuickReply } from "@/components/studio/QuickReply";
 
-export const metadata = { title: "Studio — Overview" };
+export const metadata = { title: "Studio | Overview" };
 
 const DAY = 86_400_000;
 const dayKey = (d: Date) => d.toISOString().slice(0, 10);

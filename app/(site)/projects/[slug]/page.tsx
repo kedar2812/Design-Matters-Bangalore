@@ -48,7 +48,7 @@ export async function generateMetadata({
   // already ends in the studio's name, and Woodsvale's did — the rendered
   // title carried the brand twice and ran to 81 characters. When the
   // stored title has already said it, take it as absolute.
-  const fallback = [project.title, city].filter(Boolean).join(" — ");
+  const fallback = [project.title, city].filter(Boolean).join(", ");
   const title =
     project.metaTitle && /design\s*matters/i.test(project.metaTitle)
       ? { absolute: project.metaTitle }
@@ -58,7 +58,7 @@ export async function generateMetadata({
     title,
     description:
       project.metaDesc ??
-      `${project.title} — a ${project.category.toLowerCase()} project by Design Matters Architects${
+      `${project.title}, a ${project.category.toLowerCase()} project by Design Matters Architects${
         project.location ? ` in ${project.location}` : ""
       }${project.year ? `, completed ${project.year}` : ""}.`,
     alternates: { canonical: `/projects/${project.slug}` },
@@ -120,11 +120,11 @@ export default async function ProjectPage({
   const media: LightboxImage[] = [
     ...storyImages.map((b) => ({
       url: b.image!,
-      alt: `${project.title} — ${STORY_LABELS[b.type]}`,
+      alt: `${project.title}, ${STORY_LABELS[b.type]}`,
     })),
     ...project.gallery.map((img, i) => ({
       url: img.url,
-      alt: img.alt ?? `${project.title} — view ${i + 1}`,
+      alt: img.alt ?? `${project.title}, view ${i + 1}`,
       blur: img.blurData,
     })),
     ...(feature?.images ?? []).map((img) => ({ url: img.url, alt: img.alt })),
@@ -137,7 +137,7 @@ export default async function ProjectPage({
         dangerouslySetInnerHTML={jsonLdScript(projectJsonLd(project))}
       />
       {/* The trail Google prints in place of the URL. It routes through
-          the practice area when the project belongs to one — the older
+          the practice area when the project belongs to one, the older
           Commercial and Hospitality rows have no page of their own, so
           they hang off /projects directly rather than inventing a crumb
           that would 404. */}
@@ -151,14 +151,14 @@ export default async function ProjectPage({
           ]),
         )}
       />
-      {/* Hero — inset rounded frame, consistent with the home carousel */}
+      {/* Hero, inset rounded frame, consistent with the home carousel */}
       <section className="p-2.5">
         <div className="relative flex min-h-[calc(85dvh-1.25rem)] flex-col justify-end overflow-hidden rounded-[1.5rem]">
           {project.heroImage && (
             <>
               <Image
                 src={project.heroImage}
-                alt={`${project.title} — ${project.category}`}
+                alt={`${project.title}, ${project.category}`}
                 fill
                 priority
                 sizes={SIZES.hero}
@@ -174,12 +174,12 @@ export default async function ProjectPage({
           )}
           <div className="relative px-gutter pb-14 pt-40">
             {/* Typology earns its place here for projects whose category
-                alone under-describes them — "Residential" says little
+                alone under-describes them, "Residential" says little
                 about a villa development. */}
             <p className="mono-label mb-4 text-cream/90">
               {project.category}
               {project.typology && ` · ${project.typology}`}
-              {project.location && ` — ${project.location}`}
+              {project.location && ` · ${project.location}`}
             </p>
             <MaskedHeading className="font-display text-hero max-w-5xl text-cream">
               {project.title}
@@ -225,7 +225,7 @@ export default async function ProjectPage({
                         <div className="relative aspect-[4/3] scale-110">
                           <Image
                             src={block.image}
-                            alt={`${project.title} — ${STORY_LABELS[block.type].toLowerCase()}`}
+                            alt={`${project.title}, ${STORY_LABELS[block.type].toLowerCase()}`}
                             fill
                             // Slot is 60vw but sits in a scale-110 frame.
                             sizes={SIZES.storyScaled}
@@ -246,7 +246,7 @@ export default async function ProjectPage({
                     }
                   >
                     <p className="mono-label mb-4">
-                      {String(i + 1).padStart(2, "0")} — {STORY_LABELS[block.type]}
+                      {String(i + 1).padStart(2, "0")} · {STORY_LABELS[block.type]}
                     </p>
                     {block.text && (
                       <p className="leading-relaxed text-ink-soft">{block.text}</p>
@@ -258,7 +258,7 @@ export default async function ProjectPage({
           </section>
         )}
 
-        {/* Gallery — every frame opens full screen. Every third cell runs
+        {/* Gallery, every frame opens full screen. Every third cell runs
             the full width; a gallery of one runs wide too, rather than
             leaving a lone portrait tile stranded beside empty space. */}
         {project.gallery.length > 0 && (
@@ -279,7 +279,7 @@ export default async function ProjectPage({
                       >
                         <Image
                           src={img.url}
-                          alt={img.alt ?? `${project.title} — view ${i + 1}`}
+                          alt={img.alt ?? `${project.title}, view ${i + 1}`}
                           fill
                           // Both cell shapes sit in a scale-110 frame.
                           sizes={wideCell(i) ? SIZES.galleryWideScaled : SIZES.galleryScaled}
@@ -297,20 +297,20 @@ export default async function ProjectPage({
           </section>
         )}
 
-        {/* A named piece of work inside this one — the clubhouse within
+        {/* A named piece of work inside this one, the clubhouse within
             the villa development, rather than a project of its own. */}
         {feature && (
           <ProjectFeature feature={feature} lightboxOffset={featureOffset} />
         )}
       </LightboxProvider>
 
-      {/* Story's end → the ask. The full form, right here — the lead
+      {/* Story's end → the ask. The full form, right here, the lead
           arrives in the dashboard tagged with this project. */}
       <EnquirySection
         source={`project:${project.slug}`}
         eyebrow="Planning something similar?"
-        title="Tell us about your site — we'll tell you what it could become."
-        whatsappText={`Hello Design Matters — I saw ${project.title} on your website and I'd like to discuss a similar project.`}
+        title="Tell us about your site. We'll tell you what it could become."
+        whatsappText={`Hello Design Matters, I saw ${project.title} on your website and I'd like to discuss a similar project.`}
       />
 
       {/* Next / prev */}

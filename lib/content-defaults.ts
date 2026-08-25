@@ -174,13 +174,13 @@ export const DEFAULTS = {
   identity: {
     name: "Design Matters Architects",
     shortName: "Design Matters",
-    tagline: "Architecture + Interior Design, Bengaluru",
+    tagline: "Architecture + Interior Design, Bangalore",
     founded: 2011,
     principal: "Ar. Kiran Hanumaiah",
     principalTitle: "Principal Architect",
     addressLine1: "3302, 2nd Floor, 12th A Main Rd",
     addressLine2: "HAL 2nd Stage, Indiranagar",
-    city: "Bengaluru",
+    city: "Bangalore",
     state: "Karnataka",
     pin: "560008",
     phone: "+91 98860 16711",
@@ -191,11 +191,11 @@ export const DEFAULTS = {
     linkedin: "https://in.linkedin.com/in/kiran-hanumaiah-825539a1",
     houzz: "",
     mapQuery:
-      "Design Matters Architects, 12th A Main Rd, HAL 2nd Stage, Indiranagar, Bengaluru",
+      "Design Matters Architects, 12th A Main Rd, HAL 2nd Stage, Indiranagar, Bangalore",
   } satisfies Identity,
 
   home: {
-    heroEyebrow: "Architecture + Interior Design — Bengaluru, since 2011",
+    heroEyebrow: "Architecture + Interior Design · Bangalore, since 2011",
     heroLine: "Buildings that",
     /**
      * Chosen from the "Hero slides" folder the studio sent, then paired
@@ -238,14 +238,14 @@ export const DEFAULTS = {
     heroWords: ["belong.", "breathe.", "listen.", "endure."],
     studioEyebrow: "The studio",
     studioStatement:
-      "Since 2011 we have built houses, workplaces and interiors around Bengaluru. Each one is drawn for its own site — which way the sun crosses it, what the street is like, and how the people who will live there actually spend a day.",
+      "Since 2011 we have built houses, workplaces and interiors around Bangalore. Each one is drawn for its own site: which way the sun crosses it, what the street is like, and how the people who will live there actually spend a day.",
     studioLinkLabel: "The story of the studio",
     workHeading: "Selected work",
     servicesHeading: "What we do",
     services: [
       {
         title: "Architecture",
-        body: "New builds and major renovations — residences, apartments, commercial and hospitality — carried from feasibility to handover.",
+        body: "New builds and major renovations: residences, apartments, commercial and hospitality, carried from feasibility to handover.",
       },
       {
         title: "Interior design",
@@ -253,64 +253,60 @@ export const DEFAULTS = {
       },
       {
         title: "Consultation",
-        body: "An architect's judgement when you need it most — plot evaluation before you buy, design review, feasibility.",
+        body: "An architect's judgement when you need it most: plot evaluation before you buy, design review, feasibility.",
       },
     ],
   } satisfies HomeContent,
 
   /**
-   * Rewritten by the studio and sent with the round-2 note (§7), which
-   * asked for the old About page to be replaced outright.
+   * The studio's own About copy, used verbatim.
    *
-   * The facts, the three-part structure and the section titles are all
-   * theirs. The prose is theirs too, with one pass over it — because §4
-   * of the same note asks for copy that doesn't read as though ChatGPT
-   * wrote it, and the draft they sent leans on exactly the tell that
-   * gives that away: stacked abstract triads ("structural rigor,
-   * intuitive functionality, and artistic detail"; "transform space into
-   * thoughtful, highly tailored environments"). Those are unstacked
-   * here into plainer sentences. Nothing factual was changed, nothing
-   * was added, and no claim was softened.
+   * Round 2 asked for the About page to be replaced with this text, and
+   * round 3 asked for it again after we had taken a light editing pass
+   * over it: the triads were unstacked, "Bangalore" became "Bangalore",
+   * and the client did not want either change. It is their studio and
+   * their words, so this is now their draft as sent, punctuation and
+   * American spellings included, down to "Recognized".
    *
-   * "Bengaluru" rather than the draft's "Bangalore": the studio's own
-   * spelling, and the convention SEO-CHECKLIST.md set for body copy —
-   * "Bangalore" earns its search traffic through titles and meta
-   * descriptions instead.
+   * The one intentional difference is the dash in "(2020-2022)", which
+   * arrived as an en dash. Long dashes are banned across the site by the
+   * same note, so it is a hyphen here.
+   *
+   * If this needs to change again, change it here rather than editing it
+   * in the dashboard, so the file and the live site do not disagree.
    */
   about: {
-    eyebrow: "The studio",
-    heading: "Who we are",
+    eyebrow: "About // the studio",
+    heading: "Who We Are",
     story: [
-      "Design Matters is an architecture and interior design studio in Indiranagar, Bengaluru, founded in 2011 by principal architect Kiran Hanumaiah. We work across architecture, interiors and bespoke product design.",
-      "Good design, as we practise it, has to hold up three ways at once: the structure has to be sound, the plan has to make sense to live in, and the detail has to be worth looking at. A building that manages only two of those is a building somebody has to put up with.",
-      "What comes out of that is particular to whoever it is for. We spend the time to learn how a client actually lives before we draw, which is why the houses on this site look so little like one another.",
+      "At Design Matters, we believe exceptional design is a blend of structural rigor, intuitive functionality, and artistic detail. Founded in 2011 by Principal Architect Kiran Hanumaiah, our Bangalore-based practice specializes in architecture, interior design, and bespoke product design. We transform space into thoughtful, highly tailored environments that reflect the unique vision and lifestyle of every client.",
     ],
     philosophyEyebrow: "The philosophy",
     philosophyQuote:
       "A house is judged by the parts nobody photographs. Where the light lands at four in the afternoon, whether the kitchen works when three people are in it, how the place feels in the second year.",
-    principalEyebrow: "Principal architect",
+    principalEyebrow: "Led by Deep Expertise",
     principalBio: [
-      "Kiran has worked in architecture, interior and product design for more than 23 years. He holds a B.Arch from B.M.S. College of Engineering, Bengaluru, and an M.Arch from the School of Planning and Architecture, New Delhi.",
-      "Before starting Design Matters in 2011 he spent twelve years as senior associate architect at Team-2 Architects and Engineers, running projects across several sectors and at scales that varied enormously. That was the apprenticeship: coordination, costing and site — the unglamorous half of the job that decides whether a drawing ever becomes a building.",
+      "Kiran brings over 23 years of industry leadership to the firm. An alumnus of B.M.S. College of Engineering (B.Arch) and the School of Planning and Architecture, New Delhi (M.Arch), Kiran spent 12 years as a Senior Associate Architect at Team-2 Architects and Engineers.",
+      "Managing diverse, high-scale projects across multiple sectors laid the foundation for Design Matters: a firm built on technical precision, collaborative management, and uncompromising design standards.",
     ],
-    recognitionHeading: "Recognised for excellence",
+    recognitionHeading: "Recognized for Excellence",
     recognitionIntro:
-      "Over the past decade Design Matters has become one of Bengaluru's established design practices, on the strength of the portfolio and of clients who keep sending us the next one.",
+      "Over the past decade, Design Matters has established itself as one of Bangalore's premier design practices, distinguished by an impressive portfolio and outstanding client trust.",
     recognition: [
       {
-        title: "Award-winning service",
-        body: "Winner of the Best of Houzz Service award three years consecutively, 2020 to 2022.",
+        title: "Award-Winning Service",
+        body: "Consecutive winner of the Best of Houzz Service award (2020-2022).",
       },
       {
-        title: "Featured in print and media",
-        body: "Covered by Buildofy, The Architect's Diary and in the national press.",
+        title: "Featured In Print & Media",
+        body: "Recognized across top architectural publications including Buildofy, The Architect's Diary, and national press outlets.",
       },
       {
-        title: "Client-centric practice",
-        body: "Transparency about cost and programme, meticulous execution, and craftsmanship meant to last.",
+        title: "Client-Centric Philosophy",
+        body: "Driven by transparency, meticulous execution, and lasting craftsmanship.",
       },
     ],
-    teamHeading: "The team",
+    teamHeading: "The Team",
     approachHeading: "How we work",
     approach: [
       {
@@ -319,7 +315,7 @@ export const DEFAULTS = {
       },
       {
         title: "Design for this climate",
-        body: "Bengaluru is kind to buildings that are oriented properly and shaded properly. Get those right, along with cross-ventilation and materials that suit the weather, and the air conditioning has much less to do.",
+        body: "Bangalore is kind to buildings that are oriented properly and shaded properly. Get those right, along with cross-ventilation and materials that suit the weather, and the air conditioning has much less to do.",
       },
       {
         title: "Take the details seriously",
@@ -338,7 +334,7 @@ export const DEFAULTS = {
     services: [
       {
         title: "Architecture",
-        body: "New builds and major renovations: private residences, apartment buildings, commercial and hospitality projects. From feasibility and massing to municipal approvals and construction drawings — the full arc, one studio accountable for all of it.",
+        body: "New builds and major renovations: private residences, apartment buildings, commercial and hospitality projects. From feasibility and massing to municipal approvals and construction drawings. The full arc, with one studio accountable for all of it.",
         scope: "Residences · Apartments · Commercial · Hospitality",
       },
       {
@@ -368,7 +364,7 @@ export const DEFAULTS = {
     eyebrow: "Get in touch",
     heading: "Every project starts with a conversation.",
     whatsappLabel: "WhatsApp the studio",
-    whatsappMessage: "Hello Design Matters — I'd like to discuss a project.",
+    whatsappMessage: "Hello Design Matters, I'd like to discuss a project.",
   } satisfies ContactContent,
 
   testimonials: {
@@ -394,13 +390,13 @@ export const DEFAULTS = {
     portalEyebrow: "What we practise",
     indexEyebrow: "Every project",
     indexHeading: "The complete index.",
-    emptyNote: "New work is being photographed — this section returns shortly.",
+    emptyNote: "New work is being photographed. This section returns shortly.",
 
     residentialTagline: "Houses, villas and homes",
     residentialEyebrow: "Practice area 01",
     residentialHeading: "Homes built around how a family actually lives.",
     residentialIntro:
-      "Private residences, villas and apartments across Bengaluru — planned around light, cross-ventilation and the way a household moves through its day. Every house starts on the site itself, not on a drawing board.",
+      "Private residences, villas and apartments across Bangalore, planned around light, cross-ventilation and the way a household moves through its day. Every house starts on the site itself, not on a drawing board.",
     residentialHighlights: [
       {
         title: "Site-first planning",
@@ -408,7 +404,7 @@ export const DEFAULTS = {
       },
       {
         title: "Materials that age",
-        body: "Exposed concrete, kota, terracotta and local stone — surfaces that look better in year ten than in year one.",
+        body: "Exposed concrete, kota, terracotta and local stone. Surfaces that look better in year ten than in year one.",
       },
       {
         title: "Built to a real budget",
@@ -420,7 +416,7 @@ export const DEFAULTS = {
     interiorsEyebrow: "Practice area 02",
     interiorsHeading: "Interiors that finish the architecture, not decorate it.",
     interiorsIntro:
-      "Apartment interiors, villa fit-outs and workspace refits — detailed to the millimetre, joinery drawn in-house, and executed with the makers we have worked with for a decade.",
+      "Apartment interiors, villa fit-outs and workspace refits, detailed to the millimetre, joinery drawn in-house, and executed with the makers we have worked with for a decade.",
     interiorsHighlights: [
       {
         title: "Drawn, not styled",
@@ -428,7 +424,7 @@ export const DEFAULTS = {
       },
       {
         title: "Light as a material",
-        body: "Layered lighting design — ambient, task and accent — set out at the plan stage.",
+        body: "Layered lighting design: ambient, task and accent, set out at the plan stage.",
       },
       {
         title: "One accountable team",
@@ -440,7 +436,7 @@ export const DEFAULTS = {
     institutionalEyebrow: "Practice area 03",
     institutionalHeading: "Buildings that hold a community together.",
     institutionalIntro:
-      "Schools, campuses, civic and community buildings — projects where circulation, daylight and durability matter more than any single façade gesture, and where the brief belongs to hundreds of people at once.",
+      "Schools, campuses, civic and community buildings. Projects where circulation, daylight and durability matter more than any single façade gesture, and where the brief belongs to hundreds of people at once.",
     institutionalHighlights: [
       {
         title: "Circulation first",

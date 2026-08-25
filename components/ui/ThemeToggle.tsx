@@ -34,7 +34,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         className,
       )}
     >
-      {/* Lightbulb morph — Skiper UI skiper4 / ThemeToggleButton4,
+      {/* Lightbulb morph, Skiper UI skiper4 / ThemeToggleButton4,
           adapted from toggles.dev (Alfie Jones). Rays + filament draw
           in for light, retract for dark. */}
       <svg

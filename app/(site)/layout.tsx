@@ -33,7 +33,7 @@ export default async function SiteLayout({
   return (
     <LenisProvider>
       {/* Two site-wide nodes. The Organization is the entity everything
-          else points at by @id — reviews, projects, services; the WebSite
+          else points at by @id, reviews, projects, services; the WebSite
           is what Google reads to print the site name above a result. */}
       <script
         type="application/ld+json"
@@ -52,7 +52,7 @@ export default async function SiteLayout({
       <WhatsAppFab
         href={whatsappHref(
           identity.whatsapp,
-          `Hello ${identity.shortName} — I'd like to discuss a project.`,
+          `Hello ${identity.shortName}, I'd like to discuss a project.`,
         )}
       />
       <Beacon />
