@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { RotatingWord } from "@/components/motion/RotatingWord";
 import { IMG_Q, SIZES } from "@/lib/images";
 
 export type HeroSlide = {
@@ -15,27 +16,44 @@ export type HeroSlide = {
   heroImage: string;
   heroBlur: string | null;
   hook: string | null;
+  /** Second half of the headline while this slide is up. */
+  word: string;
+  /** Describes this photograph, not the project generically. */
+  alt: string;
 };
 
-const SLIDE_MS = 3000;
+const SLIDE_MS = 5200;
 
 /**
  * Full-bleed featured-work carousel behind the homepage headline.
  *
- * - Auto-advances every 3s; a glass pause/play control and per-slide
+ * - Auto-advances every 5.2s; a glass pause/play control and per-slide
  *   progress bars make the pacing visible and controllable.
  * - Hovering the detail card holds the timer so the story can be read.
  * - Active slide drifts slowly (Ken Burns) — zeroed by the global
  *   reduced-motion rule, and auto-play never starts for those users.
  * - Slide 0 renders server-side with `priority`, so LCP is unaffected.
- * - The headline is passed in as server-rendered children.
+ *
+ * The headline is rendered here rather than passed in as children,
+ * because the rotating word has to be driven by the slide index. It used
+ * to be a `children` slot with `RotatingWord` spinning on its own 2.8s
+ * clock against the carousel's 3s one — the two drifted, every word
+ * eventually appeared over every photograph, and the client's round-2
+ * note ("buildings that endure, and it shows a kitchen photo") is the
+ * bill for that. One clock now, and it lives on the images.
+ *
+ * The 3s slide was also simply too fast to read a headline, a project
+ * name and a line of story before everything moved. 5.2s is roughly the
+ * time it takes to do that once.
  */
 export function HeroCarousel({
   slides,
-  children,
+  eyebrow,
+  line,
 }: {
   slides: HeroSlide[];
-  children: React.ReactNode;
+  eyebrow: string;
+  line: string;
 }) {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
@@ -45,6 +63,7 @@ export function HeroCarousel({
 
   const count = slides.length;
   const playing = !paused && !held && !reduce && count > 1;
+  const words = slides.map((s) => s.word);
 
   const goTo = useCallback(
     (i: number) => setIndex(((i % count) + count) % count),
@@ -76,7 +95,7 @@ export function HeroCarousel({
       {/* Slides */}
       {slides.map((s, i) => (
         <div
-          key={s.slug}
+          key={`${s.slug}-${i}`}
           aria-hidden={i !== index}
           className={cn(
             "absolute inset-0 transition-opacity duration-[1100ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
@@ -85,7 +104,7 @@ export function HeroCarousel({
         >
           <Image
             src={s.heroImage}
-            alt={`${s.title} — ${s.category}${s.location ? `, ${s.location}` : ""}`}
+            alt={s.alt}
             fill
             priority={i === 0}
             // 107vw, not 100vw: the active slide drifts to scale(1.07),
@@ -104,12 +123,56 @@ export function HeroCarousel({
         </div>
       ))}
 
-      {/* Scrims — nav and copy stay legible over light or dark photos */}
-      <div className="absolute inset-0 bg-gradient-to-b from-noir/45 via-noir/5 to-noir/70" />
+      {/* Scrims.
+          Two layers, not one. The vertical wash alone was tuned against a
+          set of dark heroes and dropped to 5% opacity through the middle
+          of the frame — which is exactly where the headline sits. Point it
+          at a bright photograph (the Shambhavi living room, all white
+          curtains and pale terrazzo) and cream text on it disappears
+          completely.
+          The second is a raking wash off the left edge, covering the
+          headline and gone by three-quarters across, so the glass card
+          still has a photograph behind it rather than a smudge. A
+          bottom-left radial was tried first and failed: to reach the end
+          of a headline that runs to mid-frame it had to be opened up so
+          wide that it stopped being a corner at all.
+          Both are tuned against the Mohan terrace, the brightest frame in
+          the set — white sky, pale concrete, cream type straight across
+          the middle of it. Anything that holds there holds anywhere, and
+          that is the bar, because the studio can add slides from the
+          dashboard and nobody will re-tune this for them. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-noir/55 via-noir/15 to-noir/85"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(100deg, rgba(23,21,15,0.82) 0%, rgba(23,21,15,0.58) 32%, rgba(23,21,15,0.22) 58%, rgba(23,21,15,0) 78%)",
+        }}
+      />
 
       {/* Foreground */}
       <div className="relative grid items-end gap-8 px-gutter pb-10 pt-40 lg:grid-cols-12">
-        <div className="lg:col-span-7">{children}</div>
+        <div className="lg:col-span-7">
+          <p className="mono-label mb-5 text-cream/90">{eyebrow}</p>
+          {/* Two masked lines rise on load (pure CSS, LCP-safe); the
+              second then tracks the carousel rather than its own clock. */}
+          <h1 className="font-display text-hero max-w-5xl text-cream">
+            <span className="mask-safe block overflow-hidden">
+              <span className="mask-rise block">{line}</span>
+            </span>
+            {/* RotatingWord supplies its own `mask-rise`, so this is the
+                mask only — nesting it inside a second rising wrapper put
+                the word under two filling animations at once, which is
+                what kept it from tracking the slides. */}
+            <span className="mask-safe block overflow-hidden">
+              <RotatingWord words={words} index={index} className="text-brass-bright" />
+            </span>
+          </h1>
+        </div>
 
         {/* Glass project card */}
         <div
@@ -192,7 +255,7 @@ export function HeroCarousel({
               <div className="ml-1 flex min-w-0 flex-1 items-center gap-1.5" role="tablist" aria-label="Slides">
                 {slides.map((s, i) => (
                   <button
-                    key={s.slug}
+                    key={`${s.slug}-${i}`}
                     type="button"
                     role="tab"
                     aria-selected={i === index}

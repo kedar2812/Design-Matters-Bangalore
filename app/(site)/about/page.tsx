@@ -79,6 +79,34 @@ export default async function AboutPage() {
         founded={site.founded}
       />
 
+      {/* Recognition — the awards and press half of the studio's own
+          rewrite (§7). It sits after the principal because every claim in
+          it is about the practice's record, and it earns the press strip
+          further down rather than duplicating it. */}
+      <section className="mt-section px-gutter" aria-labelledby="recognition-heading">
+        <Reveal>
+          <div className="rule mb-12 pt-4">
+            <h2 id="recognition-heading" className="font-display text-h2">
+              {about.recognitionHeading}
+            </h2>
+            <p className="mt-5 max-w-2xl leading-relaxed text-ink-soft">
+              {about.recognitionIntro}
+            </p>
+          </div>
+        </Reveal>
+        <div className="grid gap-x-gutter gap-y-12 md:grid-cols-3">
+          {about.recognition.map((item, i) => (
+            <Reveal key={item.title} delay={i * 0.1}>
+              <p className="mono-label mb-3 text-brass">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 className="font-display text-h3 mb-4">{item.title}</h3>
+              <p className="max-w-sm leading-relaxed text-ink-soft">{item.body}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* Team — roster, hierarchy and portraits (lib/team.ts) */}
       <TeamSection heading={about.teamHeading} />
 

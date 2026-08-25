@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getPublishedProjects } from "@/lib/content";
 import { getSection } from "@/lib/settings";
 import { Reveal } from "@/components/motion/Reveal";
-import { RotatingWord } from "@/components/motion/RotatingWord";
 import { TextScrub } from "@/components/motion/TextScrub";
 import { HeroCarousel, type HeroSlide } from "@/components/site/HeroCarousel";
 import { ProjectCard } from "@/components/site/ProjectCard";
@@ -23,11 +22,41 @@ export default async function HomePage() {
     getSection("home"),
   ]);
   const featured = projects.slice(0, 8);
+  const bySlug = new Map(projects.map((p) => [p.slug, p]));
 
-  const slides: HeroSlide[] = featured
+  /* The hero is the studio's own curated pick (§1, §2): a chosen
+     photograph per slide, each carrying the headline word it was chosen
+     for. Slides naming an unpublished or missing project are dropped
+     rather than rendered as dead links — the whole list falling away
+     leaves the old behaviour, the first few published projects, so the
+     home page can never end up with no hero at all. */
+  const curated: HeroSlide[] = home.heroSlides.flatMap((s) => {
+    const p = bySlug.get(s.projectSlug);
+    if (!p) return [];
+    return [
+      {
+        slug: p.slug,
+        title: p.title,
+        category: p.category,
+        location: p.location,
+        heroImage: s.image,
+        // A slide may point at a gallery frame rather than the project's
+        // own hero, so the blur is looked up by URL across both.
+        heroBlur:
+          (s.image === p.heroImage
+            ? p.heroBlur
+            : p.gallery.find((g) => g.url === s.image)?.blurData) ?? null,
+        hook: p.storyBlocks[0]?.text ?? null,
+        word: s.word,
+        alt: s.alt,
+      },
+    ];
+  });
+
+  const fallback: HeroSlide[] = featured
     .filter((p) => p.heroImage)
     .slice(0, 5)
-    .map((p) => ({
+    .map((p, i) => ({
       slug: p.slug,
       title: p.title,
       category: p.category,
@@ -35,28 +64,21 @@ export default async function HomePage() {
       heroImage: p.heroImage!,
       heroBlur: p.heroBlur,
       hook: p.storyBlocks[0]?.text ?? null,
+      word: home.heroWords[i % home.heroWords.length] ?? "",
+      alt: `${p.title} — ${p.category}${p.location ? `, ${p.location}` : ""}`,
     }));
 
-  const grid = featured.slice(1);
+  const slides = curated.length ? curated : fallback;
+
+  /* The grid below the hero shows work the hero hasn't already shown,
+     so the first screen and the second aren't the same four houses. */
+  const heroSlugs = new Set(slides.map((s) => s.slug));
+  const grid = featured.filter((p) => !heroSlugs.has(p.slug));
 
   return (
     <main>
       {/* ------------------------------------------- hero — carousel */}
-      <HeroCarousel slides={slides}>
-        <p className="mono-label mb-5 text-cream/90">{home.heroEyebrow}</p>
-        {/* Two masked lines rise on load (pure CSS, LCP-safe); the
-            second line then keeps quietly cycling the studio's verbs. */}
-        <h1 className="font-display text-hero max-w-5xl text-cream">
-          <span className="mask-safe block overflow-hidden">
-            <span className="mask-rise block">{home.heroLine}</span>
-          </span>
-          <span className="mask-safe block overflow-hidden">
-            <span className="mask-rise block" style={{ animationDelay: "0.12s" }}>
-              <RotatingWord words={[...home.heroWords]} className="text-brass-bright" />
-            </span>
-          </span>
-        </h1>
-      </HeroCarousel>
+      <HeroCarousel slides={slides} eyebrow={home.heroEyebrow} line={home.heroLine} />
 
       {/* ---------------------------------------------------- the studio */}
       <section className="px-gutter py-section">

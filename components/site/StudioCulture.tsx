@@ -12,9 +12,12 @@ import blurs from "@/lib/studio-blurs.json";
  * than set on a tidy baseline, which keeps a page of group shots from
  * reading as a contact sheet.
  *
- * One studio interior sits in the middle of the outings on purpose. Six
- * consecutive holiday photographs make a practice look like it never
- * works; the desks put the trips in context.
+ * The working studio leads and the outings follow — round 2 asked for
+ * exactly that ("workplace photo first, then recreation photos"), and it
+ * is the right call: opening a section about a practice with six holiday
+ * photographs and a holiday video makes it look like one that never
+ * works. The Kabini clip is genuinely the best thing here, but it earns
+ * its place at the end of the section rather than at the top of it.
  *
  * The video is the studio's own clip from the Kabini trip, and it is the
  * one asset here that is NOT wide: it was shot on a phone, held upright,
@@ -53,20 +56,20 @@ export const TEAM_VIDEO: {
 
 const PHOTOS = [
   {
+    src: "/uploads/studio/culture/studio-desks.jpg",
+    alt: "The Design Matters studio at work — a long shared desk running beneath a deep blue wall",
+    grid: "md:col-span-7",
+    aspect: "aspect-[3/2]",
+  },
+  {
     src: "/uploads/studio/culture/outing-nandi-hills.jpg",
     alt: "The Design Matters team on the rock at the summit of Nandi Hills, the plain behind them under heavy cloud",
-    grid: "md:col-span-7",
+    grid: "md:col-span-5 md:mt-16",
     aspect: "aspect-[3/2]",
   },
   {
     src: "/uploads/studio/culture/outing-poolside.jpg",
     alt: "The studio gathered along the edge of a pool in Wayanad, surrounded by coconut and banana palms",
-    grid: "md:col-span-5 md:mt-16",
-    aspect: "aspect-[3/2]",
-  },
-  {
-    src: "/uploads/studio/culture/studio-desks.jpg",
-    alt: "The Design Matters studio at work — a long shared desk running beneath a deep blue wall",
     grid: "md:col-span-5",
     aspect: "aspect-[3/2]",
   },
@@ -112,8 +115,30 @@ export function StudioCulture({
         </div>
       </Reveal>
 
+      <div className="grid gap-gutter md:grid-cols-12">
+        {PHOTOS.map((p, i) => (
+          <Reveal key={p.src} delay={(i % 2) * 0.1} className={p.grid}>
+            <div
+              className={`rounded-frame relative overflow-hidden bg-stone/10 ${p.aspect}`}
+            >
+              <Image
+                src={p.src}
+                alt={p.alt}
+                fill
+                // Widest cell is 7/12 of the content column.
+                sizes="(min-width: 768px) 58vw, 100vw"
+                quality={IMG_Q.candid}
+                placeholder={blurOf(p.src) ? "blur" : "empty"}
+                blurDataURL={blurOf(p.src)}
+                className="rounded-[inherit] object-cover"
+              />
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
       {TEAM_VIDEO && (
-        <Reveal className="mb-gutter">
+        <Reveal className="mt-gutter">
           <figure>
             <div className="grid gap-gutter md:grid-cols-12 md:items-center">
               <div className="md:col-span-4">
@@ -150,28 +175,6 @@ export function StudioCulture({
           </figure>
         </Reveal>
       )}
-
-      <div className="grid gap-gutter md:grid-cols-12">
-        {PHOTOS.map((p, i) => (
-          <Reveal key={p.src} delay={(i % 2) * 0.1} className={p.grid}>
-            <div
-              className={`rounded-frame relative overflow-hidden bg-stone/10 ${p.aspect}`}
-            >
-              <Image
-                src={p.src}
-                alt={p.alt}
-                fill
-                // Widest cell is 7/12 of the content column.
-                sizes="(min-width: 768px) 58vw, 100vw"
-                quality={IMG_Q.candid}
-                placeholder={blurOf(p.src) ? "blur" : "empty"}
-                blurDataURL={blurOf(p.src)}
-                className="rounded-[inherit] object-cover"
-              />
-            </div>
-          </Reveal>
-        ))}
-      </div>
     </section>
   );
 }

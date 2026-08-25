@@ -21,11 +21,21 @@ import { getPublishedProjects, type Testimonial } from "@/lib/content";
  *  - Chetan Basavaraj and Soumya Basavaraj → Soumya and Chetan Residence.
  *    The studio's own portfolio page names the project
  *    "Soumya and Chetan's Residence".
+ *
+ * `frame` picks which photograph of that project the review sits beside:
+ * 0 is the project hero, 1 and up index the gallery. It exists because a
+ * couple can leave two reviews of one house, and round 2 caught the
+ * result — "soumya's project photo has been repeated twice". Both rows
+ * pointed at the same slug and both therefore rendered the same hero, so
+ * the page showed one house twice under two names. They now take
+ * different frames of it.
  */
-export const TESTIMONIAL_PROJECTS: Record<string, string> = {
-  "Shaila Vivek": "vivek-residence",
-  "Chetan Basavaraj": "soumya-and-chetan-residence",
-  "Soumya Basavaraj": "soumya-and-chetan-residence",
+export type TestimonialProject = { slug: string; frame?: number };
+
+export const TESTIMONIAL_PROJECTS: Record<string, TestimonialProject> = {
+  "Shaila Vivek": { slug: "vivek-residence" },
+  "Chetan Basavaraj": { slug: "soumya-and-chetan-residence" },
+  "Soumya Basavaraj": { slug: "soumya-and-chetan-residence", frame: 1 },
 };
 
 export type PairedTestimonial = Testimonial & {
@@ -50,16 +60,24 @@ export async function pairTestimonials(
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
 
   return testimonials.map((t) => {
-    const slug = TESTIMONIAL_PROJECTS[t.author];
-    const project = slug ? bySlug.get(slug) : undefined;
+    const ref = TESTIMONIAL_PROJECTS[t.author];
+    const project = ref ? bySlug.get(ref.slug) : undefined;
     if (!project?.heroImage) return t;
+
+    // Frame 0 is the hero; 1 and up index the gallery. An out-of-range
+    // frame falls back to the hero rather than dropping the photograph —
+    // galleries get re-cut between rounds, and a review losing its
+    // picture is a worse outcome than two reviews sharing one.
+    const gallery = project.gallery ?? [];
+    const picked = ref?.frame ? gallery[ref.frame - 1] : undefined;
+
     return {
       ...t,
       project: {
         slug: project.slug,
         title: project.title,
-        image: project.heroImage,
-        blur: project.heroBlur,
+        image: picked?.url ?? project.heroImage,
+        blur: picked?.blurData ?? project.heroBlur,
         location: project.location,
       },
     };

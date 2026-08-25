@@ -31,10 +31,36 @@ export type Identity = {
   mapQuery: string;
 };
 
+/**
+ * One frame of the home hero.
+ *
+ * `word` is the second half of the headline while this photograph is on
+ * screen, and that pairing is the whole point. Round 2 came back with
+ * "taglines should correspond to images — 'buildings that endure' and it
+ * shows a kitchen photo". That happened because the word and the picture
+ * each ran on their own timer and drifted. They are one object now, so a
+ * word can only ever appear over the photograph it was chosen for.
+ *
+ * `projectSlug` is what the slide's card links to. A slide naming a
+ * project that isn't published is dropped rather than rendered dead.
+ */
+export type HeroSlide = {
+  image: string;
+  word: string;
+  projectSlug: string;
+  alt: string;
+};
+
 export type HomeContent = {
   heroEyebrow: string;
   heroLine: string;
-  /** Cycled by the hero's rotating word. */
+  /**
+   * The curated hero slideshow (§1, §2). Leave empty to fall back to the
+   * first few published projects, which is what the home page did before
+   * the studio sent a picked set.
+   */
+  heroSlides: HeroSlide[];
+  /** Fallback word cycle, used only when `heroSlides` is empty. */
   heroWords: string[];
   studioEyebrow: string;
   studioStatement: string;
@@ -52,6 +78,10 @@ export type AboutContent = {
   philosophyQuote: string;
   principalEyebrow: string;
   principalBio: string[];
+  /** "Recognized for Excellence" from the studio's rewrite (§7). */
+  recognitionHeading: string;
+  recognitionIntro: string;
+  recognition: { title: string; body: string }[];
   teamHeading: string;
   /** The roster itself lives in `lib/team.ts` — see the note in content-schema. */
   approachHeading: string;
@@ -167,10 +197,48 @@ export const DEFAULTS = {
   home: {
     heroEyebrow: "Architecture + Interior Design — Bengaluru, since 2011",
     heroLine: "Buildings that",
+    /**
+     * Chosen from the "Hero slides" folder the studio sent, then paired
+     * word to picture by hand.
+     *
+     * Two rules decided the set. Every frame is landscape, because the
+     * hero is full-bleed and a portrait source loses its top and bottom
+     * to the crop — half the folder is portrait and none of it is here.
+     * And "endure." leads, over the farmhouse at dusk: it is the best
+     * photograph in the drop, it is unmistakably a building, and putting
+     * it first answers both "first page is not impressive" and the
+     * kitchen-under-"endure" complaint in the same frame.
+     */
+    heroSlides: [
+      {
+        image: "/uploads/projects/praangana-heritage/hero.jpg",
+        word: "endure.",
+        projectSlug: "praangana-heritage",
+        alt: "The Praangana Heritage farmhouse at dusk, tiled roofs and a lit verandah above the lawn",
+      },
+      {
+        image: "/uploads/projects/mohan-residence/hero.jpg",
+        word: "breathe.",
+        projectSlug: "mohan-residence",
+        alt: "The roof terrace at Mohan Residence under its steel pergola, the city beyond",
+      },
+      {
+        image: "/uploads/projects/shambhavi-residence/02.jpg",
+        word: "belong.",
+        projectSlug: "shambhavi-residence",
+        alt: "The living room at Shambhavi Residence under its arched window",
+      },
+      {
+        image: "/uploads/projects/dr-ashwini-residence/02.jpg",
+        word: "listen.",
+        projectSlug: "dr-ashwini-residence",
+        alt: "A kolam drawn in white across the plaster wall above the timber stair at Dr. Ashwini Residence",
+      },
+    ],
     heroWords: ["belong.", "breathe.", "listen.", "endure."],
     studioEyebrow: "The studio",
     studioStatement:
-      "Fifteen years of residences, workplaces and interiors across Bengaluru — each one designed for its climate, its street, and the people who live with it.",
+      "Since 2011 we have built houses, workplaces and interiors around Bengaluru. Each one is drawn for its own site — which way the sun crosses it, what the street is like, and how the people who will live there actually spend a day.",
     studioLinkLabel: "The story of the studio",
     workHeading: "Selected work",
     servicesHeading: "What we do",
@@ -181,7 +249,7 @@ export const DEFAULTS = {
       },
       {
         title: "Interior design",
-        body: "Complete interiors for homes and workplaces: space planning, custom furniture, materials and light, executed to the last drawer detail.",
+        body: "Complete interiors for homes and workplaces: space planning, custom furniture, materials and light, detailed down to the drawer runners.",
       },
       {
         title: "Consultation",
@@ -190,47 +258,83 @@ export const DEFAULTS = {
     ],
   } satisfies HomeContent,
 
+  /**
+   * Rewritten by the studio and sent with the round-2 note (§7), which
+   * asked for the old About page to be replaced outright.
+   *
+   * The facts, the three-part structure and the section titles are all
+   * theirs. The prose is theirs too, with one pass over it — because §4
+   * of the same note asks for copy that doesn't read as though ChatGPT
+   * wrote it, and the draft they sent leans on exactly the tell that
+   * gives that away: stacked abstract triads ("structural rigor,
+   * intuitive functionality, and artistic detail"; "transform space into
+   * thoughtful, highly tailored environments"). Those are unstacked
+   * here into plainer sentences. Nothing factual was changed, nothing
+   * was added, and no claim was softened.
+   *
+   * "Bengaluru" rather than the draft's "Bangalore": the studio's own
+   * spelling, and the convention SEO-CHECKLIST.md set for body copy —
+   * "Bangalore" earns its search traffic through titles and meta
+   * descriptions instead.
+   */
   about: {
     eyebrow: "The studio",
-    heading: "Good design isn't added on. It's the point.",
+    heading: "Who we are",
     story: [
-      "Design Matters is an architecture and interior design studio in Indiranagar, Bengaluru. Since 2011 we have designed private residences, apartment interiors, workplaces and hospitality spaces across the city — work that ranges in scale but not in attention.",
-      "The name is the position. In a city building faster than it can think, we hold that the difference between a building and a place worth inhabiting is design — considered early, argued over properly, and carried through to the last drawer detail.",
-      "That conviction has quietly built one of the strongest client records among Bengaluru firms — most of our work still arrives by referral, and the studio has been recognised with Best of Houzz service awards three years running.",
+      "Design Matters is an architecture and interior design studio in Indiranagar, Bengaluru, founded in 2011 by principal architect Kiran Hanumaiah. We work across architecture, interiors and bespoke product design.",
+      "Good design, as we practise it, has to hold up three ways at once: the structure has to be sound, the plan has to make sense to live in, and the detail has to be worth looking at. A building that manages only two of those is a building somebody has to put up with.",
+      "What comes out of that is particular to whoever it is for. We spend the time to learn how a client actually lives before we draw, which is why the houses on this site look so little like one another.",
     ],
     philosophyEyebrow: "The philosophy",
     philosophyQuote:
-      "Design isn't what we add to a building. It's everything we refuse to leave out — light, air, proportion, and the way a home holds the people in it.",
+      "A house is judged by the parts nobody photographs. Where the light lands at four in the afternoon, whether the kitchen works when three people are in it, how the place feels in the second year.",
     principalEyebrow: "Principal architect",
     principalBio: [
-      "Kiran holds a Bachelor's in Architecture from B.M.S. College of Engineering, Bengaluru, and a Master's from the School of Planning and Architecture, New Delhi. Across more than two decades in architecture, interior and product design, he has built a practice defined by range — and by the patience to get the small things right.",
-      "Before founding Design Matters in 2011, he spent twelve years as senior associate architect at Team-2 Architects and Engineers, running projects of widely varying scale and complexity — an apprenticeship in the unglamorous disciplines that make buildings actually happen: coordination, costing, and site.",
+      "Kiran has worked in architecture, interior and product design for more than 23 years. He holds a B.Arch from B.M.S. College of Engineering, Bengaluru, and an M.Arch from the School of Planning and Architecture, New Delhi.",
+      "Before starting Design Matters in 2011 he spent twelve years as senior associate architect at Team-2 Architects and Engineers, running projects across several sectors and at scales that varied enormously. That was the apprenticeship: coordination, costing and site — the unglamorous half of the job that decides whether a drawing ever becomes a building.",
+    ],
+    recognitionHeading: "Recognised for excellence",
+    recognitionIntro:
+      "Over the past decade Design Matters has become one of Bengaluru's established design practices, on the strength of the portfolio and of clients who keep sending us the next one.",
+    recognition: [
+      {
+        title: "Award-winning service",
+        body: "Winner of the Best of Houzz Service award three years consecutively, 2020 to 2022.",
+      },
+      {
+        title: "Featured in print and media",
+        body: "Covered by Buildofy, The Architect's Diary and in the national press.",
+      },
+      {
+        title: "Client-centric practice",
+        body: "Transparency about cost and programme, meticulous execution, and craftsmanship meant to last.",
+      },
     ],
     teamHeading: "The team",
     approachHeading: "How we work",
     approach: [
       {
         title: "Listen before drawing",
-        body: "A brief is more than a room count. We start with how you live and work — the routines, the rituals, the things you didn't know to ask for — and let the plan grow from there.",
+        body: "A brief that is only a room count tells us very little. We would rather hear how the mornings go, who cooks, where everyone ends up on a Sunday. The plan comes out of that.",
       },
       {
         title: "Design for this climate",
-        body: "Bengaluru rewards buildings that breathe. Orientation, shading, cross-ventilation and honest materials do the heavy lifting long before any machine has to.",
+        body: "Bengaluru is kind to buildings that are oriented properly and shaded properly. Get those right, along with cross-ventilation and materials that suit the weather, and the air conditioning has much less to do.",
       },
       {
-        title: "Detail is the design",
-        body: "The junction of two materials, the depth of a reveal, where the light lands at four in the afternoon — the small decisions are the ones you live with daily, so we sweat them.",
+        title: "Take the details seriously",
+        body: "Where two materials meet, how deep a reveal is, which way a door swings when your hands are full. These are the things you touch every day, so they are worth the argument.",
       },
       {
         title: "Stay through the build",
-        body: "Drawings don't build houses; follow-through does. We stay involved from the first site visit to handover, so what gets built is what was designed.",
+        body: "A drawing is not a house. We are on site from the first visit through to handover, because that is the only way what gets built resembles what was agreed.",
       },
     ],
   } satisfies AboutContent,
 
   services: {
     eyebrow: "What we do",
-    heading: "Three ways of working, one standard of care.",
+    heading: "Three ways to work with the studio.",
     services: [
       {
         title: "Architecture",
@@ -239,7 +343,7 @@ export const DEFAULTS = {
       },
       {
         title: "Interior design",
-        body: "Complete interiors for homes and workplaces — space planning, custom furniture, lighting, materials and finishes, executed with vendors we've worked with for years. Design intent survives all the way to the final coat.",
+        body: "Complete interiors for homes and workplaces: space planning, custom furniture, lighting, materials and finishes. We use fabricators and vendors we have worked with for years, which is mostly why what arrives on site matches what was drawn.",
         scope: "Homes · Apartments · Offices · Clinics",
       },
       {
@@ -252,10 +356,10 @@ export const DEFAULTS = {
     processHeading: "The process",
     process: [
       { title: "Brief", body: "We meet, walk the site, and listen. You leave with questions worth asking; we leave with the real brief." },
-      { title: "Concept", body: "Plans, massing, mood — the big moves. We iterate together until the direction feels inevitable." },
+      { title: "Concept", body: "Plans, massing and mood. We go round this a few times together until it stops feeling like a compromise." },
       { title: "Design development", body: "The concept becomes a buildable proposition: materials, structure, services, budgets aligned." },
       { title: "Documentation", body: "Approval and construction drawings, specifications, and a tender-ready package." },
-      { title: "Build", body: "Site visits, contractor coordination, and the thousand mid-course decisions — made quickly, made once." },
+      { title: "Build", body: "Site visits, contractor coordination, and the hundreds of small decisions a live site throws up. We answer them fast, because a stalled site costs you money." },
       { title: "Handover", body: "Snag lists closed, systems commissioned, and a building that matches its drawings." },
     ],
   } satisfies ServicesContent,
@@ -271,7 +375,7 @@ export const DEFAULTS = {
     eyebrow: "Client voices",
     heading: "The work, in their words.",
     intro:
-      "Most of the studio's work arrives by referral — houses recommend architects better than architects can. These are our clients' Google reviews, reproduced as written.",
+      "Most of our work comes by referral, from clients who had people over and got asked who did it. These are their Google reviews, reproduced as written.",
     ratingValue: "4.9",
     reviewCount: "87",
     googleUrl: "https://maps.google.com/?cid=7913232271800381208",
@@ -284,9 +388,9 @@ export const DEFAULTS = {
 
   projects: {
     eyebrow: "Selected works",
-    heading: "The work speaks in plan, section and light.",
+    heading: "Houses, interiors and public buildings.",
     intro:
-      "Three practice areas, one way of working: read the site, respect the brief, and build something that ages well.",
+      "Three practice areas. In all of them the work starts on the site rather than on a drawing board, and the aim is a building that still looks considered in fifteen years.",
     portalEyebrow: "What we practise",
     indexEyebrow: "Every project",
     indexHeading: "The complete index.",

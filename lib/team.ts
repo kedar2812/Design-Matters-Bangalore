@@ -34,6 +34,19 @@ export type TeamMember = {
   order: number;
   /** Path under /public. Absent = initials tile. */
   image?: string;
+  /**
+   * One or two sentences in the person's own register — what they work
+   * on, what they care about getting right.
+   *
+   * Empty for everyone at the moment, and deliberately so. Round 2 asked
+   * for the roster to be structured like digitalbluefoam.com/company/team,
+   * which carries a personal statement under every name. Those are the
+   * words of eleven real people and there is no version of writing them
+   * on their behalf that is honest, so the layout reserves the space and
+   * reads correctly without it. They are on the asset request; fill them
+   * in here and the cards pick them up with no other change.
+   */
+  bio?: string;
 };
 
 export const TEAM: TeamMember[] = [
@@ -111,16 +124,33 @@ const byOrder = (a: TeamMember, b: TeamMember) => a.order - b.order;
 export const principal = (): TeamMember | undefined =>
   [...TEAM].sort(byOrder).find((m) => m.designation === "Principal Architect");
 
-/**
- * Everyone else, in display order — seniors first, then architects.
- *
- * A single even grid rather than one grid per rank: with the whole studio
- * shot the same way, splitting it under sub-headings breaks the rhythm the
- * photographs already have, and rank reads perfectly well from the line
- * under each name.
- */
+/** Everyone but the principal, in display order. */
 export const roster = (): TeamMember[] =>
   [...TEAM].sort(byOrder).filter((m) => m.designation !== "Principal Architect");
+
+/**
+ * The roster split into its ranks, seniors first.
+ *
+ * Round 1 deliberately ran one even grid with no sub-headings, on the
+ * grounds that the portraits were shot in a single session and tile into
+ * a continuous band. Round 2 overrules that: the client pointed at
+ * digitalbluefoam.com/company/team, which separates leadership from the
+ * core team outright, and he is right that a flat grid of eleven faces
+ * says nothing about who runs a project.
+ *
+ * Ranks that nobody currently holds drop out rather than rendering an
+ * empty heading, so this survives the roster changing.
+ */
+export const rosterByRank = (): { rank: Rank; members: TeamMember[] }[] => {
+  const order: Rank[] = ["Senior Architect", "Architect"];
+  return order
+    .map((rank) => ({ rank, members: roster().filter((m) => m.designation === rank) }))
+    .filter((group) => group.members.length > 0);
+};
+
+/** Plural heading for a rank — "Senior Architect" reads wrong over three. */
+export const rankHeading = (rank: Rank) =>
+  rank === "Senior Architect" ? "Senior architects" : "Architects";
 
 /** "Anusha Kolli" → "AK", "Divya" → "D". Used for the placeholder tile. */
 export const initialsOf = (name: string) =>

@@ -1,25 +1,39 @@
 import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { IMG_Q } from "@/lib/images";
-import { TEAM, roster, initialsOf, type TeamMember } from "@/lib/team";
+import {
+  TEAM,
+  rosterByRank,
+  rankHeading,
+  initialsOf,
+  type TeamMember,
+} from "@/lib/team";
 import blurs from "@/lib/studio-blurs.json";
 
 /**
- * The studio roster (§2.5) — "team to be highlighted and mentioned".
+ * The studio roster.
  *
- * One even grid, no sub-headings per rank. That is a decision the
- * photography earns: the studio shot all ten portraits in a single
- * session against the same wall, the same plant, the same standing pose,
- * so the frames already tile into a continuous band. Breaking that band
- * under "Senior Architects" / "Architects" rules would fight it for no
- * gain, since the designation is printed under every name anyway.
+ * Round 1 ran this as one even grid of ten faces with no sub-headings —
+ * the portraits were shot in a single session against one wall, and they
+ * tile into a continuous band that sub-headings would interrupt.
  *
- * The principal is deliberately not in here — he gets PrincipalSection
- * above, which is where the hierarchy lives.
+ * Round 2 overrules that, and points at digitalbluefoam.com/company/team
+ * as the model. That page separates its founders from its core team
+ * outright, and gives each person a role, a place and a sentence in their
+ * own voice. The client is right about the substance of it: a flat grid
+ * of eleven faces tells a prospective client nothing about who would
+ * actually run their project.
  *
- * Two columns on phones and five from `lg`, both of which divide the
- * roster evenly. The band in between keeps two, because five portraits
- * across a tablet renders faces too small to be worth showing.
+ * So the roster is now banded by rank — seniors in a wider three-up grid
+ * that gives them physical weight on the page, everyone else four-up
+ * beneath. The principal is still absent from both; he has his own block
+ * above, which is where the hierarchy actually reads.
+ *
+ * The reference also carries a personal statement under every name. We
+ * have none, and inventing them would be putting words in the mouths of
+ * eleven real people. `TeamMember.bio` exists and renders when present;
+ * until the studio sends them the cards close up cleanly without the
+ * paragraph, so the page is never visibly waiting for something.
  *
  * Portraits are stored as greyscale JPEGs rather than desaturated in CSS:
  * the source shoot is monochrome already, and dropping the two empty
@@ -30,10 +44,7 @@ import blurs from "@/lib/studio-blurs.json";
 const blurOf = (src?: string) =>
   src ? (blurs as Record<string, string>)[src] : undefined;
 
-/** Matches the grid below: 2 columns up to `lg`, 5 beyond. */
-const TILE_SIZES = "(min-width: 1024px) 17vw, 45vw";
-
-function Portrait({ member }: { member: TeamMember }) {
+function Portrait({ member, sizes }: { member: TeamMember; sizes: string }) {
   return (
     <div className="rounded-frame relative aspect-[3/4] overflow-hidden bg-hairline/40">
       {member.image ? (
@@ -41,7 +52,7 @@ function Portrait({ member }: { member: TeamMember }) {
           src={member.image}
           alt={`${member.name}, ${member.designation} at Design Matters`}
           fill
-          sizes={TILE_SIZES}
+          sizes={sizes}
           quality={IMG_Q.card}
           placeholder={blurOf(member.image) ? "blur" : "empty"}
           blurDataURL={blurOf(member.image)}
@@ -63,8 +74,40 @@ function Portrait({ member }: { member: TeamMember }) {
   );
 }
 
+/**
+ * One person. The designation sits *above* the name, as on the reference
+ * page — it turns the card into "this is the senior architect, and she is
+ * called Pallavi" rather than a caption under a photograph.
+ */
+function Card({
+  member,
+  sizes,
+  delay,
+}: {
+  member: TeamMember;
+  sizes: string;
+  delay: number;
+}) {
+  return (
+    <li className="list-none">
+      <Reveal delay={delay} className="group">
+        <Portrait member={member} sizes={sizes} />
+        <div className="pt-4">
+          <p className="mono-label text-brass">{member.designation}</p>
+          <h3 className="font-display text-h3 mt-2 leading-tight">{member.name}</h3>
+          {member.bio && (
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
+              {member.bio}
+            </p>
+          )}
+        </div>
+      </Reveal>
+    </li>
+  );
+}
+
 export function TeamSection({ heading }: { heading: string }) {
-  const members = roster();
+  const groups = rosterByRank();
 
   return (
     <section className="mt-section px-gutter" aria-labelledby="team-heading">
@@ -77,26 +120,37 @@ export function TeamSection({ heading }: { heading: string }) {
         </div>
       </Reveal>
 
-      <ul className="grid grid-cols-2 gap-x-gutter gap-y-12 lg:grid-cols-5">
-        {members.map((m, i) => (
-          <li key={m.name} className="list-none">
-            {/* Stagger runs across a row and resets, so the grid ripples in
-                left-to-right rather than all ten landing at once. */}
-            <Reveal delay={(i % 5) * 0.07} className="group">
-              <Portrait member={m} />
-              <div className="pt-4">
-                {/* Two lines are reserved whether or not the name needs
-                    them, so "Harshitha Chandrashekhar" doesn't shunt its
-                    own designation a line below everyone else's. */}
-                <h3 className="font-display text-h3 min-h-[2.5em] leading-tight">
-                  {m.name}
-                </h3>
-                <p className="mono-label text-stone">{m.designation}</p>
-              </div>
+      {groups.map((group, gi) => {
+        // Seniors get a three-up grid, so each portrait is physically
+        // larger than the ones below it and the band reads as a tier
+        // rather than as the top row of one long list.
+        const senior = group.rank === "Senior Architect";
+        const cols = senior ? "sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-2 lg:grid-cols-4";
+        const sizes = senior
+          ? "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+          : "(min-width: 1024px) 22vw, 45vw";
+        const perRow = senior ? 3 : 4;
+
+        return (
+          <div key={group.rank} className={gi > 0 ? "mt-20" : ""}>
+            <Reveal>
+              <p className="mono-label mb-8 text-stone">{rankHeading(group.rank)}</p>
             </Reveal>
-          </li>
-        ))}
-      </ul>
+            <ul className={`grid gap-x-gutter gap-y-12 ${cols}`}>
+              {group.members.map((m, i) => (
+                <Card
+                  key={m.name}
+                  member={m}
+                  sizes={sizes}
+                  // Stagger runs across a row and resets, so the grid
+                  // ripples in left-to-right rather than all at once.
+                  delay={(i % perRow) * 0.07}
+                />
+              ))}
+            </ul>
+          </div>
+        );
+      })}
     </section>
   );
 }

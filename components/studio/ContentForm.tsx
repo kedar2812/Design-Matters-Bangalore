@@ -35,7 +35,7 @@ export type FieldSpec =
       label: string;
       hint?: string;
       itemLabel: string;
-      fields: { name: string; label: string; multiline?: boolean }[];
+      fields: { name: string; label: string; multiline?: boolean; hint?: string }[];
     };
 
 export type FieldGroup = { title: string; fields: FieldSpec[] };
@@ -268,7 +268,7 @@ export function ContentForm({
                           <div className="space-y-3">
                             {f.fields.map((sub) => (
                               <div key={sub.name}>
-                                <Label>{sub.label}</Label>
+                                <Label hint={sub.hint}>{sub.label}</Label>
                                 {sub.multiline ? (
                                   <textarea
                                     className={cn(input, "resize-y leading-relaxed")}

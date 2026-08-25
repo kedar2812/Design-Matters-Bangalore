@@ -123,7 +123,36 @@ export const SECTIONS: SectionMeta[] = [
             name: "heroWords",
             label: "Headline — cycling words",
             itemLabel: "word",
-            hint: "These rotate one after another under the first line",
+            hint: "Only used if there are no hero slides below",
+          },
+        ],
+      },
+      {
+        title: "Hero slideshow",
+        fields: [
+          {
+            kind: "group",
+            name: "heroSlides",
+            label: "",
+            itemLabel: "Slide",
+            fields: [
+              {
+                name: "image",
+                label: "Photograph",
+                hint: "Path under /public, e.g. /uploads/projects/praangana-heritage/hero.jpg",
+              },
+              {
+                name: "word",
+                label: "Headline word",
+                hint: 'Completes "Buildings that…" while this photograph is up. Include the full stop.',
+              },
+              {
+                name: "projectSlug",
+                label: "Links to project",
+                hint: "The project's web address, e.g. praangana-heritage. Must be published.",
+              },
+              { name: "alt", label: "Describe the photograph", multiline: true },
+            ],
           },
         ],
       },
@@ -215,6 +244,23 @@ export const SECTIONS: SectionMeta[] = [
         // worse than no control at all.
         title: "The team",
         fields: [{ kind: "text", name: "teamHeading", label: "Section heading" }],
+      },
+      {
+        title: "Recognised for excellence",
+        fields: [
+          { kind: "text", name: "recognitionHeading", label: "Section heading" },
+          { kind: "textarea", name: "recognitionIntro", label: "Introduction", rows: 3 },
+          {
+            kind: "group",
+            name: "recognition",
+            label: "",
+            itemLabel: "Recognition",
+            fields: [
+              { name: "title", label: "Title" },
+              { name: "body", label: "Description", multiline: true },
+            ],
+          },
+        ],
       },
       {
         title: "How you work",
