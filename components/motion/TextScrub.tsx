@@ -15,8 +15,23 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
  * (scrub: 0.6) so it glides with Lenis rather than stepping.
  *
  * SSR renders the full paragraph (SEO + no-JS intact); reduced motion
- * leaves it untouched. Blur is skipped on coarse pointers — filter
+ * leaves it untouched. Blur is skipped on coarse pointers, because filter
  * animation drops frames on low-end phones.
+ *
+ * Accessibility, after an audit flagged two things here:
+ *
+ *  - SplitText's own `aria: "auto"` puts an `aria-label` on the element
+ *    it splits, which is invalid on a bare <p> and failed
+ *    `aria-prohibited-attr`. It is set to "none" now, and the accessible
+ *    copy is provided here instead: a visually-hidden span holding the
+ *    real sentence, with the split layer marked aria-hidden. Screen
+ *    readers get one clean sentence rather than a stack of word divs.
+ *  - The words used to start at opacity 0.08, which is 1.17:1 against
+ *    bone. That is not a scoring technicality; it is unreadable, and
+ *    anyone landing mid-page or scrolling fast sees a paragraph that
+ *    isn't there. The floor is 0.5 now, which clears the 3:1 that WCAG
+ *    asks of large text in both themes. The rise and the blur still
+ *    carry the effect.
  */
 export function TextScrub({
   as = "p",
@@ -41,12 +56,12 @@ export function TextScrub({
       let cancelled = false;
       document.fonts.ready.then(() => {
         if (cancelled || !el.isConnected) return;
-        split = SplitText.create(el, { type: "words" });
+        split = SplitText.create(el, { type: "words", aria: "none" });
         gsap.set(split.words, { willChange: "transform, opacity, filter" });
         gsap.fromTo(
           split.words,
           {
-            opacity: 0.08,
+            opacity: 0.5,
             yPercent: 40,
             ...(blurOk && { filter: "blur(8px)" }),
           },
@@ -77,5 +92,16 @@ export function TextScrub({
     { scope: ref },
   );
 
-  return createElement(as, { ref, className }, children);
+  return createElement(
+    as,
+    { className },
+    <>
+      {/* The sentence, once, for assistive tech. */}
+      <span className="sr-only">{children}</span>
+      {/* The visible layer that gets split into words. */}
+      <span ref={ref} aria-hidden="true" className="block">
+        {children}
+      </span>
+    </>,
+  );
 }

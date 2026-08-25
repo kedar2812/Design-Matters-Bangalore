@@ -42,13 +42,19 @@ export default async function HomePage() {
         heroImage: s.image,
         // A slide may point at a gallery frame rather than the project's
         // own hero, so the blur is looked up by URL across both.
+        // A slide may carry its own placeholder (for a photograph that is
+        // neither the project hero nor a gallery frame); otherwise it is
+        // looked up by URL across both.
         heroBlur:
+          s.blur ??
           (s.image === p.heroImage
             ? p.heroBlur
-            : p.gallery.find((g) => g.url === s.image)?.blurData) ?? null,
+            : p.gallery.find((g) => g.url === s.image)?.blurData) ??
+          null,
         hook: p.storyBlocks[0]?.text ?? null,
         word: s.word,
         alt: s.alt,
+        focus: s.focus,
       },
     ];
   });

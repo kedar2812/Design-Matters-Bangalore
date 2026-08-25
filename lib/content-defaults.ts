@@ -49,6 +49,22 @@ export type HeroSlide = {
   word: string;
   projectSlug: string;
   alt: string;
+  /**
+   * Blur placeholder for `image`. Only needed when the slide points at a
+   * photograph that is not the project's own hero or one of its gallery
+   * frames, since those two are looked up automatically. Produced by
+   * `scripts/hero-slide.ts`.
+   */
+  blur?: string;
+  /**
+   * `object-position` for the crop, e.g. "50% 38%".
+   *
+   * The hero is roughly 2.3:1 on a laptop and the photographs are 3:2, so
+   * every slide loses a third of its height. Centring is right more often
+   * than not, but not always: leave this unset unless the frame actually
+   * needs it, and say why in a comment when you set it.
+   */
+  focus?: string;
 };
 
 export type HomeContent = {
@@ -229,10 +245,21 @@ export const DEFAULTS = {
         alt: "The living room at Shambhavi Residence under its arched window",
       },
       {
-        image: "/uploads/projects/dr-ashwini-residence/02.jpg",
+        // NSP-10, encoded at the hero tier by `scripts/hero-slide.ts`
+        // rather than reusing the 2200px gallery frame, which is built for
+        // a half-width slot and goes soft across a full-bleed hero.
+        image: "/uploads/projects/dr-ashwini-residence/slide-1.jpg",
         word: "listen.",
         projectSlug: "dr-ashwini-residence",
-        alt: "A kolam drawn in white across the plaster wall above the timber stair at Dr. Ashwini Residence",
+        alt: "The roof terrace at Dr. Ashwini Residence, a steel pergola over lawn and planters with the city beyond",
+        blur: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAhEAABAwQBBQAAAAAAAAAAAAABAAIDBBESEwUUITGB8P/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIRAxEAPwBwdXNNT6Yxsa0d7kD4K11Pi44RRsBNyOod59IijJj/2Q==",
+        // Pulled above centre. The frame is 3:2 in a hero nearer 2.3:1, and
+        // a centred crop cuts the pergola off at the top while keeping a
+        // wide band of empty terrace tile at the bottom. This keeps the
+        // pergola and the skyline, which are what the photograph is about,
+        // and holds the dark foliage in the bottom-left where the headline
+        // needs something to sit against.
+        focus: "50% 38%",
       },
     ],
     heroWords: ["belong.", "breathe.", "listen.", "endure."],

@@ -20,6 +20,8 @@ export type HeroSlide = {
   word: string;
   /** Describes this photograph, not the project generically. */
   alt: string;
+  /** `object-position` for the crop; defaults to centre. */
+  focus?: string;
 };
 
 const SLIDE_MS = 5200;
@@ -118,6 +120,7 @@ export function HeroCarousel({
             quality={i === 0 ? IMG_Q.hero : IMG_Q.feature}
             placeholder={s.heroBlur ? "blur" : "empty"}
             blurDataURL={s.heroBlur ?? undefined}
+            style={s.focus ? { objectPosition: s.focus } : undefined}
             className={cn("rounded-[inherit] object-cover", i === index && "ken-burns")}
           />
         </div>
