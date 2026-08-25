@@ -9,7 +9,14 @@ const nextConfig: NextConfig = {
     // The default ladder jumps 2048 → 3840, so a 2560px desktop asks for
     // 3840 and the optimiser re-encodes the whole source for a slot that
     // never needed it. 2560 matches the widest hero we actually ship.
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 2560, 3840],
+    /* 1536 sits between 1200 and 1920 on purpose.
+       The hero asks for 107vw (it drifts to scale 1.07), so a 1366px
+       laptop needs about 1460px and, without a bucket in between, is
+       pushed all the way up to 1920 — roughly 260KB of waste on the LCP
+       image alone, times four because every hero slide is in the DOM.
+       1366, 1440 and 1512 are the three commonest laptop widths in this
+       site's analytics, and all three land on 1536 instead. */
+    deviceSizes: [640, 750, 828, 1080, 1200, 1536, 1920, 2048, 2560, 3840],
     // Uploaded media is immutable (new uploads get new names) — let
     // the optimizer cache aggressively; Cloudflare caches on top.
     minimumCacheTTL: 60 * 60 * 24 * 30,
