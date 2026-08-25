@@ -26,6 +26,20 @@ enum StoryType {
   FINAL
 }
 
+/// What happened to an enquiry, in the order it happened. `status` on
+/// Lead only ever holds where a lead is *now* — this enum is what lets
+/// the studio see how it got there, and whether the studio was actually
+/// told about it.
+enum LeadEventType {
+  RECEIVED // the form submission itself
+  NOTIFIED // notification email accepted by the mail provider
+  NOTIFY_FAILED // provider rejected it, or wasn't configured
+  ACKNOWLEDGED // auto-reply sent to the enquirer
+  STATUS_CHANGED
+  NOTED
+  EMAIL_ACTION // stage changed from a one-tap link in the notification email
+}
+
 enum Role {
   ADMIN
   EDITOR
@@ -125,8 +139,35 @@ model Lead {
   notes     String?
   createdAt DateTime   @default(now())
 
+  // Whether the studio was actually told. A notification pipeline that
+  // fails silently is worse than none, because everyone stops opening
+  // the dashboard once they trust the emails — so the outcome of the
+  // send is stored on the row and shown beside it.
+  notifiedAt  DateTime?
+  notifyError String?
+
+  events LeadEvent[]
+
   @@index([status])
   @@index([createdAt])
+}
+
+/// Append-only activity trail for one enquiry. Nothing here is ever
+/// edited or deleted on its own — it is the record of what the studio
+/// (and the site) did, which is exactly what a `status` column
+/// overwritten in place cannot tell you.
+model LeadEvent {
+  id        String        @id @default(cuid())
+  leadId    String
+  lead      Lead          @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type      LeadEventType
+  /// Human-readable one-liner, already rendered for the timeline.
+  summary   String
+  /// Type-specific extras (from/to stage, provider message id, error text).
+  meta      Json?
+  createdAt DateTime      @default(now())
+
+  @@index([leadId, createdAt])
 }
 
 model Post {

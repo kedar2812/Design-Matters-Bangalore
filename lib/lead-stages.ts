@@ -11,3 +11,22 @@ export const STAGES = [
   ["WON", "Won"],
   ["LOST", "Lost"],
 ] as const;
+
+/**
+ * Timeline dot colours for enquiry history, on the studio's tone tokens.
+ *
+ * Here rather than beside `record()` in `lib/lead-events` for the reason
+ * this module exists at all: that file imports the database, and the
+ * timeline is rendered by a client component. Importing the two together
+ * pulled the Prisma runtime into the browser bundle and failed the build
+ * outright — `node:module` has nowhere to resolve to on the client.
+ */
+export const EVENT_TONE: Record<string, "accent" | "info" | "good" | "bad" | "neutral"> = {
+  RECEIVED: "accent",
+  NOTIFIED: "good",
+  NOTIFY_FAILED: "bad",
+  ACKNOWLEDGED: "info",
+  STATUS_CHANGED: "info",
+  NOTED: "neutral",
+  EMAIL_ACTION: "info",
+};

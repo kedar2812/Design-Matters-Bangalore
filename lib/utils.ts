@@ -27,3 +27,19 @@ export function formatDate(d: Date | string) {
     timeZone: STUDIO_TZ,
   });
 }
+
+/**
+ * Date *and* time, for the enquiry timeline — where several entries
+ * routinely share a day and the order only reads as a sequence if the
+ * clock is shown. Same pinned zone, for the same reasons.
+ */
+export function formatDateTime(d: Date | string) {
+  return new Date(d).toLocaleString("en-IN", {
+    day: "numeric",
+    month: "short",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: STUDIO_TZ,
+  });
+}

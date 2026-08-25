@@ -53,3 +53,6 @@ next-env.d.ts
 # The optimised output under public/uploads/ is what gets committed — the
 # archive itself is tens of megabytes of originals and belongs on disk.
 *.zip
+
+# rendered email previews (npm run emails:preview) — regenerated on demand
+/.preview/

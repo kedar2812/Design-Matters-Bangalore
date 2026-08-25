@@ -3,9 +3,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { deleteLead, saveLeadNotes, updateLeadStatus } from "@/actions/studio-leads";
-import { STAGES } from "@/lib/lead-stages";
-import { cn, formatDate } from "@/lib/utils";
+import {
+  deleteLead,
+  resendLeadNotification,
+  saveLeadNotes,
+  updateLeadStatus,
+} from "@/actions/studio-leads";
+import { EVENT_TONE, STAGES } from "@/lib/lead-stages";
+import { cn, formatDate, formatDateTime } from "@/lib/utils";
 import { useFeedback } from "@/components/studio/Feedback";
 import { QuickReply, whatsAppReply } from "@/components/studio/QuickReply";
 import { Badge, Button, Chip, EmptyState, Select, Td, textareaClass, Th } from "@/components/studio/ui";
@@ -16,8 +21,16 @@ import {
   PhoneIcon,
   SearchIcon,
   TrashIcon,
+  WarningIcon,
   XIcon,
 } from "@/components/studio/icons";
+
+export type LeadEventView = {
+  id: string;
+  type: string; // LeadEventType, widened — the enum lives with the database
+  summary: string;
+  createdAt: string; // ISO — serialized for the client
+};
 
 export type Enquiry = {
   id: string;
@@ -32,6 +45,9 @@ export type Enquiry = {
   status: string;
   notes: string | null;
   createdAt: string; // ISO — serialized for the client
+  notifiedAt: string | null;
+  notifyError: string | null;
+  events: LeadEventView[];
 };
 
 const STAGE_TONE: Record<string, "accent" | "info" | "warn" | "good" | "bad" | "neutral"> = {
@@ -51,6 +67,15 @@ const STAGE_SELECT: Record<string, string> = {
 };
 
 const stageLabel = (v: string) => STAGES.find(([s]) => s === v)?.[1] ?? v;
+
+/** Timeline dots — the tone tokens as solid fills rather than soft chips. */
+const EVENT_DOT: Record<string, string> = {
+  accent: "bg-s-accent",
+  info: "bg-s-info",
+  good: "bg-s-good",
+  bad: "bg-s-bad",
+  neutral: "bg-s-border-strong",
+};
 
 /**
  * The enquiries screen.
@@ -210,6 +235,15 @@ function EnquiryTr({ enquiry, onOpen }: { enquiry: Enquiry; onOpen: () => void }
             {enquiry.location}
           </span>
         )}
+        {/* A notification that never arrived is the one thing on this
+            screen you need to know without opening anything, because it
+            means the enquiry is sitting here unread by anyone. */}
+        {!enquiry.notifiedAt && enquiry.notifyError && (
+          <span className="mt-1 flex items-center gap-1 text-[0.75rem] text-s-bad">
+            <WarningIcon className="size-3.5 shrink-0" />
+            Not emailed
+          </span>
+        )}
       </Td>
 
       <Td className="hidden md:table-cell">
@@ -286,6 +320,73 @@ function EnquiryTr({ enquiry, onOpen }: { enquiry: Enquiry; onOpen: () => void }
         </div>
       </Td>
     </tr>
+  );
+}
+
+/* -------------------------------------------------------------- delivery */
+
+/**
+ * Whether the studio was actually told about this enquiry.
+ *
+ * The whole point of adding email was that nobody should have to open
+ * the dashboard to learn an enquiry exists — which makes a notification
+ * that silently failed the most dangerous state in the system, because
+ * it looks exactly like an ordinary quiet week. So the failure is stated
+ * in words, with the provider's own reason, and with the button that
+ * fixes it right there.
+ */
+function DeliveryStatus({ enquiry }: { enquiry: Enquiry }) {
+  const { toast } = useFeedback();
+  const [pending, startTransition] = useTransition();
+
+  const resend = () =>
+    startTransition(async () => {
+      try {
+        await resendLeadNotification(enquiry.id);
+        toast("Notification sent.");
+      } catch (err) {
+        toast(err instanceof Error ? err.message : "Couldn't send that email.", "error");
+      }
+    });
+
+  if (enquiry.notifiedAt) {
+    return (
+      <section>
+        <h3 className="s-label mb-2">Notification</h3>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <Badge tone="good" dot>
+            Emailed {formatDateTime(enquiry.notifiedAt)}
+          </Badge>
+          <Button variant="ghost" size="sm" disabled={pending} onClick={resend}>
+            {pending ? "Sending…" : "Send again"}
+          </Button>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section>
+      <h3 className="s-label mb-2">Notification</h3>
+      <div className="rounded-s-sm border border-s-bad/25 bg-s-bad-soft p-3">
+        <p className="flex items-start gap-2 text-[0.8125rem] font-medium text-s-bad">
+          <WarningIcon className="mt-[1px] size-4 shrink-0" />
+          {enquiry.notifyError
+            ? "This enquiry was never emailed out"
+            : "No notification has been sent yet"}
+        </p>
+        {enquiry.notifyError && (
+          <p className="mt-1.5 pl-6 text-[0.75rem] leading-relaxed text-s-text-2">
+            {enquiry.notifyError}
+          </p>
+        )}
+        <div className="mt-2.5 pl-6">
+          <Button variant="secondary" size="sm" disabled={pending} onClick={resend}>
+            {pending ? "Sending…" : "Send it now"}
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -454,6 +555,37 @@ function EnquiryPanel({ enquiry, onClose }: { enquiry: Enquiry; onClose: () => v
               )}
             </div>
           </section>
+
+          <DeliveryStatus enquiry={enquiry} />
+
+          {enquiry.events.length > 0 && (
+            <section>
+              <h3 className="s-label mb-3">History</h3>
+              <ol className="relative flex flex-col gap-3 pl-4">
+                {/* One hairline behind the dots, rather than a border on
+                    each item — otherwise the line breaks at every gap. */}
+                <span
+                  aria-hidden
+                  className="absolute bottom-1 left-[3px] top-1 w-px bg-s-border"
+                />
+                {enquiry.events.map((event) => (
+                  <li key={event.id} className="relative">
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "absolute -left-4 top-[5px] size-[7px] rounded-full ring-2 ring-s-surface",
+                        EVENT_DOT[EVENT_TONE[event.type] ?? "neutral"],
+                      )}
+                    />
+                    <p className="text-[0.8125rem] leading-snug text-s-text-2">{event.summary}</p>
+                    <p className="s-num mt-0.5 text-[0.75rem] text-s-text-3">
+                      {formatDateTime(event.createdAt)}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
 
           <section>
             <div className="mb-2 flex items-baseline justify-between gap-2">

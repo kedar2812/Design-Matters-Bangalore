@@ -22,6 +22,10 @@ export default async function EnquiriesPage({
     prisma.lead.findMany({
       where: filter ? { status: filter as never } : undefined,
       orderBy: { createdAt: "desc" },
+      // The trail comes down with the list rather than being fetched
+      // when a panel opens: the panel is already client-side state, and
+      // an enquiry carries a handful of events, not a feed.
+      include: { events: { orderBy: { createdAt: "asc" } } },
     }),
     prisma.lead.groupBy({ by: ["status"], _count: true }),
   ]);
@@ -89,6 +93,13 @@ export default async function EnquiriesPage({
               enquiries={leads.map((lead) => ({
                 ...lead,
                 createdAt: lead.createdAt.toISOString(),
+                notifiedAt: lead.notifiedAt?.toISOString() ?? null,
+                events: lead.events.map((e) => ({
+                  id: e.id,
+                  type: e.type,
+                  summary: e.summary,
+                  createdAt: e.createdAt.toISOString(),
+                })),
               }))}
             />
           </Suspense>

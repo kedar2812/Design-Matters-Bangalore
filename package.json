@@ -12,6 +12,7 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "snapshot": "tsx scripts/export-content.ts",
+    "emails:preview": "tsx scripts/preview-emails.ts",
     "demo:seed": "tsx scripts/seed-demo.ts",
     "demo:clear": "tsx scripts/seed-demo.ts --clear",
     "postinstall": "prisma generate"
