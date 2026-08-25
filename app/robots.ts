@@ -1,7 +1,19 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, IS_PUBLIC_DOMAIN } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
+  /* Before the DNS cutover the site answers on the bare VPS hostname,
+     and everything it emits — canonical tags, the sitemap, JSON-LD @id —
+     points there. Left crawlable, Google indexes the whole portfolio
+     under srv1816472.hstgr.cloud, and after cutover the real domain has
+     to win those pages back from a host it does not control.
+     So the staging hostname refuses everything, and the rule lifts by
+     itself the moment NEXT_PUBLIC_SITE_URL becomes the real domain.
+     Nobody has to remember this on launch day. */
+  if (!IS_PUBLIC_DOMAIN) {
+    return { rules: { userAgent: "*", disallow: "/" } };
+  }
+
   return {
     rules: {
       userAgent: "*",

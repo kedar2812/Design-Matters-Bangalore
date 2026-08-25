@@ -3,6 +3,17 @@ import { getIdentity } from "@/lib/settings";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+/**
+ * Whether the site is answering on its real public domain.
+ *
+ * False on localhost and on the bare Hostinger hostname it runs from
+ * before the DNS cutover. `app/robots.ts` uses it to keep the staging
+ * host out of the index without anyone having to remember to switch it
+ * back on at launch.
+ */
+export const IS_PUBLIC_DOMAIN =
+  !/localhost|127\.0\.0\.1|\.hstgr\.cloud|\.vercel\.app/i.test(SITE_URL);
+
 /** The default share card. A file under /public, deliberately — see
  *  the note in `scripts/make-icons.ts` about the one that 404'd. */
 export const OG_IMAGE = {
