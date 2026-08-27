@@ -12,6 +12,7 @@ import {
   ContentIcon,
   EnquiriesIcon,
   ExternalIcon,
+  MailIcon,
   MenuIcon,
   MoonIcon,
   OverviewIcon,
@@ -46,6 +47,7 @@ const GROUPS = [
     label: "Business",
     links: [
       { href: "/studio/leads", label: "Enquiries", Icon: EnquiriesIcon },
+      { href: "/studio/alerts", label: "Email alerts", Icon: MailIcon },
       { href: "/studio/analytics", label: "Analytics", Icon: AnalyticsIcon },
     ],
   },
@@ -61,6 +63,7 @@ const TITLES: [string, string][] = [
   ["/studio/content/identity", "Studio details"],
   ["/studio/content", "Content"],
   ["/studio/leads", "Enquiries"],
+  ["/studio/alerts", "Email alerts"],
   ["/studio/analytics", "Analytics"],
   ["/studio/journal", "Journal"],
 ];

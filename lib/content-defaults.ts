@@ -184,6 +184,29 @@ export type CategoryCopy = {
   highlights: { title: string; body: string }[];
 };
 
+/**
+ * Where enquiry email lands, and whether it is sent at all.
+ *
+ * This is the one piece of "content" that is not copy: it is a delivery
+ * setting, and it lives here rather than in an environment variable
+ * because the studio has to be able to change it themselves. An address
+ * that can only be changed by a deploy is an address that stays wrong —
+ * the colleague who joins, the accountant who should be copied, the
+ * holiday cover, none of those are worth a release.
+ *
+ * `recipients` empty is a normal state, not a broken one: it means "use
+ * the studio email from Studio details", which is the address a client
+ * would write to anyway. `lib/notify-lead` resolves the chain.
+ */
+export type NotificationsContent = {
+  /** Extra inboxes for new-enquiry alerts. Empty falls back — see above. */
+  recipients: string[];
+  /** Email the studio when an enquiry arrives. */
+  notifyStudio: boolean;
+  /** Email the enquirer a confirmation that the studio has their message. */
+  acknowledgeEnquirer: boolean;
+};
+
 /* ----------------------------------------------------------- defaults */
 
 export const DEFAULTS = {
@@ -479,6 +502,12 @@ export const DEFAULTS = {
       },
     ],
   } satisfies ProjectsContent,
+
+  notifications: {
+    recipients: [],
+    notifyStudio: true,
+    acknowledgeEnquirer: true,
+  } satisfies NotificationsContent,
 } as const;
 
 export type Sections = {
@@ -489,6 +518,7 @@ export type Sections = {
   contact: ContactContent;
   testimonials: TestimonialsContent;
   projects: ProjectsContent;
+  notifications: NotificationsContent;
 };
 export type SectionKey = keyof Sections;
 

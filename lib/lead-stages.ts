@@ -25,6 +25,7 @@ export const EVENT_TONE: Record<string, "accent" | "info" | "good" | "bad" | "ne
   RECEIVED: "accent",
   NOTIFIED: "good",
   NOTIFY_FAILED: "bad",
+  NOTIFY_SKIPPED: "neutral",
   ACKNOWLEDGED: "info",
   STATUS_CHANGED: "info",
   NOTED: "neutral",

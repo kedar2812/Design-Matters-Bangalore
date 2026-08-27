@@ -72,7 +72,11 @@ export async function resendLeadNotification(id: string) {
   const lead = await prisma.lead.findUnique({ where: { id } });
   if (!lead) throw new Error("That enquiry no longer exists.");
 
-  const outcome = await notifyNewLead(lead);
+  // `force` because this button exists precisely for the case the
+  // automatic send did not happen — including when the studio has alerts
+  // switched off and wants this one enquiry anyway. `acknowledge: false`
+  // because the enquirer has already been thanked once.
+  const outcome = await notifyNewLead(lead, { force: true, acknowledge: false });
   revalidatePath("/studio/leads");
   if (!outcome.notified) throw new Error(outcome.error ?? "The email could not be sent.");
 }

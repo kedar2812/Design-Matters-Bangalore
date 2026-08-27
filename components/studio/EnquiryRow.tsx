@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
@@ -13,7 +14,7 @@ import { EVENT_TONE, STAGES } from "@/lib/lead-stages";
 import { cn, formatDate, formatDateTime } from "@/lib/utils";
 import { useFeedback } from "@/components/studio/Feedback";
 import { QuickReply, whatsAppReply } from "@/components/studio/QuickReply";
-import { Badge, Button, Chip, EmptyState, Select, Td, textareaClass, Th } from "@/components/studio/ui";
+import { Badge, Button, buttonClass, Chip, EmptyState, Select, Td, textareaClass, Th } from "@/components/studio/ui";
 import {
   ClockIcon,
   EnquiriesIcon,
@@ -78,6 +79,32 @@ const EVENT_DOT: Record<string, string> = {
 };
 
 /**
+ * Whether an enquiry that was not emailed is a problem.
+ *
+ *  - `on`            mail can send, so silence means something broke
+ *  - `off`           the studio switched alerts off; silence is intended
+ *  - `unconfigured`  no provider yet, which is a setup step, not a fault
+ */
+export type Delivery = "on" | "off" | "unconfigured";
+
+/**
+ * Whether an enquiry going un-emailed is expected rather than broken.
+ *
+ * With no provider the send is still attempted and still records an error
+ * ("RESEND_API_KEY is not set") — a true sentence about the server and a
+ * useless one to an architect, so the unconfigured case ignores it and the
+ * screen says the thing that is actually actionable instead.
+ *
+ * Alerts being off is checked before anything is attempted, so a lead that
+ * carries an error is one that genuinely failed earlier, while alerts were
+ * on. That keeps its warning: switching alerts off must not quietly bury a
+ * delivery failure that happened before it.
+ */
+function silenceIsExpected(delivery: Delivery, notifyError: string | null) {
+  return delivery === "unconfigured" || (delivery === "off" && !notifyError);
+}
+
+/**
  * The enquiries screen.
  *
  * The old version put every enquiry's contact details behind a click on
@@ -93,7 +120,13 @@ const EVENT_DOT: Record<string, string> = {
  * round-trip — it filters name, message, email, phone and location, which
  * covers "what was that person from Whitefield called".
  */
-export function EnquiryTable({ enquiries }: { enquiries: Enquiry[] }) {
+export function EnquiryTable({
+  enquiries,
+  delivery = "on",
+}: {
+  enquiries: Enquiry[];
+  delivery?: Delivery;
+}) {
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
   const params = useSearchParams();
@@ -194,7 +227,7 @@ export function EnquiryTable({ enquiries }: { enquiries: Enquiry[] }) {
             </thead>
             <tbody>
               {filtered.map((e) => (
-                <EnquiryTr key={e.id} enquiry={e} onOpen={() => setOpenId(e.id)} />
+                <EnquiryTr key={e.id} enquiry={e} delivery={delivery} onOpen={() => setOpenId(e.id)} />
               ))}
             </tbody>
           </table>
@@ -202,13 +235,23 @@ export function EnquiryTable({ enquiries }: { enquiries: Enquiry[] }) {
       )}
 
       <AnimatePresence>
-        {open && <EnquiryPanel enquiry={open} onClose={() => setOpenId(null)} />}
+        {open && (
+          <EnquiryPanel enquiry={open} delivery={delivery} onClose={() => setOpenId(null)} />
+        )}
       </AnimatePresence>
     </>
   );
 }
 
-function EnquiryTr({ enquiry, onOpen }: { enquiry: Enquiry; onOpen: () => void }) {
+function EnquiryTr({
+  enquiry,
+  delivery,
+  onOpen,
+}: {
+  enquiry: Enquiry;
+  delivery: Delivery;
+  onOpen: () => void;
+}) {
   const [pending, startTransition] = useTransition();
   const { toast } = useFeedback();
   // The select is optimistic: the server round-trip plus a revalidate is
@@ -238,7 +281,7 @@ function EnquiryTr({ enquiry, onOpen }: { enquiry: Enquiry; onOpen: () => void }
         {/* A notification that never arrived is the one thing on this
             screen you need to know without opening anything, because it
             means the enquiry is sitting here unread by anyone. */}
-        {!enquiry.notifiedAt && enquiry.notifyError && (
+        {!enquiry.notifiedAt && enquiry.notifyError && !silenceIsExpected(delivery, enquiry.notifyError) && (
           <span className="mt-1 flex items-center gap-1 text-[0.75rem] text-s-bad">
             <WarningIcon className="size-3.5 shrink-0" />
             Not emailed
@@ -335,7 +378,7 @@ function EnquiryTr({ enquiry, onOpen }: { enquiry: Enquiry; onOpen: () => void }
  * in words, with the provider's own reason, and with the button that
  * fixes it right there.
  */
-function DeliveryStatus({ enquiry }: { enquiry: Enquiry }) {
+function DeliveryStatus({ enquiry, delivery }: { enquiry: Enquiry; delivery: Delivery }) {
   const { toast } = useFeedback();
   const [pending, startTransition] = useTransition();
 
@@ -360,6 +403,39 @@ function DeliveryStatus({ enquiry }: { enquiry: Enquiry }) {
           <Button variant="ghost" size="sm" disabled={pending} onClick={resend}>
             {pending ? "Sending…" : "Send again"}
           </Button>
+        </div>
+      </section>
+    );
+  }
+
+  // Alerts switched off, and a provider not connected yet, are both states
+  // the studio chose or has not got to. Painting them the same red as a
+  // genuine delivery failure is how a warning stops meaning anything.
+  if (silenceIsExpected(delivery, enquiry.notifyError)) {
+    return (
+      <section>
+        <h3 className="s-label mb-2">Notification</h3>
+        <div className="rounded-s-sm border border-s-border bg-s-surface-2 p-3">
+          <p className="text-[0.8125rem] font-medium text-s-text-2">
+            {delivery === "off"
+              ? "Not emailed, alerts are switched off"
+              : "Not emailed, email is not set up yet"}
+          </p>
+          <p className="mt-1.5 text-[0.75rem] leading-relaxed text-s-text-3">
+            {delivery === "off"
+              ? "Enquiries are still recorded here in full. Turn alerts back on under Email alerts."
+              : "Enquiries are still recorded here in full. Connect a sending address under Email alerts and they start arriving in your inbox."}
+          </p>
+          <div className="mt-2.5 flex flex-wrap items-center gap-2">
+            <Link href="/studio/alerts" className={buttonClass("secondary", "sm")}>
+              Email alerts
+            </Link>
+            {delivery === "off" && (
+              <Button variant="ghost" size="sm" disabled={pending} onClick={resend}>
+                {pending ? "Sending…" : "Send this one anyway"}
+              </Button>
+            )}
+          </div>
         </div>
       </section>
     );
@@ -392,7 +468,15 @@ function DeliveryStatus({ enquiry }: { enquiry: Enquiry }) {
 
 /* ----------------------------------------------------------------- panel */
 
-function EnquiryPanel({ enquiry, onClose }: { enquiry: Enquiry; onClose: () => void }) {
+function EnquiryPanel({
+  enquiry,
+  delivery,
+  onClose,
+}: {
+  enquiry: Enquiry;
+  delivery: Delivery;
+  onClose: () => void;
+}) {
   const reduce = useReducedMotion();
   const { toast, confirm } = useFeedback();
   const [pending, startTransition] = useTransition();
@@ -556,7 +640,7 @@ function EnquiryPanel({ enquiry, onClose }: { enquiry: Enquiry; onClose: () => v
             </div>
           </section>
 
-          <DeliveryStatus enquiry={enquiry} />
+          <DeliveryStatus enquiry={enquiry} delivery={delivery} />
 
           {enquiry.events.length > 0 && (
             <section>

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { EnquiryTable } from "@/components/studio/EnquiryRow";
 import { STAGES } from "@/lib/lead-stages";
+import { getSection } from "@/lib/settings";
+import { mailStatus } from "@/lib/mail";
 import { Card, PageHead } from "@/components/studio/ui";
 import { Reveal } from "@/components/studio/Reveal";
 import { cn } from "@/lib/utils";
@@ -18,7 +20,7 @@ export default async function EnquiriesPage({
   const valid = STAGES.map(([v]) => v as string);
   const filter = stage && valid.includes(stage) ? stage : undefined;
 
-  const [leads, counts] = await Promise.all([
+  const [leads, counts, alerts] = await Promise.all([
     prisma.lead.findMany({
       where: filter ? { status: filter as never } : undefined,
       orderBy: { createdAt: "desc" },
@@ -28,7 +30,18 @@ export default async function EnquiriesPage({
       include: { events: { orderBy: { createdAt: "asc" } } },
     }),
     prisma.lead.groupBy({ by: ["status"], _count: true }),
+    getSection("notifications"),
   ]);
+
+  // Why an enquiry was not emailed is a property of the studio's
+  // settings, not of the enquiry, so it is resolved once here rather
+  // than stored on every row. It is what lets the panel tell "you turned
+  // this off" apart from "this broke".
+  const delivery = !alerts.notifyStudio
+    ? ("off" as const)
+    : mailStatus().ready
+      ? ("on" as const)
+      : ("unconfigured" as const);
 
   const countFor = (s: string) => counts.find((c) => c.status === s)?._count ?? 0;
   const total = counts.reduce((sum, c) => sum + c._count, 0);
@@ -90,6 +103,7 @@ export default async function EnquiriesPage({
               or the whole route is forced out of static rendering. */}
           <Suspense fallback={null}>
             <EnquiryTable
+              delivery={delivery}
               enquiries={leads.map((lead) => ({
                 ...lead,
                 createdAt: lead.createdAt.toISOString(),

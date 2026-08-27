@@ -34,6 +34,7 @@ enum LeadEventType {
   RECEIVED // the form submission itself
   NOTIFIED // notification email accepted by the mail provider
   NOTIFY_FAILED // provider rejected it, or wasn't configured
+  NOTIFY_SKIPPED // deliberately not sent: the studio has alerts switched off
   ACKNOWLEDGED // auto-reply sent to the enquirer
   STATUS_CHANGED
   NOTED

@@ -55,7 +55,6 @@ In `.env` on the server (see `.env.example` for the annotated versions):
 ```
 RESEND_API_KEY="re_..."
 MAIL_FROM="Design Matters Architects <studio@designmattersblr.com>"
-LEAD_NOTIFY_TO="kiran@designmattersblr.com"
 ```
 
 `MAIL_FROM` **must** be at the verified domain. The mailbox part
@@ -63,11 +62,33 @@ LEAD_NOTIFY_TO="kiran@designmattersblr.com"
 there. Every notification carries `Reply-To:` set to the enquirer, so
 hitting reply in Gmail writes to them directly.
 
-`LEAD_NOTIFY_TO` takes a comma-separated list if more than one person
-should see enquiries. Left unset, it falls back to the studio email
-configured in **Studio → Studio details**.
-
 Restart the app (`pm2 restart dma`) — env changes are read at boot.
+
+That is the whole server-side setup. **Who receives the alerts is not
+configured here**, on purpose — see the next section.
+
+## 4. Choose who receives enquiries
+
+**Studio → Email alerts**, in the dashboard. No deploy, no developer.
+
+- **Who gets new enquiries** — any number of addresses. The panel states
+  in a sentence where the next enquiry will actually be emailed, so there
+  is never a question of what is in effect.
+- **Email the studio when an enquiry arrives** — off is a legitimate
+  choice. Enquiries still land in the dashboard and still reach WhatsApp,
+  and each one says it was not emailed *because alerts are off*, in
+  neutral type rather than as a failure.
+- **Send the enquirer a confirmation** — off if the studio would rather
+  every first reply be written by hand.
+- **Send a test email** — sends one real alert, through the real
+  template and the real provider, to whoever is configured. It is the
+  fastest way to prove DNS is right.
+
+With no address set there, alerts fall back to `LEAD_NOTIFY_TO` in
+`.env`, and then to the studio email under **Studio → Studio details**.
+That last rung is why enquiries reach somebody even on a server nobody
+has configured: the address printed on the contact page is never the
+wrong place for an enquiry to land.
 
 ---
 
@@ -101,7 +122,10 @@ Each enquiry's panel gains two sections:
 - **Notification** — "Emailed 13 Aug, 7:39 pm", or a red block naming the
   reason it failed, with a **Send it now** button. A failed notification is
   also flagged on the enquiry row itself, since that is the one thing worth
-  knowing without opening anything.
+  knowing without opening anything. If alerts are simply switched off, or
+  no provider is connected yet, the panel says so in neutral type instead
+  — a deliberate silence is not a fault, and colouring it like one is how
+  a warning stops meaning anything.
 - **History** — the full trail: received, emailed, acknowledged, every
   stage change, and whether the change came from the dashboard or from a
   tap in the email.

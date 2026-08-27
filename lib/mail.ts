@@ -39,8 +39,15 @@ export type Mail = {
 /** `Design Matters Architects <studio@mail.designmattersblr.com>` */
 const from = () => process.env.MAIL_FROM?.trim();
 
-/** Where enquiry notifications land. Comma-separated for more than one. */
-export function notifyRecipients(): string[] {
+/**
+ * Fallback recipients from the environment.
+ *
+ * The dashboard setting wins over this — see `lib/notify-lead`. It stays
+ * because a server can be handed a working address before anyone has
+ * logged into the studio, and because it is the only way to reach the
+ * inbox if the database is the thing that is broken.
+ */
+export function envRecipients(): string[] {
   const raw = process.env.LEAD_NOTIFY_TO ?? "";
   return raw
     .split(",")
@@ -49,6 +56,24 @@ export function notifyRecipients(): string[] {
 }
 
 export const mailConfigured = () => Boolean(process.env.RESEND_API_KEY && from());
+
+/**
+ * Why mail can or cannot send, in the words the dashboard shows.
+ *
+ * The studio needs to be able to tell "we have not set this up yet" from
+ * "we set it up and it is failing", and those are different sentences,
+ * not different severities of the same one.
+ */
+export function mailStatus(): { ready: boolean; reason?: string; from?: string } {
+  if (!process.env.RESEND_API_KEY) {
+    return { ready: false, reason: "No mail provider key is configured on the server yet." };
+  }
+  const sender = from();
+  if (!sender) {
+    return { ready: false, reason: "No sending address is configured on the server yet." };
+  }
+  return { ready: true, from: sender };
+}
 
 export async function sendMail(mail: Mail): Promise<MailResult> {
   const key = process.env.RESEND_API_KEY;
