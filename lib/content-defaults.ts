@@ -226,7 +226,7 @@ export const DEFAULTS = {
     phoneAlt: "+91 78921 04742",
     email: "kiran@designmattersblr.com",
     whatsapp: "919886016711",
-    instagram: "https://www.instagram.com/designmattersarchitects_/",
+    instagram: "https://www.instagram.com/designmattersarchitects/",
     linkedin: "https://in.linkedin.com/in/kiran-hanumaiah-825539a1",
     houzz: "",
     mapQuery:

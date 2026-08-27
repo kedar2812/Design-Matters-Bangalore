@@ -60,14 +60,12 @@ enough that the photographers will notice.
 **7. A second dashboard login** for your colleague. Just send me their
 email address.
 
-**Four quick confirmations:**
+**Three quick confirmations:**
 
 - Is "Praangana Heritage" the name you want on the site? Your folder was
   called "Praangana Heritage-Vivek Farmhouse".
 - Anita Residence and The Minimal Indian House are both in JP Nagar. They
   are two different projects, correct?
-- Instagram: is the live account designmattersarchitects_ with the
-  underscore, or without?
 - We have spelled it Harshitha, from her own photo filename. You wrote
   Harshita. Which does she use?
 
