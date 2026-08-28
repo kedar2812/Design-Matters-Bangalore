@@ -8,12 +8,13 @@ round 2 added four projects and rebuilt the About page.
 The re-audit crawled all 32 sitemap URLs on the live server and read the
 rendered `<head>`, the JSON-LD, the Open Graph tags, the `<h1>` count and
 every `<img>`, then replayed all 35 old Wix URLs against the new site.
-**Three things had drifted and are now listed as open in §9.** Everything
-else below was confirmed still true.
+Three things had drifted. **All three were fixed and deployed on
+2026-08-28**, and §9 records what they were and how they are now
+prevented rather than merely corrected. Everything else was confirmed
+still true.
 
 Legend: `[x]` done and verified against the running production build ·
-`[~]` done once, since drifted — see §9 · `[ ]` open, with who it is
-waiting on.
+`[ ]` open, with who it is waiting on.
 
 Verification method: `npm run build` → `next start` → crawl every route in
 the sitemap, reading the rendered `<head>`, the JSON-LD blocks, the HTTP
@@ -123,10 +124,10 @@ source alone.
       photograph, in `/public` where the import pipeline cannot sweep it.
 - [x] **`og:image:width` / `height` / `alt`** declared, so platforms lay
       the card out before the image loads.
-- [~] **`og:url`, `og:type`, `og:locale=en_IN`, `og:site_name`.** Declared
-      site-wide, but two gaps found on 2026-08-27 — see §9.2 and §9.3.
-      `og:url` is the site root on seven pages, and the three
-      practice-area pages carry no `og:image` or `og:type` at all.
+- [x] **`og:url`, `og:type`, `og:locale=en_IN`, `og:site_name`** — on
+      every page, built by `pageOpenGraph()` in `lib/seo.ts` rather than
+      inherited. Two gaps found on 2026-08-27 and fixed the next day; see
+      §9.2 and §9.3 for why they could happen at all.
 - [x] **`twitter:card=summary_large_image`** with image.
 - [x] **Project pages set `og:type=article`** and their own hero image.
 
@@ -220,67 +221,96 @@ source alone.
 
 ---
 
-## 9. Found by the 2026-08-27 re-audit — open
+## 9. Found by the 2026-08-27 re-audit — fixed 2026-08-28
 
-These are regressions or gaps against items ticked above. All three are in
-our court, not the client's, and none of them blocks the cutover.
+All three were regressions against items ticked above, all three were
+ours rather than the client's, and each is now prevented in code rather
+than corrected by hand. Deployed and re-verified against the live server:
+all 32 sitemap URLs clean.
 
-### 9.1 Nine titles are back over the truncation limit
+### 9.1 Nine titles had drifted back over the truncation limit — fixed
 
-The 2026-08-10 pass brought every title inside ~60 characters. Round 2's
-new projects and the About rebuild reintroduced the problem, and the
-generated project titles have no length guard, so it will keep recurring
-as projects are added. Measured on the rendered `<title>` with HTML
-entities decoded, so these are the lengths a searcher sees:
+The 2026-08-10 pass brought every title inside the limit by editing them
+one at a time. That fix could not survive content being added, and it did
+not: round 2's four new projects and the rebuilt About page put nine back
+over, the worst at 72 characters. Generated project titles had no length
+guard at all, so the tenth project would have done it again.
 
-| Page | Length |
-|---|---|
-| `/projects/badami-cbse-school-and-montessori` | 72 |
-| `/projects/the-green-terraces-keya-homes` | 69 |
-| `/services` | 67 |
-| `/about` | 66 |
-| `/projects/soumya-and-chetan-residence` | 66 |
-| `/projects/institutional` | 65 |
-| `/projects/the-minimal-indian-house` | 64 |
-| `/projects/residential` | 63 |
-| `/projects/life-by-lake-keya-homes` | 63 |
+`seoTitle(main, optional?)` in `lib/seo.ts` is now the guard. It gives up
+what is cheapest to lose, in order:
 
-The brand is what gets cut, which is the worst half to lose. The durable
-fix is a length check where project titles are generated rather than nine
-hand edits, since the tenth project will do this again.
+1. `main` plus `optional` when both fit. `optional` is the city on a
+   project page: worth having when there is room, never worth the
+   studio's name.
+2. `main` alone under the full 28-character brand.
+3. `main` under the short brand (` | Design Matters`), returned
+   `absolute` so the template does not append the long one on top.
 
-### 9.2 The three practice-area pages have no `og:image` or `og:type`
+Step 3 is what the practice-area pages needed. "Residential Architects in
+Bangalore" is the money phrase and must not be trimmed to make room for
+the brand, so the brand gives way instead.
 
-`categoryMetadata()` in `components/site/CategoryView.tsx` returns its own
-`openGraph` object. Next.js replaces the parent's `openGraph` wholesale
-rather than merging into it, so `images`, `type`, `siteName` and `locale`
-from the root layout are all dropped on `/projects/residential`,
-`/projects/interiors` and `/projects/institutional`.
+| Page | Was | Now |
+|---|---|---|
+| `/projects/badami-cbse-school-and-montessori` | 72 | 50 |
+| `/projects/the-green-terraces-keya-homes` | 69 | 58 |
+| `/services` | 67 | 56 |
+| `/about` | 66 | 55 |
+| `/projects/soumya-and-chetan-residence` | 66 | 55 |
+| `/projects/institutional` | 65 | 54 |
+| `/projects/the-minimal-indian-house` | 64 | 53 |
+| `/projects/residential` | 63 | 52 |
+| `/projects/life-by-lake-keya-homes` | 63 | 52 |
+| `/projects` | 62 | 51 |
 
-Sharing any of those three on WhatsApp, LinkedIn or Instagram produces a
-card with no photograph. §6 of this document calls them "the studio's main
-non-brand search surface", which makes this the most costly of the three.
-`twitter:image` still resolves, because `twitter` is a separate metadata
-key and was not overridden — so the failure is invisible on Twitter/X and
-present everywhere else.
+**The home page stays at 61**, one over the budget every other page is
+held to. It already uses the short brand, so there is nothing left to
+trim but the query itself, and Google truncates on pixel width rather
+than a character count. The reason is written where the title is set, so
+the next audit does not churn it.
 
-Fix: carry the image and type through in `categoryMetadata`, ideally from
-the category's own lead photograph rather than the site-wide card.
+### 9.2 The practice-area pages had no `og:image` or `og:type` — fixed
 
-### 9.3 `og:url` is the site root on seven pages
+`categoryMetadata()` returned its own `openGraph` object containing only
+a title and a URL. **Next.js does not merge `openGraph` into the
+parent's** — a page that declares one replaces the root layout's
+entirely — so `images`, `type`, `siteName` and `locale` were all dropped
+on `/projects/residential`, `/projects/interiors` and
+`/projects/institutional`.
 
-`app/layout.tsx` sets `openGraph.url = "/"`. Any page that does not
-override it inherits the root, so `/projects`, `/about`, `/services`,
-`/contact`, `/press` and `/testimonials` all advertise the home page as
-their canonical social URL. The `<link rel="canonical">` tags are correct
-throughout — this is only the Open Graph surface — but a shared About link
-can resolve to the home page when a platform follows `og:url`, and it
-merges engagement counts across pages that are not the same page.
+Sharing any of those three on WhatsApp, LinkedIn or Instagram produced a
+card with no photograph, and §6 calls them the studio's main non-brand
+search surface. `twitter:image` still resolved, because `twitter` is a
+separate metadata key and was not overridden — so the failure was
+invisible on Twitter/X and present everywhere else, which is why it
+survived the first audit.
 
-Fix: set `openGraph.url` per page, or drop it from the root layout so
-Next falls back to the canonical.
+The three now carry **the same photograph the page itself opens on**,
+with a written `og:image:alt`, rather than the generic site card.
 
----
+### 9.3 `og:url` was the site root on seven pages — fixed
+
+`app/layout.tsx` set `openGraph.url = "/"`, and any page that did not
+override it inherited the root. `/`, `/projects`, `/about`, `/services`,
+`/contact`, `/press` and `/testimonials` all advertised the home page as
+their canonical social URL. The `<link rel="canonical">` tags were
+correct throughout, so this was only the Open Graph surface — but a
+shared About link could resolve to the home page, and engagement merges
+across pages that are not the same page.
+
+### The fix that matters more than either
+
+Both 9.2 and 9.3 are the same bug seen from two sides: `openGraph` is
+replaced wholesale, so declaring a partial one is a silent way to delete
+the rest. **`pageOpenGraph({ path, type?, image?, imageAlt? })` in
+`lib/seo.ts` now builds the whole block for every page**, and `path` is
+required. A page cannot now declare a partial Open Graph block, and
+cannot inherit somebody else's URL.
+
+Verification, on the live server after deploy: every one of the 32
+sitemap URLs has its own `og:url`, an `og:image` that returns 200, an
+`og:type`, `og:site_name`, `og:locale`, exactly one `<h1>`, an absolute
+canonical and a title inside the limit.
 
 ## 10. Open — waiting on the client
 
