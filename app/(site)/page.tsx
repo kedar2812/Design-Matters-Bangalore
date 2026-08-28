@@ -8,12 +8,16 @@ import { HeroCarousel, type HeroSlide } from "@/components/site/HeroCarousel";
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { EnquirySection } from "@/components/site/EnquirySection";
 import { TestimonialsSection } from "@/components/site/TestimonialsSection";
+import { pageOpenGraph } from "@/lib/seo";
 
 // Static-first: prerendered, refreshed hourly. Dashboard edits to
 // projects or copy revalidate "/" on save, so publishing is immediate.
 export const revalidate = 3600;
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: pageOpenGraph({ path: "/" }),
+};
 
 export default async function HomePage() {
   // First story block supplies each slide's narrative hook.

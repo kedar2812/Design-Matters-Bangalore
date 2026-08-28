@@ -7,7 +7,7 @@ import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
 import { Parallax } from "@/components/motion/Parallax";
-import { breadcrumbJsonLd, jsonLdScript, projectJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, jsonLdScript, pageOpenGraph, projectJsonLd, seoTitle } from "@/lib/seo";
 import { IMG_Q, SIZES } from "@/lib/images";
 import { featureFor } from "@/lib/project-features";
 import { categoryHref, resolveCategory } from "@/lib/categories";
@@ -43,16 +43,25 @@ export async function generateMetadata({
   // recognises. Title stays short; the neighbourhood goes below it.
   const city = project.location?.split(",").pop()?.trim();
 
-  // The root layout's title template appends " — Design Matters
-  // Architects" to everything. A meta title typed in the dashboard often
-  // already ends in the studio's name, and Woodsvale's did — the rendered
-  // title carried the brand twice and ran to 81 characters. When the
-  // stored title has already said it, take it as absolute.
-  const fallback = [project.title, city].filter(Boolean).join(", ");
+  // Two separate hazards, in order.
+  //
+  // A meta title typed in the dashboard often already ends in the
+  // studio's name, and Woodsvale's did: the template appended the brand
+  // on top and the rendered title carried it twice, at 81 characters. A
+  // stored title that has already said it is taken as absolute.
+  //
+  // Otherwise `seoTitle` decides what fits. It drops the city before it
+  // lets a title run past the point Google truncates, and falls back to
+  // the short brand when the project's own name needs the room. Five
+  // project titles were over the limit before it existed, every one of
+  // them added after the last hand pass, which is why this is a rule and
+  // not five edits.
   const title =
     project.metaTitle && /design\s*matters/i.test(project.metaTitle)
       ? { absolute: project.metaTitle }
-      : (project.metaTitle ?? fallback);
+      : project.metaTitle
+        ? seoTitle(project.metaTitle)
+        : seoTitle(project.title, city);
 
   return {
     title,
@@ -62,11 +71,12 @@ export async function generateMetadata({
         project.location ? ` in ${project.location}` : ""
       }${project.year ? `, completed ${project.year}` : ""}.`,
     alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: {
+    openGraph: pageOpenGraph({
+      path: `/projects/${project.slug}`,
       type: "article",
-      url: `/projects/${project.slug}`,
-      ...(project.heroImage && { images: [project.heroImage] }),
-    },
+      image: project.heroImage,
+      imageAlt: `${project.title}, a ${project.category.toLowerCase()} project by Design Matters Architects`,
+    }),
   };
 }
 

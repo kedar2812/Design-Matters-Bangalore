@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ScrollToTop } from "@/components/motion/ScrollToTop";
-import { KEYWORDS, OG_IMAGE, SITE_URL } from "@/lib/seo";
+import { KEYWORDS, OG_IMAGE, pageOpenGraph, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 // next/font self-hosts these at build time — no runtime Google requests.
@@ -44,6 +44,11 @@ export const metadata: Metadata = {
     // match what gets typed, and it is queried several times more often.
     // The WebSite schema carries the full studio name, so the brand is
     // still what prints above the result.
+    //
+    // 61 characters, one over the budget `seoTitle` holds every other
+    // page to, and deliberately left there: it already uses the short
+    // brand, so there is nothing left to trim but the query itself, and
+    // Google truncates on pixel width rather than a character count.
     default: "Architects & Interior Designers in Bangalore | Design Matters",
     template: "%s | Design Matters Architects",
   },
@@ -79,13 +84,10 @@ export const metadata: Metadata = {
       other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION },
     }),
   },
-  openGraph: {
-    type: "website",
-    siteName: "Design Matters Architects",
-    locale: "en_IN",
-    url: "/",
-    images: [{ ...OG_IMAGE }],
-  },
+  // Every page builds its own through `pageOpenGraph` so none of them
+  // inherits this URL by accident — six of them used to, and advertised
+  // the home page as their social canonical.
+  openGraph: pageOpenGraph({ path: "/" }),
   twitter: {
     card: "summary_large_image",
     images: [OG_IMAGE.url],

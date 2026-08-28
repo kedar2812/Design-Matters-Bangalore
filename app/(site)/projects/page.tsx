@@ -6,14 +6,16 @@ import { ProjectsGrid } from "@/components/site/ProjectsGrid";
 import { getCategoryPortals, getProjectTiles } from "@/lib/portfolio";
 import { getSection } from "@/lib/settings";
 import { CATEGORIES, type CategorySlug } from "@/lib/categories";
+import { pageOpenGraph, seoTitle } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Architecture Projects in Bangalore",
+  title: seoTitle("Architecture Projects in Bangalore"),
   description:
     "The built work of Design Matters Architects: private residences, villas, apartment interiors and institutional buildings across Bengaluru and Karnataka.",
   alternates: { canonical: "/projects" },
+  openGraph: pageOpenGraph({ path: "/projects" }),
 };
 
 export default async function ProjectsPage() {

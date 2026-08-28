@@ -8,7 +8,7 @@ import { getCategoryTiles } from "@/lib/portfolio";
 import { getSection, categoryCopy } from "@/lib/settings";
 import { CATEGORIES, categoryHref, type Category } from "@/lib/categories";
 import { IMG_Q } from "@/lib/images";
-import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
+import { breadcrumbJsonLd, jsonLdScript, pageOpenGraph, seoTitle } from "@/lib/seo";
 
 /**
  * Trim to the last sentence that fits, falling back to the last whole
@@ -31,20 +31,34 @@ function clampToSentence(text: string, max: number) {
  * that is carrying a ranking.
  */
 export async function categoryMetadata(category: Category): Promise<Metadata> {
-  const content = await getSection("projects");
+  const [content, projects] = await Promise.all([
+    getSection("projects"),
+    getCategoryTiles(category.slug),
+  ]);
   const copy = categoryCopy(content, category.slug);
+  const href = categoryHref(category.slug);
+  // The same photograph the page itself opens on, so the share card and
+  // the page agree. These three used to fall back to the site card and
+  // then, because the openGraph block here replaced the root layout's
+  // wholesale, to no card at all.
+  const lead = projects.find((p) => p.heroImage);
+
   return {
-    title: category.searchTitle,
+    // The practice-area phrases are the studio's main non-brand search
+    // surface, so none of them may be trimmed to fit. `seoTitle` keeps
+    // them whole and shortens the brand instead.
+    title: seoTitle(category.searchTitle),
     // The studio's own words for the practice area, clipped at a sentence
     // rather than at 300 characters — Google rewrites a description it has
     // to truncate, and a full stop is the cheapest way to keep control of
     // what appears under the link.
     description: clampToSentence(copy.intro, 158),
-    alternates: { canonical: categoryHref(category.slug) },
-    openGraph: {
-      title: `${category.searchTitle} | Design Matters Architects`,
-      url: categoryHref(category.slug),
-    },
+    alternates: { canonical: href },
+    openGraph: pageOpenGraph({
+      path: href,
+      image: lead?.heroImage,
+      imageAlt: lead ? `${lead.title}, a ${category.label.toLowerCase()} project by Design Matters Architects` : null,
+    }),
   };
 }
 

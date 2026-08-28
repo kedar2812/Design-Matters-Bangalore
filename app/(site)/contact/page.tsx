@@ -4,6 +4,7 @@ import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { EnquiryGlow } from "@/components/site/EnquiryGlow";
 import { Reveal } from "@/components/motion/Reveal";
 import { Entry } from "@/components/motion/Entry";
+import { pageOpenGraph } from "@/lib/seo";
 
 export const revalidate = 3600;
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
   description:
     "Talk to Design Matters Architects about your site, residence or interior project. Studio in Indiranagar, Bangalore. Call, WhatsApp or write to us.",
   alternates: { canonical: "/contact" },
+  openGraph: pageOpenGraph({ path: "/contact" }),
 };
 
 export default async function ContactPage() {

@@ -10,14 +10,16 @@ import { StudioCollage } from "@/components/site/StudioCollage";
 import { StudioCulture } from "@/components/site/StudioCulture";
 import { TeamSection } from "@/components/site/TeamSection";
 import { getIdentity, getSection } from "@/lib/settings";
+import { pageOpenGraph, seoTitle } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "About the Studio & Ar. Kiran Hanumaiah",
+  title: seoTitle("About the Studio & Ar. Kiran Hanumaiah"),
   description:
     "A Bangalore architecture and interior design studio founded in 2011 by Ar. Kiran Hanumaiah. Meet the eleven-strong team and the thinking behind the work.",
   alternates: { canonical: "/about" },
+  openGraph: pageOpenGraph({ path: "/about" }),
 };
 
 export default async function AboutPage() {

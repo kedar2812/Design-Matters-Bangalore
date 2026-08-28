@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getPublishedTestimonials, type Testimonial } from "@/lib/content";
 import { getSection } from "@/lib/settings";
-import { jsonLdScript, SITE_URL } from "@/lib/seo";
+import { jsonLdScript, pageOpenGraph, SITE_URL } from "@/lib/seo";
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Entry } from "@/components/motion/Entry";
 import { Reveal } from "@/components/motion/Reveal";
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   description:
     "Google reviews from Design Matters clients across Bangalore: residences, villas and interiors, in the owners' own words.",
   alternates: { canonical: "/testimonials" },
+  openGraph: pageOpenGraph({ path: "/testimonials" }),
 };
 
 /** AggregateRating + a sample of reviews, attached to the studio's

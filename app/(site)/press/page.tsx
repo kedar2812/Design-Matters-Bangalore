@@ -4,7 +4,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { PressList } from "@/components/site/PressList";
 import { FEATURED_ONLINE, FEATURED_PRINT, publications } from "@/lib/press";
 import { getHeroImages } from "@/lib/portfolio";
-import { jsonLdScript, pressJsonLd } from "@/lib/seo";
+import { jsonLdScript, pageOpenGraph, pressJsonLd } from "@/lib/seo";
 
 export const revalidate = 3600;
 
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   description:
     "Houses by Design Matters Architects, Bangalore, featured on Buildofy, The Architects Diary and in the Deccan Herald.",
   alternates: { canonical: "/press" },
+  openGraph: pageOpenGraph({ path: "/press" }),
 };
 
 export default async function PressPage() {

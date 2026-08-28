@@ -4,15 +4,16 @@ import { EnquirySection } from "@/components/site/EnquirySection";
 import { PageHero } from "@/components/site/PageHero";
 import { getHeroImages } from "@/lib/portfolio";
 import { getSection } from "@/lib/settings";
-import { jsonLdScript, servicesJsonLd } from "@/lib/seo";
+import { jsonLdScript, pageOpenGraph, seoTitle, servicesJsonLd } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Architecture & Interior Design Services",
+  title: seoTitle("Architecture & Interior Design Services"),
   description:
     "Architecture for residences, apartments, commercial and hospitality projects; end-to-end interior design; and consultation, from a Bangalore studio since 2011.",
   alternates: { canonical: "/services" },
+  openGraph: pageOpenGraph({ path: "/services" }),
 };
 
 const n = (i: number) => String(i + 1).padStart(2, "0");

@@ -23,6 +23,85 @@ export const OG_IMAGE = {
   alt: "Looking up through a Design Matters house in Bangalore, a terracotta jaali ceiling over a double-height court hung with woven pendants",
 } as const;
 
+/* --------------------------------------------------------------- titles */
+
+/** What `app/layout.tsx`'s title template appends to every page title. */
+const BRAND = " | Design Matters Architects";
+/** The same brand, short. Buys eleven characters when a phrase needs them. */
+const BRAND_SHORT = " | Design Matters";
+/** Google truncates a title around here. Past it, the brand is what is lost. */
+const TITLE_MAX = 60;
+
+/**
+ * A page title that survives truncation without giving up the phrase it
+ * is ranking for.
+ *
+ * The August pass fixed every title by hand and the fix did not hold:
+ * round 2 added four projects and the generated titles had no length
+ * guard, so nine were back over the limit within a fortnight. Hand edits
+ * do not survive content being added, so the rule lives in code.
+ *
+ * Three steps, in order of what is cheapest to lose:
+ *
+ *  1. `main`, plus `optional` if both fit. `optional` is the city on a
+ *     project page — worth having when there is room and never worth the
+ *     studio's name.
+ *  2. `main` alone under the full brand.
+ *  3. `main` under the short brand, returned absolute so the template
+ *     does not append the long one on top.
+ *
+ * Step 3 is what the practice-area pages need: "Residential Architects in
+ * Bangalore" is the money phrase and must not be trimmed, but it does not
+ * fit beside twenty-eight characters of brand.
+ */
+export function seoTitle(main: string, optional?: string | null): string | { absolute: string } {
+  const full = optional ? `${main}, ${optional}` : main;
+  if (full.length + BRAND.length <= TITLE_MAX) return full;
+  if (main.length + BRAND.length <= TITLE_MAX) return main;
+  return { absolute: main + BRAND_SHORT };
+}
+
+/* ------------------------------------------------------------ open graph */
+
+/**
+ * One page's Open Graph block, complete.
+ *
+ * Next.js does not merge `openGraph` into the parent's — a page that
+ * declares one replaces the root layout's entirely. So a page that set
+ * only a title and a URL silently dropped the share image, the type, the
+ * site name and the locale, which is exactly what had happened to the
+ * three practice-area pages: sharing them anywhere but Twitter produced a
+ * card with no photograph.
+ *
+ * Every caller goes through here so that cannot recur, and `path` is
+ * required because the other half of the same bug was six pages
+ * inheriting `url: "/"` from the root and advertising the home page as
+ * their canonical social URL.
+ */
+export function pageOpenGraph({
+  path,
+  type = "website",
+  image,
+  imageAlt,
+}: {
+  /** Absolute path on this site, e.g. "/projects/woodsvale". */
+  path: string;
+  type?: "website" | "article";
+  /** A page-specific photograph. Falls back to the site card. */
+  image?: string | null;
+  imageAlt?: string | null;
+}) {
+  return {
+    type,
+    siteName: "Design Matters Architects",
+    locale: "en_IN",
+    url: path,
+    images: image
+      ? [{ url: image, ...(imageAlt ? { alt: imageAlt } : {}) }]
+      : [{ ...OG_IMAGE }],
+  } as const;
+}
+
 /**
  * The studio's search vocabulary.
  *
