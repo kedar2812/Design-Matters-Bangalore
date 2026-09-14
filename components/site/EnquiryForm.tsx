@@ -38,6 +38,8 @@ export function EnquiryForm({ source }: { source?: string }) {
     null,
   );
   const [topic, setTopic] = useState<string | null>(null);
+  // Refilled after a refused submission; see `values` on EnquiryState.
+  const typed = state?.ok === false ? state.values : undefined;
 
   if (state?.ok) {
     return (
@@ -105,14 +107,14 @@ export function EnquiryForm({ source }: { source?: string }) {
             <label htmlFor="name" className="mono-label mb-2 block">
               Name
             </label>
-            <input id="name" name="name" type="text" required autoComplete="name" className={field} />
+            <input id="name" name="name" type="text" required autoComplete="name" defaultValue={typed?.name} className={field} />
             <Error messages={state?.errors?.name} />
           </div>
           <div>
             <label htmlFor="phone" className="mono-label mb-2 block">
               Phone <span className="normal-case">(optional)</span>
             </label>
-            <input id="phone" name="phone" type="tel" autoComplete="tel" className={field} />
+            <input id="phone" name="phone" type="tel" autoComplete="tel" defaultValue={typed?.phone} className={field} />
             <Error messages={state?.errors?.phone} />
           </div>
         </div>
@@ -122,7 +124,7 @@ export function EnquiryForm({ source }: { source?: string }) {
             <label htmlFor="email" className="mono-label mb-2 block">
               Email
             </label>
-            <input id="email" name="email" type="email" required autoComplete="email" className={field} />
+            <input id="email" name="email" type="email" required autoComplete="email" defaultValue={typed?.email} className={field} />
             <Error messages={state?.errors?.email} />
           </div>
           <div>
@@ -133,7 +135,8 @@ export function EnquiryForm({ source }: { source?: string }) {
               id="location"
               name="location"
               type="text"
-              placeholder="e.g. Indiranagar, Bengaluru"
+              defaultValue={typed?.location}
+              placeholder="e.g. Indiranagar, Bangalore"
               className={field}
             />
             <Error messages={state?.errors?.location} />
@@ -148,7 +151,7 @@ export function EnquiryForm({ source }: { source?: string }) {
             <select
               id="budget"
               name="budget"
-              defaultValue=""
+              defaultValue={typed?.budget ?? ""}
               className={cn(field, "appearance-none pr-10")}
             >
               <option value="">Select a range</option>
@@ -179,6 +182,7 @@ export function EnquiryForm({ source }: { source?: string }) {
           <textarea
             id="message"
             name="message"
+            defaultValue={typed?.message}
             required
             rows={4}
             placeholder="Site, brief, timeline, whatever you have so far."
@@ -186,6 +190,15 @@ export function EnquiryForm({ source }: { source?: string }) {
           />
           <Error messages={state?.errors?.message} />
         </div>
+
+        {/* A refusal that is not about one field (the hourly limit). It
+            used to be returned and never shown, so the button simply
+            went back to "Send enquiry" and the visitor had no idea why. */}
+        {state?.ok === false && state.message && (
+          <p className="rounded-xl border border-brass/30 bg-brass/8 px-4 py-3 text-sm text-brass-deep" role="alert">
+            {state.message}
+          </p>
+        )}
 
         <button
           type="submit"

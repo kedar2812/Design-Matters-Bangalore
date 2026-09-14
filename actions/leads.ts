@@ -14,6 +14,13 @@ export type EnquiryState = {
   ok: boolean;
   errors?: Record<string, string[]>;
   message?: string;
+  /**
+   * What the visitor typed, handed back whenever the enquiry is refused.
+   * React resets a form after its action runs, whatever the result, so
+   * without this a single mistyped email address wiped out the whole
+   * message along with it.
+   */
+  values?: Record<string, string>;
 } | null;
 
 /** Five enquiries an hour from one address is already generous for a studio this size. */
@@ -32,6 +39,16 @@ export async function submitEnquiry(
   // The honeypot stops scripts that fill every field; it does nothing
   // about the same form submitted over and over. Now that a submission
   // sends mail, that difference is Kiran's inbox.
+  // FormData.get() returns null for absent fields — normalize so
+  // optional schema fields behave the same with or without the input.
+  const field = (key: string) => {
+    const v = formData.get(key);
+    return typeof v === "string" ? v : undefined;
+  };
+  const values = Object.fromEntries(
+    ["name", "email", "phone", "message", "topic", "budget", "location"].map((k) => [k, field(k) ?? ""]),
+  );
+
   const ip = clientIp(await headers());
   const verdict = rateLimit(`enquiry:${ip}`, SUBMIT_LIMIT, SUBMIT_WINDOW_MS);
   if (!verdict.allowed) {
@@ -39,15 +56,10 @@ export async function submitEnquiry(
       ok: false,
       message:
         "That's a few enquiries from here already, and we have them. Please call or WhatsApp us if it's urgent.",
+      values,
     };
   }
 
-  // FormData.get() returns null for absent fields — normalize so
-  // optional schema fields behave the same with or without the input.
-  const field = (key: string) => {
-    const v = formData.get(key);
-    return typeof v === "string" ? v : undefined;
-  };
 
   const parsed = enquirySchema.safeParse({
     name: field("name"),
@@ -63,7 +75,7 @@ export async function submitEnquiry(
 
   if (!parsed.success) {
     const flat = z.flattenError(parsed.error);
-    return { ok: false, errors: flat.fieldErrors };
+    return { ok: false, errors: flat.fieldErrors, values };
   }
 
   if (isSnapshotMode) {

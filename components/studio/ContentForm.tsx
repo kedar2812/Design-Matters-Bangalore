@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { saveSection, resetSection } from "@/actions/studio-settings";
 import type { SectionKey } from "@/lib/settings";
 import { inputClass } from "@/components/studio/ui";
+import { useFeedback } from "@/components/studio/Feedback";
 import { cn } from "@/lib/utils";
 
 /* ------------------------------------------------------------- schema */
@@ -94,6 +95,7 @@ export function ContentForm({
   isEdited: boolean;
 }) {
   const router = useRouter();
+  const { confirm } = useFeedback();
   const [pending, startTransition] = useTransition();
   const [values, setValues] = useState<Values>(initial);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
@@ -125,8 +127,16 @@ export function ContentForm({
     });
   }
 
-  function reset() {
-    if (!confirm("Restore this section to its original wording? Your edits will be lost.")) return;
+  async function reset() {
+    // The studio's own dialog, like every other destructive action here,
+    // rather than the browser's grey `confirm()` box.
+    const ok = await confirm({
+      title: "Restore the original wording?",
+      body: "Every edit made to this section is replaced by the wording the site launched with. This can't be undone.",
+      confirmLabel: "Restore original",
+      tone: "danger",
+    });
+    if (!ok) return;
     startTransition(async () => {
       await resetSection(section);
       router.refresh();
