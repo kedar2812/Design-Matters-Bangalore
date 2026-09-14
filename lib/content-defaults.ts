@@ -205,6 +205,13 @@ export type NotificationsContent = {
   notifyStudio: boolean;
   /** Email the enquirer a confirmation that the studio has their message. */
   acknowledgeEnquirer: boolean;
+  /**
+   * Once a day, email the studio a list of enquiries still at "New" after
+   * `remindAfterHours`. A lead drops off the list the moment its stage
+   * moves, and after three reminders it stops being mentioned at all.
+   */
+  remindUncontacted: boolean;
+  remindAfterHours: number;
 };
 
 /* ----------------------------------------------------------- defaults */
@@ -544,6 +551,8 @@ export const DEFAULTS = {
     recipients: [],
     notifyStudio: true,
     acknowledgeEnquirer: true,
+    remindUncontacted: true,
+    remindAfterHours: 24,
   } satisfies NotificationsContent,
 } as const;
 

@@ -26,6 +26,8 @@ export async function saveAlertSettings(input: {
   recipients: string[];
   notifyStudio: boolean;
   acknowledgeEnquirer: boolean;
+  remindUncontacted: boolean;
+  remindAfterHours: number;
 }): Promise<SaveAlertsResult> {
   await requireUser();
 
@@ -42,6 +44,8 @@ export async function saveAlertSettings(input: {
     recipients,
     notifyStudio: input.notifyStudio,
     acknowledgeEnquirer: input.acknowledgeEnquirer,
+    remindUncontacted: input.remindUncontacted,
+    remindAfterHours: input.remindAfterHours,
   });
 
   if (!parsed.success) {

@@ -38,6 +38,8 @@ export default async function AlertsPage() {
           recipients: [...settings.recipients],
           notifyStudio: settings.notifyStudio,
           acknowledgeEnquirer: settings.acknowledgeEnquirer,
+          remindUncontacted: settings.remindUncontacted,
+          remindAfterHours: settings.remindAfterHours,
         }}
         effective={effective}
         provider={mailStatus()}

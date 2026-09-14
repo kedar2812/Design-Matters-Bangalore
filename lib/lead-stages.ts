@@ -30,4 +30,5 @@ export const EVENT_TONE: Record<string, "accent" | "info" | "good" | "bad" | "ne
   STATUS_CHANGED: "info",
   NOTED: "neutral",
   EMAIL_ACTION: "info",
+  REMINDED: "neutral",
 };

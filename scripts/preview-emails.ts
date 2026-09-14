@@ -15,6 +15,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { DEFAULTS } from "../lib/content-defaults";
 import { acknowledgementEmail, notificationEmail, type LeadForEmail } from "../lib/emails/enquiry";
+import { reminderEmail } from "../lib/emails/reminder";
 
 process.env.LEAD_ACTION_SECRET ??= "preview-only-secret-not-used-anywhere-real";
 
@@ -25,12 +26,29 @@ const lead: LeadForEmail = {
   phone: "+91 98450 22119",
   message:
     "We've bought a 40x60 corner site in Sahakar Nagar and want to build a home for three generations, my parents, us, and eventually our daughter.\n\nThe brief we keep coming back to is light and cross-ventilation; the rented flat we're in now gets neither. We loved the courtyard in your Vivek residence. Could we come and see you sometime this month?",
-  source: "/projects/vivek-residence",
-  topic: "Residential, new build",
-  budget: "₹1.5–2 Cr",
-  location: "Sahakar Nagar, Bengaluru",
+  source: "project:vivek-residence",
+  topic: "New home",
+  budget: "₹1.5 to 2 crore",
+  location: "Sahakar Nagar, Bangalore",
   createdAt: new Date(),
 };
+
+const HOUR = 3_600_000;
+const waiting: LeadForEmail[] = [
+  { ...lead, createdAt: new Date(Date.now() - 52 * HOUR) },
+  {
+    id: "clpreview000000000000001",
+    name: "Rahul Menon",
+    email: "rahul.menon@example.com",
+    phone: null,
+    message: "Looking to redo the interiors of a 3BHK apartment in Whitefield, mostly the kitchen and living room. Would you take on a project of this size?",
+    source: "services",
+    topic: "Interiors",
+    budget: null,
+    location: "Whitefield, Bangalore",
+    createdAt: new Date(Date.now() - 27 * HOUR),
+  },
+];
 
 const out = path.join(process.cwd(), ".preview");
 const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -44,6 +62,7 @@ async function main() {
   for (const [file, mail] of [
     ["notification", notice],
     ["acknowledgement", ack],
+    ["reminder", reminderEmail(waiting, DEFAULTS.identity, site)],
   ] as const) {
     await writeFile(path.join(out, `${file}.html`), mail.html, "utf8");
     await writeFile(path.join(out, `${file}.txt`), `${mail.subject}\n\n${mail.text}`, "utf8");

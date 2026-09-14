@@ -91,7 +91,7 @@ export type Delivery = "on" | "off" | "unconfigured";
  * Whether an enquiry going un-emailed is expected rather than broken.
  *
  * With no provider the send is still attempted and still records an error
- * ("RESEND_API_KEY is not set") — a true sentence about the server and a
+ * ("no sending account is configured") — a true sentence about the server and a
  * useless one to an architect, so the unconfigured case ignores it and the
  * screen says the thing that is actually actionable instead.
  *

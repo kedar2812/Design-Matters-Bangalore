@@ -133,6 +133,8 @@ export type AlertSettingsProps = {
     recipients: string[];
     notifyStudio: boolean;
     acknowledgeEnquirer: boolean;
+    remindUncontacted: boolean;
+    remindAfterHours: number;
   };
   /** Resolved at render, so the panel states where mail goes right now. */
   effective: { to: string[]; source: "dashboard" | "server" | "studio-email" | "none" };
@@ -148,6 +150,8 @@ export function AlertSettings({ initial, effective, provider, studioEmail }: Ale
   const [recipients, setRecipients] = useState<string[]>(initial.recipients);
   const [notifyStudio, setNotifyStudio] = useState(initial.notifyStudio);
   const [acknowledgeEnquirer, setAcknowledgeEnquirer] = useState(initial.acknowledgeEnquirer);
+  const [remindUncontacted, setRemindUncontacted] = useState(initial.remindUncontacted);
+  const [remindAfterHours, setRemindAfterHours] = useState(initial.remindAfterHours);
   const [saving, startSaving] = useTransition();
   const [testing, startTesting] = useTransition();
   const [test, setTest] = useState<TestAlertResult | null>(null);
@@ -155,6 +159,8 @@ export function AlertSettings({ initial, effective, provider, studioEmail }: Ale
   const dirty =
     notifyStudio !== initial.notifyStudio ||
     acknowledgeEnquirer !== initial.acknowledgeEnquirer ||
+    remindUncontacted !== initial.remindUncontacted ||
+    remindAfterHours !== initial.remindAfterHours ||
     recipients.length !== initial.recipients.length ||
     recipients.some((r, i) => r !== initial.recipients[i]);
 
@@ -187,6 +193,8 @@ export function AlertSettings({ initial, effective, provider, studioEmail }: Ale
         recipients: filled,
         notifyStudio,
         acknowledgeEnquirer,
+        remindUncontacted,
+        remindAfterHours,
       });
       if (result.ok) {
         toast("Saved. New enquiries follow these settings from now on.");
@@ -348,6 +356,29 @@ export function AlertSettings({ initial, effective, provider, studioEmail }: Ale
             label="Send the enquirer a confirmation"
             hint="A short note under the studio's name confirming you have their message, with your phone number. Turn it off if you would rather every first reply be written by hand."
           />
+          <div>
+            <Switch
+              checked={remindUncontacted}
+              onChange={setRemindUncontacted}
+              label="Remind me about enquiries nobody has replied to"
+              hint="One email a day, at 10 in the morning, listing enquiries still marked New. An enquiry leaves the list as soon as you move it on, and is never mentioned more than three times."
+            />
+            {remindUncontacted && (
+              <label className="flex flex-wrap items-center gap-2 pb-3 pl-[50px] text-[0.75rem] text-s-text-3">
+                Remind once an enquiry has waited
+                <select
+                  value={remindAfterHours}
+                  onChange={(e) => setRemindAfterHours(Number(e.target.value))}
+                  aria-label="How long an enquiry waits before a reminder"
+                  className={cn(inputClass, "h-8 w-auto py-0 pr-8 text-[0.75rem]")}
+                >
+                  <option value={24}>one day</option>
+                  <option value={48}>two days</option>
+                  <option value={72}>three days</option>
+                </select>
+              </label>
+            )}
+          </div>
         </div>
       </Card>
 

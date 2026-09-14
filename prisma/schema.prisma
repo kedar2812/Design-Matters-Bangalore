@@ -39,6 +39,7 @@ enum LeadEventType {
   STATUS_CHANGED
   NOTED
   EMAIL_ACTION // stage changed from a one-tap link in the notification email
+  REMINDED // included in the daily "still waiting for a reply" email
 }
 
 enum Role {

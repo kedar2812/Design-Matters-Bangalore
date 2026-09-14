@@ -162,5 +162,8 @@ export const SECTION_SCHEMAS: Record<SectionKey, z.ZodType> = {
       .max(10, "Ten addresses is plenty — use a group address beyond that."),
     notifyStudio: z.boolean(),
     acknowledgeEnquirer: z.boolean(),
+    remindUncontacted: z.boolean(),
+    // The choices the dashboard offers; anything else is a hand-made request.
+    remindAfterHours: z.union([z.literal(24), z.literal(48), z.literal(72)]),
   }),
 };
