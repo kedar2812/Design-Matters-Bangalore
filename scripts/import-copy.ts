@@ -25,14 +25,14 @@ const stories: Story[] = [
   {
     slug: "vivek-residence",
     concept:
-      "A residence on a compact site amidst dense foliage, built as an interplay of skilfully laid brickwork and neutral tones. Internal walls are minimised to open up the first floor, living, dining, kitchen and pooja in one continuous plan, while a double-height volume with a distinct jali separates living from dining without ever breaking visual connection.",
+      "A residence on a compact site amidst dense foliage, built as an interplay of skilfully laid brickwork and neutral tones. Internal walls are minimised so that living, dining, kitchen and pooja share one continuous plan on the first floor, while a double-height volume with a distinct jali separates living from dining without ever breaking visual connection.",
     final:
       "A coffered ceiling with alternating skylight voids crowns the double-height space; together with the jali it washes the floor in natural light, casting shifting patterns of shade and shadow through the day. Louvered windows overlook the living area below, terraces open to greenery, and brick, wood and warm light breathe life into the interior.",
   },
   {
     slug: "house-of-levels",
     concept:
-      "A compact 30×40 Bengaluru home that redefines urban living through a thoughtful interplay of light, levels and material warmth. Designed around a central skylit courtyard, the house rises through staggered floor plates that create spatial distinction without sacrificing openness.",
+      "A compact 30×40 Bangalore home that redefines urban living through a thoughtful interplay of light, levels and material warmth. Designed around a central skylit courtyard, the house rises through staggered floor plates that create spatial distinction without sacrificing openness.",
     final:
       "A sculptural rubberwood staircase anchors the vertical movement, while bay windows, brick textures and natural stone lend depth to every zone, from an acoustically treated hobby room on the ground floor to elevated living areas, tranquil bedrooms and a serene terrace framed by terracotta jaalis.",
     year: 2025,
@@ -67,7 +67,7 @@ const stories: Story[] = [
   {
     slug: "la-palazzo",
     concept:
-      "Contemporary elegance with everyday functionality: neutral tones, bold accents and thoughtful decor in harmony. A striking chandelier and a bold geometric rug layer the dining area with sophistication, a large grid mirror adds depth, and sheer curtains diffuse natural light, artwork and greenery bringing the rooms to life.",
+      "Contemporary elegance with everyday functionality: neutral tones, bold accents and thoughtful decor in harmony. A striking chandelier and a bold geometric rug layer the dining area with sophistication, a large grid mirror adds depth, and sheer curtains diffuse natural light, while artwork and greenery bring the rooms to life.",
   },
   {
     slug: "epsilon",

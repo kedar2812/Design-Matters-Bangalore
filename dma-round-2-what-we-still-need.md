@@ -61,10 +61,10 @@ does not print that line — but these are worth filling in:
 
 | Project | What we have | What is missing |
 |---|---|---|
-| **Praangana Heritage** (Vivek farmhouse) | Year 2026 (from the drone file dates), typology "Farmhouse" | **Location**, built-up area, site area, completion status |
-| **Dr. Ashwini Residence** | Location "Bengaluru" | Which part of Bengaluru, year, area |
+| **Praangana Heritage** (Vivek farmhouse) | Malavalli, 1.5 acres, 1,500 sq ft, completed (14.9.26 note) | Nothing |
+| **Aadya Mane** (was Dr. Ashwini Residence) | Vajarahalli, 6,000 sq ft plot, 6,500 sq ft built-up, completed (14.9.26 note) | Year |
 | **Anita Residence** | Location "JP Nagar, Bengaluru" (from your folder name) | Year, area |
-| **Neeraj Residence** | Now published — it had been sitting as an empty draft | Location, year, area |
+| **Neeraj Residence** | Now published, with location, year and area | Nothing |
 
 Also: **is "Praangana Heritage" the name you want on the site?** Your
 folder is called "Praangana Heritage-Vivek Farmhouse". We went with

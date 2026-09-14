@@ -240,20 +240,57 @@ export const DEFAULTS = {
      * Chosen from the "Hero slides" folder the studio sent, then paired
      * word to picture by hand.
      *
-     * Two rules decided the set. Every frame is landscape, because the
-     * hero is full-bleed and a portrait source loses its top and bottom
-     * to the crop — half the folder is portrait and none of it is here.
-     * And "endure." leads, over the farmhouse at dusk: it is the best
-     * photograph in the drop, it is unmistakably a building, and putting
-     * it first answers both "first page is not impressive" and the
-     * kitchen-under-"endure" complaint in the same frame.
+     * The order is the studio's own, from the final note (14.9.26):
+     * Shambhavi first, then House of Levels, and Neeraj and Vivek brought
+     * in. The three slides that were already here follow, arranged so the
+     * two roof terraces (Mohan, Aadya Mane) are never back to back.
+     *
+     * Every frame shown is landscape, or cut to landscape, because the
+     * hero is full bleed and a portrait source loses its top and bottom
+     * to the crop. Two of the studio's picks are tall elevations, and the
+     * elevation is the right opener: "first page is not impressive" was
+     * answered in round 2 by leading with a building rather than a room.
+     * Those two were cut to a 3:2 band from the originals by
+     * `scripts/hero-slide.ts --crop`, rather than shipped whole.
+     *
+     * House of Levels has no good landscape frame at all. Its dusk
+     * elevation is the only one that reads as a building, and at 2232px
+     * wide it is the smallest source in the set; it holds up at desktop
+     * widths but is the first slide to replace if the studio ever has a
+     * wider shot of that house.
      */
     heroSlides: [
       {
-        image: "/uploads/projects/praangana-heritage/hero.jpg",
-        word: "endure.",
-        projectSlug: "praangana-heritage",
-        alt: "The Praangana Heritage farmhouse at dusk, tiled roofs and a lit verandah above the lawn",
+        // IMG_3343, cut to 3:2 around the round window and the name plate.
+        image: "/uploads/projects/shambhavi-residence/slide-1.jpg",
+        word: "belong.",
+        projectSlug: "shambhavi-residence",
+        alt: "The street front of Shambhavi Residence, a round timber window set in herringbone brick above the gate",
+        blur: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAHxAAAgEEAgMAAAAAAAAAAAAAAQIDAAQREjFBUWFx/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABcRAAMBAAAAAAAAAAAAAAAAAAABITH/2gAMAwEAAhEDEQA/AJWt/byIsaM++Bg649+a3YFiaJWL7FgCeD18pSicUE10/9k=",
+      },
+      {
+        // 3.jpg, the dusk elevation, cut to 3:2 below the roof pergola.
+        image: "/uploads/projects/house-of-levels/slide-1.jpg",
+        word: "welcome.",
+        projectSlug: "house-of-levels",
+        alt: "House of Levels at dusk, a brick screen and lit windows rising above the trees",
+        blur: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAHhAAAgEEAwEAAAAAAAAAAAAAAQIAAwQFESEiMUH/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAAQAR/9oADAMBAAIRAxEAPwCjMXNN7lbijX2mlHDdR78EyamTCNpO6jwgaiILjIaX/9k=",
+      },
+      {
+        // "C1.living room", the studio's own pick for this house, at the hero tier.
+        image: "/uploads/projects/neeraj-residence/slide-1.jpg",
+        word: "gather.",
+        projectSlug: "neeraj-residence",
+        alt: "The double-height living room at Neeraj Residence, glazed doors open onto the garden",
+        blur: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAgEAACAgEDBQAAAAAAAAAAAAABAgADBAURIRMxgcHw/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwCirOe2ul1dkJ7kj7iR6lX1cxnFTbEDztx6iIFLH//Z",
+      },
+      {
+        // The project's own hero is already at the hero tier (_DSF8504, the
+        // frame the old site led with), so its blur comes from the row.
+        image: "/uploads/projects/vivek-residence/hero.jpg",
+        word: "glow.",
+        projectSlug: "vivek-residence",
+        alt: "The upper landing at Vivek Residence, a terracotta jali lit from behind and a window looking into the double-height hall",
       },
       {
         image: "/uploads/projects/mohan-residence/hero.jpg",
@@ -262,19 +299,19 @@ export const DEFAULTS = {
         alt: "The roof terrace at Mohan Residence under its steel pergola, the city beyond",
       },
       {
-        image: "/uploads/projects/shambhavi-residence/02.jpg",
-        word: "belong.",
-        projectSlug: "shambhavi-residence",
-        alt: "The living room at Shambhavi Residence under its arched window",
+        image: "/uploads/projects/praangana-heritage/hero.jpg",
+        word: "endure.",
+        projectSlug: "praangana-heritage",
+        alt: "The Praangana Heritage farmhouse at dusk, tiled roofs and a lit verandah above the lawn",
       },
       {
         // NSP-10, encoded at the hero tier by `scripts/hero-slide.ts`
         // rather than reusing the 2200px gallery frame, which is built for
         // a half-width slot and goes soft across a full-bleed hero.
-        image: "/uploads/projects/dr-ashwini-residence/slide-1.jpg",
+        image: "/uploads/projects/aadya-mane/slide-1.jpg",
         word: "listen.",
-        projectSlug: "dr-ashwini-residence",
-        alt: "The roof terrace at Dr. Ashwini Residence, a steel pergola over lawn and planters with the city beyond",
+        projectSlug: "aadya-mane",
+        alt: "The roof terrace at Aadya Mane, a steel pergola over lawn and planters with the city beyond",
         blur: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAhEAABAwQBBQAAAAAAAAAAAAABAAIDBBESEwUUITGB8P/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIRAxEAPwBwdXNNT6Yxsa0d7kD4K11Pi44RRsBNyOod59IijJj/2Q==",
         // Pulled above centre. The frame is 3:2 in a hero nearer 2.3:1, and
         // a centred crop cuts the pergola off at the top while keeping a
@@ -285,7 +322,7 @@ export const DEFAULTS = {
         focus: "50% 38%",
       },
     ],
-    heroWords: ["belong.", "breathe.", "listen.", "endure."],
+    heroWords: ["belong.", "welcome.", "gather.", "glow.", "breathe.", "endure.", "listen."],
     studioEyebrow: "The studio",
     studioStatement:
       "Since 2011 we have built houses, workplaces and interiors around Bangalore. Each one is drawn for its own site: which way the sun crosses it, what the street is like, and how the people who will live there actually spend a day.",
@@ -299,7 +336,7 @@ export const DEFAULTS = {
       },
       {
         title: "Interior design",
-        body: "Complete interiors for homes and workplaces: space planning, custom furniture, materials and light, detailed down to the drawer runners.",
+        body: "Interiors for homes and workplaces, detailed down to the drawer runners. Our scope is design and detail drawings; execution is by interior execution partners.",
       },
       {
         title: "Consultation",
@@ -384,12 +421,12 @@ export const DEFAULTS = {
     services: [
       {
         title: "Architecture",
-        body: "New builds and major renovations: private residences, apartment buildings, commercial and hospitality projects. From feasibility and massing to municipal approvals and construction drawings. The full arc, with one studio accountable for all of it.",
+        body: "New builds and major renovations: private residences, apartment buildings, commercial and hospitality projects. From feasibility and massing through to construction drawings, with one studio accountable for all of it.",
         scope: "Residences · Apartments · Commercial · Hospitality",
       },
       {
         title: "Interior design",
-        body: "Complete interiors for homes and workplaces: space planning, custom furniture, lighting, materials and finishes. We use fabricators and vendors we have worked with for years, which is mostly why what arrives on site matches what was drawn.",
+        body: "Interiors for homes and workplaces: space planning, custom furniture, lighting, materials and finishes. Our scope is design and detail drawings only. Execution is carried out by interior execution partners, who build from those drawings.",
         scope: "Homes · Apartments · Offices · Clinics",
       },
       {
@@ -404,7 +441,7 @@ export const DEFAULTS = {
       { title: "Brief", body: "We meet, walk the site, and listen. You leave with questions worth asking; we leave with the real brief." },
       { title: "Concept", body: "Plans, massing and mood. We go round this a few times together until it stops feeling like a compromise." },
       { title: "Design development", body: "The concept becomes a buildable proposition: materials, structure, services, budgets aligned." },
-      { title: "Documentation", body: "Approval and construction drawings, specifications, and a tender-ready package." },
+      { title: "Documentation", body: "Construction drawings, specifications, and a tender-ready package." },
       { title: "Build", body: "Site visits, contractor coordination, and the hundreds of small decisions a live site throws up. We answer them fast, because a stalled site costs you money." },
       { title: "Handover", body: "Snag lists closed, systems commissioned, and a building that matches its drawings." },
     ],
@@ -466,7 +503,7 @@ export const DEFAULTS = {
     interiorsEyebrow: "Practice area 02",
     interiorsHeading: "Interiors that finish the architecture, not decorate it.",
     interiorsIntro:
-      "Apartment interiors, villa fit-outs and workspace refits, detailed to the millimetre, joinery drawn in-house, and executed with the makers we have worked with for a decade.",
+      "Apartment interiors, villa fit-outs and workspace refits, detailed to the millimetre with the joinery drawn in-house. Our scope is design and detail drawings; execution is carried out by interior execution partners.",
     interiorsHighlights: [
       {
         title: "Drawn, not styled",
@@ -477,8 +514,8 @@ export const DEFAULTS = {
         body: "Layered lighting design: ambient, task and accent, set out at the plan stage.",
       },
       {
-        title: "One accountable team",
-        body: "Design and execution stay under one roof, so nothing is lost between the drawing and the site.",
+        title: "Drawings to build from",
+        body: "We hand over design and detail drawings complete enough that the interior execution partners on site can build exactly what was designed.",
       },
     ],
 

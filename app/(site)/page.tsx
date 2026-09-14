@@ -14,6 +14,9 @@ import { pageOpenGraph } from "@/lib/seo";
 // projects or copy revalidate "/" on save, so publishing is immediate.
 export const revalidate = 3600;
 
+/** Cards under "Selected work". Even, because the grid is two columns. */
+const GRID_SIZE = 4;
+
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: pageOpenGraph({ path: "/" }),
@@ -25,7 +28,6 @@ export default async function HomePage() {
     getPublishedProjects(),
     getSection("home"),
   ]);
-  const featured = projects.slice(0, 8);
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
 
   /* The hero is the studio's own curated pick (§1, §2): a chosen
@@ -63,7 +65,7 @@ export default async function HomePage() {
     ];
   });
 
-  const fallback: HeroSlide[] = featured
+  const fallback: HeroSlide[] = projects
     .filter((p) => p.heroImage)
     .slice(0, 5)
     .map((p, i) => ({
@@ -81,9 +83,12 @@ export default async function HomePage() {
   const slides = curated.length ? curated : fallback;
 
   /* The grid below the hero shows work the hero hasn't already shown,
-     so the first screen and the second aren't the same four houses. */
+     so the first screen and the second aren't the same houses. It draws
+     from every published project rather than from the first eight: with
+     seven projects in the slideshow, filtering the first eight left a
+     grid of one. */
   const heroSlugs = new Set(slides.map((s) => s.slug));
-  const grid = featured.filter((p) => !heroSlugs.has(p.slug));
+  const grid = projects.filter((p) => !heroSlugs.has(p.slug)).slice(0, GRID_SIZE);
 
   return (
     <main>

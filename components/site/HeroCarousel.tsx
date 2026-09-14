@@ -35,6 +35,12 @@ const SLIDE_MS = 5200;
  * - Active slide drifts slowly (Ken Burns) — zeroed by the global
  *   reduced-motion rule, and auto-play never starts for those users.
  * - Slide 0 renders server-side with `priority`, so LCP is unaffected.
+ * - A photograph is only mounted once it is showing, next in line, or
+ *   has been shown. Every slide used to be in the DOM from the start, and
+ *   an `opacity-0` image laid over the viewport is still "visible" to the
+ *   lazy loader, so all of them downloaded with the page. At four slides
+ *   that was tolerable; at seven it is three extra full-bleed photographs
+ *   on first load that most visitors never wait long enough to see.
  *
  * The headline is rendered here rather than passed in as children,
  * because the rotating word has to be driven by the slide index. It used
@@ -62,6 +68,9 @@ export function HeroCarousel({
   const [paused, setPaused] = useState(false);
   const [held, setHeld] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(null);
+  // Slides that have been on screen keep their image, so fading back to
+  // one never flashes an empty frame.
+  const [shown, setShown] = useState<ReadonlySet<number>>(() => new Set([0]));
 
   const count = slides.length;
   const playing = !paused && !held && !reduce && count > 1;
@@ -80,7 +89,12 @@ export function HeroCarousel({
     };
   }, [index, playing, goTo]);
 
+  useEffect(() => {
+    setShown((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
+  }, [index]);
+
   const active = slides[index];
+  const next = (index + 1) % count;
 
   return (
     // Inset frame: the photography sits in a large rounded panel with a
@@ -104,25 +118,27 @@ export function HeroCarousel({
             i === index ? "opacity-100" : "opacity-0",
           )}
         >
-          <Image
-            src={s.heroImage}
-            alt={s.alt}
-            fill
-            priority={i === 0}
-            // 107vw, not 100vw: the active slide drifts to scale(1.07),
-            // so the painted area is 7% wider than the slot.
-            sizes={SIZES.heroCarousel}
-            // Slide 0 is the LCP element and the frame the client judges
-            // the site by, so it gets the top tier. The rotating slides
-            // are only ever seen in motion, where 85 and 90 are
-            // indistinguishable — and holding them at 85 keeps ~120 KB
-            // off the initial load, since all five slides are in the DOM.
-            quality={i === 0 ? IMG_Q.hero : IMG_Q.feature}
-            placeholder={s.heroBlur ? "blur" : "empty"}
-            blurDataURL={s.heroBlur ?? undefined}
-            style={s.focus ? { objectPosition: s.focus } : undefined}
-            className={cn("rounded-[inherit] object-cover", i === index && "ken-burns")}
-          />
+          {(i === index || i === next || shown.has(i)) && (
+            <Image
+              src={s.heroImage}
+              alt={s.alt}
+              fill
+              priority={i === 0}
+              // 107vw, not 100vw: the active slide drifts to scale(1.07),
+              // so the painted area is 7% wider than the slot.
+              sizes={SIZES.heroCarousel}
+              // Slide 0 is the LCP element and the frame the client judges
+              // the site by, so it gets the top tier. The rotating slides
+              // are only ever seen in motion, where 85 and 90 are
+              // indistinguishable — and holding them at 85 keeps ~120 KB
+              // off the preloaded next slide.
+              quality={i === 0 ? IMG_Q.hero : IMG_Q.feature}
+              placeholder={s.heroBlur ? "blur" : "empty"}
+              blurDataURL={s.heroBlur ?? undefined}
+              style={s.focus ? { objectPosition: s.focus } : undefined}
+              className={cn("rounded-[inherit] object-cover", i === index && "ken-burns")}
+            />
+          )}
         </div>
       ))}
 

@@ -95,8 +95,9 @@ const SHOOTS: Shoot[] = [
       category: "Residential",
       year: 2026,
       typology: "Farmhouse",
+      location: "Malavalli, Karnataka",
       metaDesc:
-        "A courtyard farmhouse in brick and terracotta by Design Matters Architects, verandahs on every side, tiled pitched roofs and patterned oxide floors.",
+        "Praangana Heritage, a courtyard farmhouse in Malavalli by Design Matters Architects, in brick and terracotta with verandahs on every side, tiled pitched roofs and patterned oxide floors.",
     },
     hero: "DSC_5257.jpg",
     gallery: [
@@ -138,17 +139,19 @@ const SHOOTS: Shoot[] = [
     },
   },
   {
+    // Renamed Aadya Mane in round 3 (scripts/revision-round-3.ts); the
+    // folder the studio sent keeps its old name.
     dir: "Dr.Ashwini residence",
-    slug: "dr-ashwini-residence",
+    slug: "aadya-mane",
     order: 3,
     publish: true,
     create: {
-      title: "Dr. Ashwini Residence",
+      title: "Aadya Mane",
       category: "Residential",
-      location: "Bengaluru",
+      location: "Vajarahalli, Bangalore",
       typology: "Private residence",
       metaDesc:
-        "An exposed-brick house in Bengaluru by Design Matters Architects, carved timber columns, a double-height entrance hall and kolam drawn on the walls.",
+        "Aadya Mane, an exposed-brick house in Vajarahalli, Bangalore, by Design Matters Architects, with carved timber columns, a double-height entrance hall and kolam drawn on the walls.",
     },
     hero: "NSP-12.jpg",
     gallery: [
@@ -403,8 +406,12 @@ async function main() {
     // Wipe first. Several of these had nine web exports and now have five
     // good frames; a stale 06.jpg left on disk would go on being served to
     // anyone holding cached HTML.
-    await rm(outDir, { recursive: true, force: true });
+    // Hand-encoded hero slides (`slide-*.jpg`, from scripts/hero-slide.ts)
+    // are not this script's to delete: the home page points at them.
     await mkdir(outDir, { recursive: true });
+    for (const f of await readdir(outDir)) {
+      if (!f.startsWith("slide-")) await rm(path.join(outDir, f), { force: true });
+    }
 
     const heroBlur = await writeJpeg(
       path.join(srcDir, shoot.hero),
@@ -473,7 +480,7 @@ async function main() {
     "house-of-levels",
     "mohan-residence",
     "shambhavi-residence",
-    "dr-ashwini-residence",
+    "aadya-mane",
     "neeraj-residence",
     "anita-residence",
     "vivek-residence",

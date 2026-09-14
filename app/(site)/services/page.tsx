@@ -11,7 +11,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: seoTitle("Architecture & Interior Design Services"),
   description:
-    "Architecture for residences, apartments, commercial and hospitality projects; end-to-end interior design; and consultation, from a Bangalore studio since 2011.",
+    "Architecture for residences, apartments, commercial and hospitality projects; interior design and detail drawings; and consultation, from a Bangalore studio since 2011.",
   alternates: { canonical: "/services" },
   openGraph: pageOpenGraph({ path: "/services" }),
 };

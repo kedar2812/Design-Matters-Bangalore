@@ -36,6 +36,8 @@ const nextConfig: NextConfig = {
       // §2.2 — "Club Nadora" was a standalone project; it is now the
       // clubhouse section inside Woodsvale.
       moved("/projects/club-nadora-woodsvale", "/projects/woodsvale"),
+      // Round 3: the studio renamed Dr. Ashwini Residence to Aadya Mane.
+      moved("/projects/dr-ashwini-residence", "/projects/aadya-mane"),
 
       /* ------------------------------------------------ Wix cutover
        *
