@@ -167,6 +167,7 @@ export async function organizationJsonLd() {
     alternateName: [
       site.shortName,
       "DMA Architects",
+      "DesignMatters",
       `${site.name} Bangalore`,
     ],
     url: SITE_URL,
@@ -196,6 +197,30 @@ export async function organizationJsonLd() {
       addressCountry: "IN",
     },
     hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`,
+    // Read off the studio's own Google Business Profile (CID
+    // 7913232271800381208) on 2026-09-20 rather than invented: the profile
+    // is the record Google already trusts, and schema that disagrees with
+    // it weakens the entity instead of corroborating it.
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 12.9696133,
+      longitude: 77.6373413,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "09:30",
+        closes: "18:30",
+      },
+    ],
     // Both spellings, plus the two cities outside Bengaluru the studio has
     // actually built in — Goa (Icon Bricksquare) and north Karnataka
     // (the Badami and Kerur schools). Nothing aspirational.

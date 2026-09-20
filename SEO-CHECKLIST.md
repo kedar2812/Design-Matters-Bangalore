@@ -314,17 +314,41 @@ canonical and a title inside the limit.
 
 ## 10. Open — waiting on the client
 
-- [ ] **Submit the sitemap to Google Search Console and Bing Webmaster
-      Tools** (DPR §9, explicitly a deploy step). Needs the client to
-      create/own the properties; the verification meta tags are already
-      wired to env vars, so this is paste-and-redeploy.
-- [ ] **Google Business Profile.** For "architects in Bangalore" the map
+- [x] **Google Search Console: verified and sitemap submitted**
+      (2026-09-20), under `kiran.designmatters@gmail.com`. Registered as a
+      **Domain property** (`sc-domain:designmattersarchitects.com`), not a
+      URL-prefix one, because we now hold DNS: one property covers apex,
+      www and http/https together, so nothing has to be re-verified if the
+      canonical host ever changes. Verified by TXT at the apex; that record
+      must not be deleted. `/sitemap.xml` submitted and accepted.
+      Note: a sitemap submitted in **Aug 2022** for the old Wix site is
+      still listed, showing 38 discovered pages — evidence that another
+      Google account holds an older property for this domain. Worth asking
+      Kiran about, but it blocks nothing.
+- [ ] **Bing Webmaster Tools.** Not done: it needs a new account to be
+      created, which is outside what the assistant does. Once signed in,
+      Bing can **import straight from Search Console**, so it is a
+      five-minute job now that GSC is verified.
+- [~] **Google Business Profile.** For "architects in Bangalore" the map
       pack usually outranks every organic result, and it is not something
       the website can do on its own. The `ProfessionalService` schema is
-      ready to corroborate it — same name, address and phone.
-- [ ] **Opening hours and price range** for the LocalBusiness schema. Both
-      are Google-recommended local fields and both were deliberately left
-      out rather than invented.
+      ready to corroborate it — same name, address and phone, and as of
+      2026-09-20 the same hours and coordinates.
+      **The profile already exists, is claimed and rates 4.9 from 87
+      reviews** (CID `7913232271800381208`). It is **not** managed by
+      `kiran.designmatters@gmail.com`, which manages no businesses at all,
+      so the optimisation pass is blocked until Kiran says which account
+      replies to the reviews. Nothing was created from the wrong account
+      on purpose: a duplicate listing would split those 87 reviews and
+      Google tends to suppress both. See `GOOGLE-ACCOUNTS.md`.
+- [x] **Opening hours** are in the LocalBusiness schema (2026-09-20) —
+      Mon-Sat 09:30-18:30, plus `geo` coordinates. Both were read off the
+      studio's own Google Business Profile rather than invented, because the
+      profile is the record Google already trusts and schema that
+      contradicts it weakens the entity instead of corroborating it. See
+      `GOOGLE-ACCOUNTS.md`.
+- [ ] **Price range** for the LocalBusiness schema. Still deliberately
+      absent rather than guessed; it is a business decision, not ours.
 - [ ] **Houzz profile URL** — `sameAs` has an empty slot, and the About
       copy already claims three years of Best of Houzz awards.
 - [ ] **Whether "Bangalore" may appear in visible body copy.** Right now it
@@ -336,17 +360,37 @@ canonical and a title inside the limit.
 
 ## 11. Open — deploy-time, at DNS cutover
 
-- [ ] **Rebuild with the real `NEXT_PUBLIC_SITE_URL`.** It is baked in at
-      build time and feeds every canonical, the sitemap, the OG image URL
-      and every `@id` in the JSON-LD. A cutover without a rebuild leaves
-      the whole site canonicalised to `srv1816472.hstgr.cloud`.
-- [ ] **Pick one hostname and 301 the other** (`www` vs apex) at Nginx or
-      Cloudflare, matching whichever `NEXT_PUBLIC_SITE_URL` names. The old
-      site is on `www.designmattersarchitects.com`.
-- [ ] **Force HTTPS** and keep HTTP→HTTPS at 301.
-- [ ] **In Search Console, use the Change of Address tool** once both the
-      old Wix property and the new one are verified.
-- [ ] **Re-crawl the 38 redirects against the live domain** after cutover.
+- [x] **Rebuilt with the real `NEXT_PUBLIC_SITE_URL`** (2026-09-20).
+      `NEXT_PUBLIC_SITE_URL` and `AUTH_URL` are both
+      `https://www.designmattersarchitects.com`, set in the VPS `.env` and
+      rebuilt **before** DNS moved, so the domain never served a page
+      canonicalised to the staging host. Verified: every canonical, the
+      sitemap (32 URLs) and the next-auth `signinUrl`/`callbackUrl` all
+      carry the real domain.
+- [x] **`www` is canonical, apex 301s to it** (2026-09-20). www was chosen
+      over the apex deliberately: the old Wix site 301d apex to www and set
+      its canonical there, so Googles index is already on www. Keeping it
+      means the hostname never moves and only genuinely changed paths
+      redirect. Done in nginx, not Cloudflare (still not in front).
+- [x] **HTTPS forced**, HTTP 301s to `https://www.` (2026-09-20).
+      Certificate covers both names, issued by **DNS-01 while the old Wix
+      site was still serving**, so there was never a moment when the domain
+      resolved to us without a matching certificate. That mattered here:
+      the old site sent **HSTS with a one-year max-age**, so a returning
+      visitor meeting a mismatched certificate would have hit a hard error
+      with no click-through. Renewal was then re-issued over **webroot**
+      (`/var/www/html`) because a certificate obtained by a manual hook
+      cannot auto-renew; `certbot renew --dry-run` passes for both certs.
+- [x] **Change of Address is not applicable** and was correctly skipped.
+      That tool moves signals between *different* domains; here the
+      hostname does not change at all, only the machine behind it. Google
+      explicitly says not to use it for same-domain moves. The 301 map
+      below is what carries the equity.
+- [x] **All 37 legacy Wix sources replayed against the live domain**
+      (2026-09-20): **37 of 37 answered 301**, including the three
+      `copy-of-` traps that point at unrelated projects
+      (`/copy-of-neeraj-residence` to Vivek, `/copy-of-mvm` to the Badami
+      library, `/copy-of-soumya-and-chetan-s-residence` to Jibeesh).
 
 ## 12. Out of scope (DPR §11 "OUT")
 

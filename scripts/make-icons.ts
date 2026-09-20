@@ -6,19 +6,25 @@
  * beside the listing on mobile search: the studio's search result carried
  * another company's logo.
  *
- * There is no DMA logotype — the brand is typographic, a Fraunces wordmark
- * set in the nav — so the mark here is the same idea reduced to a monogram
- * on the ink ground the site already uses. Georgia stands in for Fraunces
- * because sharp rasterises SVG through a system font stack and Fraunces
- * only exists in this project as a next/font build artefact; at sixteen
- * pixels the two are the same handful of pixels anyway. Both are
- * transitional serifs with the same bracketed stress, which is the only
- * thing that survives the resize.
+ * **Since 2026-09-20 these are cut from the real logo.** Until then there
+ * was no DMA logotype and the icons carried a Georgia "DM" standing in for
+ * the typographic wordmark in the nav. The client has now approved an
+ * actual mark, so the stand-in is gone.
  *
- * The letters are set at 250/512 rather than filling the square. Google
- * and iOS both round the corners of what they are given, and Android
- * maskable icons crop to a circle inscribed in 80% of the canvas — a mark
- * set edge to edge loses its serifs to all three.
+ * The icon uses **the D alone**, not the whole wordmark. "DMA" is nearly
+ * three times as wide as it is tall; squeezed into a 16px square it is
+ * three grey smudges. The D fills the square, and it is the letter that
+ * carries the orange quadrant — the one part of the mark that survives
+ * being shrunk to a tab. The white version is used because it sits on the
+ * ink ground.
+ *
+ * The mark is set at roughly half the canvas rather than filling it.
+ * Google and iOS both round the corners of what they are given, and
+ * Android maskable icons crop to a circle inscribed in 80% of the canvas —
+ * a mark set edge to edge loses its extremities to all three.
+ *
+ * Depends on `scripts/make-brand-assets.ts` having produced
+ * `public/brand/letter-d-dark.png`. Run that first.
  *
  * Run: npx tsx scripts/make-icons.ts
  */
@@ -29,25 +35,46 @@ import sharp from "sharp";
 const APP = path.join(process.cwd(), "app");
 const PUBLIC = path.join(process.cwd(), "public");
 
-/* The tokens from globals.css, hard-coded: an icon has no CSS to read,
-   and it must not flip with the theme — it is stamped once and cached by
-   every browser and crawler that fetches it. */
+/* The ground token from globals.css, hard-coded: an icon has no CSS to
+   read, and it must not flip with the theme — it is stamped once and
+   cached by every browser and crawler that fetches it. The mark itself is
+   already white, so no foreground token is needed. */
 const INK = "#17150f";
-const CREAM = "#f3efe7";
 
-/** The monogram, as a square SVG at any size. */
-const monogram = (size: number, pad = 0) => {
-  const inner = size - pad * 2;
-  return Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">` +
-      `<rect width="${size}" height="${size}" fill="${INK}"/>` +
-      `<text x="${size / 2}" y="${size / 2 + inner * 0.012}" ` +
-      `font-family="Georgia, 'Times New Roman', serif" ` +
-      `font-size="${inner * 0.488}" fill="${CREAM}" ` +
-      `text-anchor="middle" dominant-baseline="central">DM</text>` +
-      `</svg>`,
-  );
-};
+const MARK = path.join(PUBLIC, "brand", "letter-d-dark.png");
+
+/**
+ * The mark on the ink ground, as a square PNG at any size.
+ *
+ * Rendered once at 512 and resized down, rather than composited at each
+ * target size: the D is a hairline outline, and compositing it directly at
+ * 16px drops the stroke to sub-pixel and it disappears. Downsampling a
+ * 512px render keeps the stroke as grey energy instead, which is what
+ * makes it still read as a D in a browser tab.
+ */
+async function markSquare(size: number) {
+  const inner = Math.round(size * 0.52);
+  const d = await sharp(MARK).resize({ height: inner }).png().toBuffer();
+  const { width = inner, height = inner } = await sharp(d).metadata();
+
+  return sharp({
+    create: {
+      width: size,
+      height: size,
+      channels: 4,
+      background: INK,
+    },
+  })
+    .composite([
+      {
+        input: d,
+        left: Math.round((size - width) / 2),
+        top: Math.round((size - height) / 2),
+      },
+    ])
+    .png()
+    .toBuffer();
+}
 
 /**
  * A minimal .ico containing PNG payloads.
@@ -63,7 +90,7 @@ const monogram = (size: number, pad = 0) => {
  */
 async function ico(sizes: number[]) {
   const pngs = await Promise.all(
-    sizes.map((s) => sharp(monogram(512)).resize(s, s).png().toBuffer()),
+    sizes.map(async (s) => sharp(await markSquare(512)).resize(s, s).png().toBuffer()),
   );
 
   const header = Buffer.alloc(6);
@@ -121,13 +148,13 @@ async function main() {
   // 512 for the manifest and the browser's <link rel="icon">.
   await writeFile(
     path.join(APP, "icon.png"),
-    await sharp(monogram(512)).png().toBuffer(),
+    await markSquare(512),
   );
 
   // iOS pins this to the home screen at 180 and applies its own mask.
   await writeFile(
     path.join(APP, "apple-icon.png"),
-    await sharp(monogram(512)).resize(180, 180).png().toBuffer(),
+    await sharp(await markSquare(512)).resize(180, 180).png().toBuffer(),
   );
 
   await writeFile(

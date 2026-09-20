@@ -179,8 +179,9 @@ export function brandBar({
 }) {
   const mark = logo
     ? `<img src="${esc(logo.src)}" width="${logo.width}" height="${logo.height}" alt="${esc(studioName)}" style="display:block; border:0; outline:none; width:${logo.width}px; height:${logo.height}px;" />`
-    : `<span style="font-family:${SERIF}; font-size:21px; line-height:1; letter-spacing:-0.01em; color:${C.ink};">${esc(studioName)}</span><br />
-       <span style="font-family:${SANS}; font-size:9px; line-height:2.2; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:${C.brass};">Architects &middot; Bangalore</span>`;
+    : // Only reached if public/email/logo.png is missing from a deploy.
+      // The studio's name alone — no set-in tagline under it.
+      `<span style="font-family:${SERIF}; font-size:21px; line-height:1; letter-spacing:-0.01em; color:${C.ink};">${esc(studioName)}</span>`;
 
   return `<tr>
   <td class="px" style="padding:0 6px 18px 6px;">

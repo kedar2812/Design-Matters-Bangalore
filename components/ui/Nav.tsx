@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { navLinks } from "@/lib/site";
 import { CATEGORY_SLUGS, type CategorySlug } from "@/lib/categories";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
@@ -265,28 +266,24 @@ export function Nav({
           aria-label="Main"
           className="relative flex items-center justify-between"
         >
-          <Link href="/" className="group flex shrink-0 items-baseline gap-3 whitespace-nowrap">
-            <span
-              className={cn(
-                "font-display text-xl tracking-tight transition-colors duration-300",
-                overHero && "text-cream",
-              )}
-            >
-              {shortName}
-            </span>
-            <span
-              className={cn(
-                // Six links, a toggle and a CTA fill the row at the 1024px end of
-                // `lg`. The tagline is the one thing here that carries no
-                // navigation, so it is what steps aside until there is room.
-                "font-mono text-[0.6875rem] uppercase tracking-[0.08em] hidden transition-colors duration-300 sm:inline lg:hidden xl:inline",
-                overHero
-                  ? "text-cream/80 group-hover:text-cream"
-                  : "text-stone group-hover:text-brass",
-              )}
-            >
-              Architects · BLR
-            </span>
+          <Link
+            href="/"
+            aria-label={`${shortName} — home`}
+            className="group flex shrink-0 items-center whitespace-nowrap"
+          >
+            {/* The DMA wordmark, not the full lockup: the approved artwork
+                is a square with a tagline set inside a ruled frame, and at
+                nav height that tagline is unreadable. `onDark` while the
+                nav is still over the hero photograph, where the white
+                artwork is the only legible one whatever the theme.
+
+                The mark stands alone — no set-in tagline beside it. */}
+            <Logo
+              variant="wordmark"
+              onDark={overHero}
+              priority
+              className="h-7 sm:h-8"
+            />
           </Link>
 
           {/* Desktop links */}
