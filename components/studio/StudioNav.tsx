@@ -196,7 +196,7 @@ function RailContent({
         aria-label="Studio dashboard"
         className="mb-6 flex items-center px-2.5 transition-opacity hover:opacity-80"
       >
-        <Logo variant="wordmark" className="h-7" />
+        <Logo variant="wordmark" height={28} className="h-7" />
       </Link>
 
       <nav aria-label="Studio" className="flex flex-col gap-5">

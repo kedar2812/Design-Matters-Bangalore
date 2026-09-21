@@ -61,7 +61,7 @@ export default async function LoginPage({
           aria-label={`${identity.shortName} website`}
           className="mb-7 flex justify-center transition-opacity hover:opacity-80"
         >
-          <Logo variant="wordmark" priority className="h-9" />
+          <Logo variant="wordmark" priority height={36} className="h-9" />
         </Link>
 
         <div className="rounded-s border border-s-border bg-s-surface p-6 shadow-s-md sm:p-7">

@@ -70,7 +70,7 @@ export function Footer({ identity: site }: { identity: Identity }) {
           aria-label={`${site.shortName} — home`}
           className="inline-block transition-opacity hover:opacity-80"
         >
-          <Logo variant="lockup" onDark className="h-24" />
+          <Logo variant="lockup" onDark height={96} className="h-24" />
         </Link>
       </div>
 

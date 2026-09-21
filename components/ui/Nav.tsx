@@ -281,7 +281,7 @@ export function Nav({
             <Logo
               variant="wordmark"
               onDark={overHero}
-              priority
+              height={32}
               className="h-7 sm:h-8"
             />
           </Link>

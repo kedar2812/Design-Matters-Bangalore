@@ -49,6 +49,17 @@ type Props = {
   onDark?: boolean;
   /** Set the height here, e.g. `h-8`; the width follows the aspect ratio. */
   className?: string;
+  /**
+   * The largest height, in CSS px, the mark is shown at — match it to the
+   * `h-*` in className. It is what next/image sizes the download from.
+   *
+   * Without it the image was declared at the artwork's native 1200px, so
+   * srcset offered 1200w/2560w files for an ~90px-wide mark, and with
+   * `priority` both theme variants were preloaded at high priority ahead
+   * of the hero photograph — the page's LCP element — on every page.
+   */
+  height?: number;
+  /** Only where the mark IS the largest thing above the fold (login). */
   priority?: boolean;
   alt?: string;
 };
@@ -57,10 +68,18 @@ export function Logo({
   variant = "wordmark",
   onDark = false,
   className,
+  height = 32,
   priority = false,
   alt = "Design Matters Architects",
 }: Props) {
-  const art = ART[variant];
+  const source = ART[variant];
+  const scale = height / source.light.height;
+  const size = (a: { src: string; width: number; height: number }) => ({
+    src: a.src,
+    width: Math.round(a.width * scale),
+    height: Math.round(a.height * scale),
+  });
+  const art = { light: size(source.light), dark: size(source.dark) };
 
   /* `rounded-none` is not decoration: globals.css rounds every <img> by
      `--radius-frame` so dashboard uploads inherit the site's frame without

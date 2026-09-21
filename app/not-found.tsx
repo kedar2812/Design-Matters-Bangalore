@@ -17,7 +17,7 @@ export default function NotFound() {
       {/* This page renders outside the site layout, so it has no nav —
           the mark is the only thing telling a visitor whose site this is. */}
       <Link href="/" aria-label="Design Matters Architects — home" className="mb-12 transition-opacity hover:opacity-80">
-        <Logo variant="wordmark" className="h-8" />
+        <Logo variant="wordmark" height={32} className="h-8" />
       </Link>
       <p className="mono-label mb-4">404 · Drawing not found</p>
       <h1 className="font-display text-hero max-w-4xl">
