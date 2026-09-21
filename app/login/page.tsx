@@ -5,6 +5,7 @@ import { AuthError } from "next-auth";
 import { signIn } from "@/lib/auth";
 import { getIdentity } from "@/lib/settings";
 import { LoginForm } from "@/components/studio/LoginForm";
+import { Logo } from "@/components/ui/Logo";
 
 export const metadata: Metadata = {
   title: "Studio access",
@@ -55,16 +56,12 @@ export default async function LoginPage({
       </div>
 
       <div className="relative w-full max-w-[24rem]">
-        <Link href="/" className="group mb-7 flex items-center justify-center gap-2.5">
-          <span className="grid size-9 place-items-center rounded-s-sm bg-s-solid text-[0.75rem] font-semibold tracking-wide text-s-on-solid transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-rotate-6">
-            DM
-          </span>
-          <span className="leading-tight">
-            <span className="block text-[0.875rem] font-semibold tracking-[-0.01em] text-s-text">
-              {identity.shortName}
-            </span>
-            <span className="block text-[0.6875rem] text-s-text-3">Studio</span>
-          </span>
+        <Link
+          href={process.env.NEXT_PUBLIC_SITE_URL || "/"}
+          aria-label={`${identity.shortName} website`}
+          className="mb-7 flex justify-center transition-opacity hover:opacity-80"
+        >
+          <Logo variant="wordmark" priority className="h-9" />
         </Link>
 
         <div className="rounded-s border border-s-border bg-s-surface p-6 shadow-s-md sm:p-7">

@@ -9,6 +9,7 @@
  */
 import type { Identity } from "@/lib/content-defaults";
 import { signLeadAction, actionLabel, EMAIL_ACTIONS } from "@/lib/lead-tokens";
+import { studioOrigin } from "@/lib/admin-url";
 import {
   bandLine,
   bandTag,
@@ -100,7 +101,7 @@ export function notificationEmail(lead: LeadForEmail, identity: Identity, siteUr
   const actionHref = (a: (typeof EMAIL_ACTIONS)[number]) =>
     `${siteUrl}/api/leads/action?t=${encodeURIComponent(signLeadAction(lead.id, a))}`;
 
-  const studioHref = `${siteUrl}/studio/leads?open=${encodeURIComponent(lead.id)}`;
+  const studioHref = `${studioOrigin(siteUrl)}/studio/leads?open=${encodeURIComponent(lead.id)}`;
   const replySubject = `Your enquiry to ${identity.name}`;
   const whatsappHref = lead.phone
     ? `https://wa.me/${waNumber(lead.phone)}?text=${encodeURIComponent(
@@ -153,7 +154,7 @@ export function notificationEmail(lead: LeadForEmail, identity: Identity, siteUr
     footNote(
       `Hit reply and your answer goes straight to ${esc(firstName(lead.name))}.<br />
        The buttons work from your phone without signing in, for fourteen days.<br />
-       Every enquiry is also kept in ${link(`${siteUrl}/studio/leads`, "the studio dashboard", C.stone)}.`,
+       Every enquiry is also kept in ${link(`${studioOrigin(siteUrl)}/studio/leads`, "the studio dashboard", C.stone)}.`,
     );
 
   const text = [

@@ -54,6 +54,13 @@ export function rateLimit(key: string, limit: number, windowMs: number): RateVer
  * limiter guards a mailbox and not anything that matters.
  */
 export function clientIp(headers: Headers): string {
+  // Behind Cloudflare, CF-Connecting-IP is the visitor's address and
+  // Cloudflare overwrites it, so it cannot be supplied by the client.
+  // X-Forwarded-For can: Cloudflare appends to whatever the visitor sent,
+  // so its first entry is theirs to choose — fine as a fallback off
+  // Cloudflare, not as the first thing trusted.
+  const cf = headers.get("cf-connecting-ip")?.trim();
+  if (cf) return cf;
   const forwarded = headers.get("x-forwarded-for");
   if (forwarded) return forwarded.split(",")[0].trim();
   return headers.get("x-real-ip")?.trim() || "unknown";

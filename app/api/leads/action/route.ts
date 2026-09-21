@@ -20,6 +20,7 @@ import { record } from "@/lib/lead-events";
 import { actionLabel, verifyLeadAction } from "@/lib/lead-tokens";
 import { STAGES } from "@/lib/lead-stages";
 import { C, SANS, SERIF } from "@/lib/emails/shell";
+import { studioOrigin } from "@/lib/admin-url";
 
 // Stage changes must hit the database, never a cached route result.
 export const dynamic = "force-dynamic";
@@ -88,7 +89,7 @@ export async function GET(request: Request) {
       page({
         title: verified.reason === "expired" ? "Link expired" : "Link not recognised",
         body: reason,
-        href: "/studio/leads",
+        href: `${studioOrigin()}/studio/leads`,
         cta: "Open the dashboard",
         tone: "bad",
       }),
@@ -106,7 +107,7 @@ export async function GET(request: Request) {
       page({
         title: "Enquiry not found",
         body: "It looks like this enquiry has since been deleted.",
-        href: "/studio/leads",
+        href: `${studioOrigin()}/studio/leads`,
         cta: "Open the dashboard",
         tone: "bad",
       }),

@@ -28,6 +28,7 @@ import {
   waited,
 } from "@/lib/emails/shell";
 import { describeSource, firstName, waNumber, type LeadForEmail } from "@/lib/emails/enquiry";
+import { studioOrigin } from "@/lib/admin-url";
 
 const NUMBER_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
 const count = (n: number) => NUMBER_WORDS[n] ?? String(n);
@@ -44,7 +45,7 @@ export function reminderEmail(
 
   const row = (lead: LeadForEmail, i: number) => {
     const contacted = `${siteUrl}/api/leads/action?t=${encodeURIComponent(signLeadAction(lead.id, "CONTACTED"))}`;
-    const open = `${siteUrl}/studio/leads?open=${encodeURIComponent(lead.id)}`;
+    const open = `${studioOrigin(siteUrl)}/studio/leads?open=${encodeURIComponent(lead.id)}`;
     const reach = lead.phone
       ? button(
           `https://wa.me/${waNumber(lead.phone)}?text=${encodeURIComponent(
@@ -89,7 +90,7 @@ export function reminderEmail(
     card({ band, body: leads.map(row).join("") + spacer(2) }) +
     footNote(
       `Sent once a day while enquiries are waiting. Each one is mentioned at most three times.<br />
-       Change this under ${link(`${siteUrl}/studio/alerts`, "Email alerts", C.stone)} in the dashboard.`,
+       Change this under ${link(`${studioOrigin(siteUrl)}/studio/alerts`, "Email alerts", C.stone)} in the dashboard.`,
     );
 
   const text = [
@@ -102,7 +103,7 @@ export function reminderEmail(
       `Mark as contacted: ${siteUrl}/api/leads/action?t=${encodeURIComponent(signLeadAction(l.id, "CONTACTED"))}`,
       "",
     ]),
-    `Change reminders under Email alerts: ${siteUrl}/studio/alerts`,
+    `Change reminders under Email alerts: ${studioOrigin(siteUrl)}/studio/alerts`,
   ]
     .filter((l, i, all) => l !== "" || (all[i - 1] ?? "") !== "")
     .join("\n");

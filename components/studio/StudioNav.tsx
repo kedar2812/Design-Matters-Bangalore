@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { LinkProgress } from "@/components/studio/NavProgress";
+import { Logo } from "@/components/ui/Logo";
 import {
   AnalyticsIcon,
   ContentIcon,
@@ -192,17 +193,10 @@ function RailContent({
       <Link
         href="/studio/dashboard"
         onClick={onNavigate}
-        className="group mb-6 flex items-center gap-2.5 px-2.5"
+        aria-label="Studio dashboard"
+        className="mb-6 flex items-center px-2.5 transition-opacity hover:opacity-80"
       >
-        <span className="grid size-8 shrink-0 place-items-center rounded-s-sm bg-s-solid text-[0.6875rem] font-semibold tracking-wide text-s-on-solid transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-rotate-6">
-          DM
-        </span>
-        <span className="min-w-0 leading-tight">
-          <span className="block truncate text-[0.8125rem] font-semibold tracking-[-0.01em] text-s-text">
-            Design Matters
-          </span>
-          <span className="block truncate text-[0.6875rem] text-s-text-3">Studio</span>
-        </span>
+        <Logo variant="wordmark" className="h-7" />
       </Link>
 
       <nav aria-label="Studio" className="flex flex-col gap-5">
@@ -227,8 +221,10 @@ function RailContent({
           {email}
         </p>
         <ThemeButton />
+        {/* Absolute, not "/": the dashboard is on its own host, where "/" is
+            the dashboard itself. */}
         <a
-          href="/"
+          href={process.env.NEXT_PUBLIC_SITE_URL || "/"}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2.5 rounded-s-sm px-2.5 py-[7px] text-[0.8125rem] text-s-text-2 transition-colors hover:bg-s-surface-3 hover:text-s-text"
