@@ -7,6 +7,7 @@ import { NavProgressProvider } from "@/components/studio/NavProgress";
 import { FeedbackProvider } from "@/components/studio/Feedback";
 import { Notifications } from "@/components/studio/Notifications";
 import { getNotices } from "@/lib/notices";
+import { loginPath, studioHomePath } from "@/lib/admin-url";
 
 export const metadata = {
   robots: { index: false, follow: false },
@@ -29,7 +30,7 @@ export default async function StudioLayout({
   // Second line of defence behind middleware — verifies the session
   // server-side before rendering any studio screen.
   const session = await auth();
-  if (!session?.user) redirect("/login");
+  if (!session?.user) redirect(loginPath());
 
   const [newLeads, notices] = await Promise.all([
     prisma.lead.count({ where: { status: "NEW" } }),
@@ -38,7 +39,7 @@ export default async function StudioLayout({
 
   async function logout() {
     "use server";
-    await signOut({ redirectTo: "/login" });
+    await signOut({ redirectTo: loginPath() });
   }
 
   return (
@@ -46,6 +47,7 @@ export default async function StudioLayout({
       <NavProgressProvider>
         <FeedbackProvider>
           <StudioNav
+            home={studioHomePath()}
             newLeads={newLeads}
             email={session.user.email ?? "Studio"}
             logout={

@@ -70,6 +70,7 @@ const TITLES: [string, string][] = [
 ];
 
 export function titleFor(pathname: string) {
+  if (pathname === "/") return "Overview"; // the admin host's front door
   const hit = [...TITLES]
     .sort((a, b) => b[0].length - a[0].length)
     .find(([href]) => pathname.startsWith(href));
@@ -82,7 +83,9 @@ export function titleFor(pathname: string) {
  * Anything with children of its own is matched exactly.
  */
 function useIsActive() {
-  const pathname = usePathname();
+  // On the admin host the overview is served at "/".
+  const raw = usePathname();
+  const pathname = raw === "/" ? "/studio/dashboard" : raw;
   return (href: string) => {
     if (href === "/studio/content" || href === "/studio/content/identity") {
       return pathname === href;
@@ -178,11 +181,13 @@ function ThemeButton() {
 function RailContent({
   newLeads,
   email,
+  home,
   onNavigate,
   logout,
 }: {
   newLeads: number;
   email: string;
+  home: string;
   onNavigate?: () => void;
   logout: React.ReactNode;
 }) {
@@ -191,7 +196,7 @@ function RailContent({
   return (
     <>
       <Link
-        href="/studio/dashboard"
+        href={home}
         onClick={onNavigate}
         aria-label="Studio dashboard"
         className="mb-6 flex items-center px-2.5 transition-opacity hover:opacity-80"
@@ -207,6 +212,7 @@ function RailContent({
               <NavRow
                 key={link.href}
                 {...link}
+                href={link.href === "/studio/dashboard" ? home : link.href}
                 active={isActive(link.href)}
                 badge={link.href === "/studio/leads" ? newLeads : undefined}
                 onNavigate={onNavigate}
@@ -249,10 +255,13 @@ function RailContent({
 export function StudioNav({
   newLeads = 0,
   email,
+  home,
   logout,
 }: {
   newLeads?: number;
   email: string;
+  /** The overview's address: "/" on the admin host, else /studio/dashboard. */
+  home: string;
   logout: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -281,7 +290,7 @@ export function StudioNav({
     <>
       {/* Desktop rail */}
       <aside className="sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-s-border bg-s-surface px-3 py-5 lg:flex lg:w-[236px]">
-        <RailContent newLeads={newLeads} email={email} logout={logout} />
+        <RailContent newLeads={newLeads} email={email} home={home} logout={logout} />
       </aside>
 
       {/* Mobile trigger, lives in the topbar's left slot */}
@@ -326,6 +335,7 @@ export function StudioNav({
               <RailContent
                 newLeads={newLeads}
                 email={email}
+                home={home}
                 logout={logout}
                 onNavigate={() => setOpen(false)}
               />

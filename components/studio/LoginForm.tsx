@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -76,15 +76,16 @@ export function LoginForm({
   action,
   error,
 }: {
-  action: (formData: FormData) => Promise<void>;
+  action: (prev: { error: boolean }, formData: FormData) => Promise<{ error: boolean }>;
   error?: boolean;
 }) {
+  const [state, formAction] = useActionState(action, { error: Boolean(error) });
   const [show, setShow] = useState(false);
   const reduce = useReducedMotion();
 
   return (
     <motion.form
-      action={action}
+      action={formAction}
       initial={reduce ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
@@ -132,7 +133,7 @@ export function LoginForm({
         </div>
       </div>
 
-      {error && (
+      {state.error && (
         <motion.p
           initial={reduce ? false : { opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}

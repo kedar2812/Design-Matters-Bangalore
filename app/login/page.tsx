@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { AuthError } from "next-auth";
 import { signIn } from "@/lib/auth";
+import { RETURN_COOKIE, safeReturnPath, studioHomePath } from "@/lib/admin-url";
 import { getIdentity } from "@/lib/settings";
 import { LoginForm } from "@/components/studio/LoginForm";
 import { Logo } from "@/components/ui/Logo";
@@ -31,18 +32,24 @@ export default async function LoginPage({
   const { error } = await searchParams;
   const identity = await getIdentity();
 
-  async function login(formData: FormData) {
+  // A failed sign-in comes back as state, not a `?error=1` redirect, so
+  // the address stays exactly what the studio typed.
+  async function login(_prev: { error: boolean }, formData: FormData) {
     "use server";
+    const jar = await cookies();
+    const back = safeReturnPath(jar.get(RETURN_COOKIE)?.value);
     try {
       await signIn("credentials", {
         email: formData.get("email"),
         password: formData.get("password"),
-        redirectTo: "/studio/dashboard",
+        redirectTo: back ?? studioHomePath(),
       });
     } catch (e) {
-      if (e instanceof AuthError) redirect("/login?error=1");
+      if (e instanceof AuthError) return { error: true };
+      if (back) jar.delete(RETURN_COOKIE); // signed in: it has done its job
       throw e; // NEXT_REDIRECT must propagate
     }
+    return { error: false };
   }
 
   return (
