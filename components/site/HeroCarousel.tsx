@@ -215,7 +215,7 @@ export function HeroCarousel({
           onBlur={() => setHeld(false)}
         >
           <div className="glass-dark rounded-2xl p-6 text-cream shadow-2xl shadow-noir/30 sm:p-7">
-            <p aria-live="polite" className="mono-label mb-3 truncate text-cream/75">
+            <p aria-live="polite" className="mono-label mb-3 text-cream/75">
               <span className="text-brass-bright">
                 {String(index + 1).padStart(2, "0")}
               </span>
@@ -223,13 +223,7 @@ export function HeroCarousel({
               {String(count).padStart(2, "0")} · {active.category}
               {active.location && ` · ${active.location}`}
             </p>
-            {/* Fixed-height text block. Titles, hooks and locations differ in
-                length per slide, and on phones this card sits under the
-                headline in a bottom-anchored hero, so every change of height
-                pushed the headline and registered as a layout shift on each
-                slide change (CLS 0.095). Two title lines and three hook
-                lines are reserved whether or not a slide fills them. */}
-            <h2 className="font-display text-h3 line-clamp-2 min-h-[2lh]">
+            <h2 className="font-display text-h3">
               <Link
                 href={`/projects/${active.slug}`}
                 className="transition-colors hover:text-brass-bright"
@@ -237,9 +231,11 @@ export function HeroCarousel({
                 {active.title}
               </Link>
             </h2>
-            <p className="mt-3 line-clamp-3 min-h-[3lh] text-sm leading-relaxed text-cream/80">
-              {active.hook}
-            </p>
+            {active.hook && (
+              <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-cream/80">
+                {active.hook}
+              </p>
+            )}
             <Link
               href={`/projects/${active.slug}`}
               className="mono-label mt-4 inline-block text-cream/90 underline underline-offset-4 transition-colors hover:text-brass-bright"

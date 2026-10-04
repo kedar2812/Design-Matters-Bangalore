@@ -1,14 +1,16 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { motion, useReducedMotion } from "framer-motion";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
  * Screen transition for the studio. Keyed on the pathname so each route
- * change replays the entry — a short rise and fade that makes moving
- * between screens feel deliberate rather than abrupt.
+ * change remounts it and replays the entry — a short rise and fade that
+ * makes moving between screens feel deliberate rather than abrupt.
+ *
+ * The rise is the CSS `.s-rise` animation, not framer-motion: a motion
+ * `initial` is server-rendered as `opacity:0` and waits for hydration, so
+ * on a new device every dashboard screen stayed blank until the whole
+ * bundle had downloaded (see studio.css).
  *
  * `children` stay server components: they are passed through as a prop
  * and never re-rendered on the client. No exit animation, because the
@@ -16,16 +18,20 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function StudioTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const reduce = useReducedMotion();
 
   return (
-    <motion.div
+    <div
       key={pathname}
-      initial={reduce ? false : { opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: EASE }}
+      className="s-rise"
+      style={
+        {
+          "--s-rise": "10px",
+          animationDuration: "0.45s",
+          animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+        } as React.CSSProperties
+      }
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

@@ -81,15 +81,26 @@ export function LoginForm({
 }) {
   const [state, formAction] = useActionState(action, { error: Boolean(error) });
   const [show, setShow] = useState(false);
+  // Controlled, because React 19 resets a form after its action runs: an
+  // uncontrolled email field came back empty after a mistyped password.
+  const [email, setEmail] = useState("");
   const reduce = useReducedMotion();
 
+  // The entry rise is CSS (`.s-rise`), not framer-motion. A motion
+  // `initial` is server-rendered as `opacity:0` and waits for hydration,
+  // so on a new device the card showed no form until the bundle loaded.
   return (
-    <motion.form
+    <form
       action={formAction}
-      initial={reduce ? false : { opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
-      className="space-y-4"
+      className="s-rise space-y-4"
+      style={
+        {
+          "--s-rise": "12px",
+          "--s-delay": "0.1s",
+          animationDuration: "0.6s",
+          animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+        } as React.CSSProperties
+      }
     >
       <div>
         <label htmlFor="email" className="s-label mb-1.5 block">
@@ -100,6 +111,8 @@ export function LoginForm({
           name="email"
           type="email"
           autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           autoFocus
           placeholder="Enter your email"
@@ -146,6 +159,6 @@ export function LoginForm({
       )}
 
       <SubmitButton />
-    </motion.form>
+    </form>
   );
 }

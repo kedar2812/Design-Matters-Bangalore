@@ -1,6 +1,4 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 /**
  * The entry animation for a dashboard card.
@@ -14,6 +12,10 @@ import { motion, useReducedMotion } from "framer-motion";
  * It runs on mount rather than on scroll: a dashboard screen is short,
  * everything is above the fold, and a viewport trigger would leave the
  * lower cards blank until the page happened to be scrolled.
+ *
+ * Plain CSS (`.s-rise` in studio.css), so a card is visible from first
+ * paint instead of waiting on hydration; reduced motion is handled by the
+ * global rule.
  */
 export function Reveal({
   delay = 0,
@@ -24,18 +26,12 @@ export function Reveal({
   className?: string;
   children: React.ReactNode;
 }) {
-  const reduce = useReducedMotion();
-
-  if (reduce) return <div className={className}>{children}</div>;
-
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.26, delay, ease: [0.32, 0.72, 0, 1] }}
+    <div
+      className={cn("s-rise", className)}
+      style={delay ? ({ "--s-delay": `${delay}s` } as React.CSSProperties) : undefined}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

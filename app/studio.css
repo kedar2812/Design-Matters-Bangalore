@@ -237,3 +237,22 @@
     animation: none;
   }
 }
+
+/* Entry rise for screens, cards and the sign-in form. Plain CSS, not
+   framer-motion: a motion `initial={{ opacity: 0 }}` is server-rendered as
+   an inline `opacity:0` and only lifted once the JavaScript has loaded and
+   hydrated. On a device that already had the bundle cached that was
+   instant; on a new device (cold cache, phone network) the dashboard and
+   the sign-in form sat blank for seconds, and stayed blank for good if a
+   chunk failed to load. A CSS animation plays on first paint, with or
+   without JavaScript. Distance and delay come from --s-rise / --s-delay.
+   (The global reduced-motion rule shortens it to nothing.) */
+@keyframes s-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--s-rise, 8px));
+  }
+}
+.s-rise {
+  animation: s-rise 0.26s cubic-bezier(0.32, 0.72, 0, 1) var(--s-delay, 0s) both;
+}
